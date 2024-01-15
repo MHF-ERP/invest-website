@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import Point from "./point.component";
-import { PROCESS } from "../../../../static/process";
-import useStore from "@/store";
+import { PROCESS } from "../../../static/process";
+import process from "@/store/process";
 
 export default function Process() {
-  const { count } = useStore();
+  const { count } = process();
 
   return (
     <div className=" pt-32 px-10 h-full flex justify-between flex-col absolute left-0">

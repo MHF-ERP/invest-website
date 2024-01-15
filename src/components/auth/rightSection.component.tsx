@@ -1,5 +1,5 @@
 import Header from "@/components/auth/header.component";
-import useStore from "@/store";
+import process from "@/store/process";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function RightSection(props: {
   header: string;
   brief: string;
 }) {
-  const { decrement } = useStore();
+  const { decrement } = process();
 
   const { body, back, header, brief } = props;
   return (

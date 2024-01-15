@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { COUNTRIES } from "../../../static/countries";
+import { COUNTRIES } from "../../static/countries";
 
 export default function DropDown(props: { text: string }) {
   const { text } = props;

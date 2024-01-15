@@ -1,11 +1,19 @@
 import React from "react";
 
-export default function Inputs(props: { text: string; holder: string }) {
-  const { text, holder } = props;
+export default function Inputs(props: {
+  text: string;
+  holder: string;
+  name?: string;
+  onChange?: any;
+}) {
+  const { text, holder, name, onChange } = props;
   return (
     <div className=" flex flex-col gap-1 w-full">
       <span className="  text-textInput text-sm">{text}</span>
       <input
+        onChange={onChange}
+        type={text === "Password" ? "password" : "text"}
+        name={name}
         placeholder={holder}
         className=" border w-full border-input px-4 py-2 text-sm rounded-md placeholder:text-placeholder placeholder:text-sm outline-none"
       />

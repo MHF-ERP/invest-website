@@ -11,7 +11,7 @@ import Personal from "@/components/auth/bodies/personal.component";
 import Verification from "@/components/auth/bodies/verification.component";
 import ID from "@/components/auth/bodies/ID.component";
 import Pin from "@/components/auth/bodies/pin.component";
-import useStore from "@/store";
+import process from "@/store/process";
 
 const page = [
   {
@@ -42,7 +42,7 @@ const page = [
   },
 ];
 export default function Page() {
-  const { count, increment, decrement } = useStore();
+  const { count } = process();
 
   return (
     <main

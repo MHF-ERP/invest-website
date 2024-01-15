@@ -1,9 +1,9 @@
-import useStore from "@/store";
+import process from "@/store/process";
 import React from "react";
 import VerificationInput from "react-verification-input";
 //import VerificationInput from "react-verification-input";
 export default function Verification() {
-  const { increment } = useStore();
+  const { increment } = process();
   const handleVerificationChange = (value: string) => {
     console.log(value);
   };

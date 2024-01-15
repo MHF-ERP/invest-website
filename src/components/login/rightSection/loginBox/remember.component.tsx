@@ -6,6 +6,7 @@ export default function Remember() {
     <div className=" flex w-full justify-between items-center">
       <div className="flex items-center w-fit  justify-center ">
         <input
+          name="Remember"
           id="disabled-checked-checkbox"
           type="checkbox"
           value=""
