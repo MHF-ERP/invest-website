@@ -1,1 +1,10 @@
-export const SERVER = "http://127.0.0.1:5002";
+//**************** SERVER *******************/
+export const SERVER = "http://127.0.0.1:3210/api/v1";
+//**************** AUTHENTICATION *******************/
+export const AUTH = `${SERVER}/authentication`;
+export const LOGIN = `${AUTH}/login`;
+export const SIGNUP = `${AUTH}/init`;
+export const VERIFY = `${AUTH}/verify-email`;
+export const PERSONAL = `${AUTH}/personal-info`;
+export const ID_verify = `${AUTH}/id-info`;
+export const PIN = `${AUTH}/set-pin`;

@@ -1,35 +1,79 @@
-import Inputs from "@/components/default/inputs";
-import process from "@/store/process";
-import signUpObj from "@/store/signUpObj";
+"use client";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import VerificationInput from "react-verification-input";
+import { useMutation } from "@tanstack/react-query";
+import requestService from "@/static/requests";
+import { PIN } from "@/static/links";
+import signUpObj from "@/store/signUpObj";
+import { useRouter } from "next/navigation";
+
 export default function Pin() {
-  const { increment } = process();
-  const notify = async (error: string) => toast.error(error);
-  const { updatePin } = signUpObj();
+  const [code, setCode] = useState("");
+  const { token } = signUpObj();
+
+  const notify = (error: string) => toast.error(error);
+
+  const mutation = useMutation({
+    mutationFn: (e) => handel(e),
+  });
+
+  const handleVerificationChange = (value: string) => {
+    setCode(value);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    mutation.mutate(e);
+  };
+  const router = useRouter();
+
+  async function handel(e: any) {
+    // pin Testing
+    if (code.length < 4) {
+      return notify("Please provide a 4-digit pin");
+    }
+
+    // handle request
+    const requestJson = JSON.stringify({
+      pinCode: code,
+    });
+
+    // send Request
+    try {
+      const response = await requestService.post(
+        PIN,
+        token,
+        false,
+        requestJson
+      );
+
+      if (response.status === 200) {
+        router.replace("/");
+      }
+    } catch (error) {
+      // Handle errors here
+      console.error("Error:", error);
+      notify("An error occurred");
+    }
+  }
+
   return (
-    <form className=" flex flex-col gap-3 items-center" onSubmit={handel}>
-      <Inputs text="Setup PIN" holder="Enter your PIN" name="pin" />
+    <form className="flex flex-col gap-3 items-center" onSubmit={handleSubmit}>
+      <VerificationInput
+        autoFocus
+        placeholder=""
+        length={4}
+        validChars="0-9"
+        onChange={handleVerificationChange}
+      />
       <button
         type="submit"
-        onClick={() => increment()}
-        className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
+        className="bg-main2 py-2 hover:shadow-md text-white rounded-md w-full mt-4"
       >
-        Finish
+        {mutation.isPending ? "Loading" : "Finish"}
       </button>
       <ToastContainer />
     </form>
   );
-  async function handel(e: any) {
-    e.preventDefault();
-    // get data from form
-    const pin = e.target.pin.value;
-
-    // pin Testing
-    if (pin.length === 0) {
-      return notify("please provide 4 digit pin");
-    }
-
-    updatePin(pin);
-  }
 }
-// react-verification-input

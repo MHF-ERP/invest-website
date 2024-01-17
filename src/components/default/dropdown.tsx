@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { COUNTRIES } from "../../static/countries";
 
-export default function DropDown(props: { text: string }) {
-  const { text } = props;
-  const [selectedValue, setSelectedValue] = useState("Select a Country");
+export default function DropDown(props: {
+  text: string;
+  selectedValue: string;
+  setSelectedValue: any;
+}) {
+  const { text, selectedValue, setSelectedValue } = props;
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSelectChange = (event: any) => {
@@ -37,7 +40,7 @@ export default function DropDown(props: { text: string }) {
           </div>
         </div>
         {isDropdownOpen && (
-          <div className="absolute h-20 overflow-y-scroll mt-1 w-full rounded-md bg-white shadow-lg">
+          <div className="absolute h-36 overflow-y-scroll mt-1 w-full rounded-md bg-white shadow-lg">
             {COUNTRIES.map((item: any) => (
               <div
                 key={item.code}

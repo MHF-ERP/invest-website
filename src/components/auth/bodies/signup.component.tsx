@@ -2,18 +2,31 @@ import Inputs from "@/components/default/inputs";
 import { testEmail, testPasswword } from "@/functions/validations";
 import requestService from "@/static/requests";
 import process from "@/store/process";
-import signUpObj from "@/store/signUpObj";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import "react-toastify/dist/ReactToastify.css";
+import Constrains from "../constrains.component";
+import { SIGNUP } from "@/static/links";
+import signUpObj from "@/store/signUpObj";
 
 export default function Signup() {
+  const mutation = useMutation({
+    mutationFn: (e) => {
+      return handel(e);
+    },
+  });
   const { increment } = process();
+  const { updateEmail, updateToken } = signUpObj();
+
   const notify = async (error: string) => toast.error(error);
   const [error, setError] = useState<string>("");
-  const { updateEmail, updatePassword } = signUpObj();
   return (
-    <form className=" flex flex-col gap-3" onSubmit={handel}>
+    <form
+      className=" flex flex-col gap-3"
+      onSubmit={(e: any) => mutation.mutate(e)}
+    >
       <Inputs holder="Enter your email" text="Email" name="SignupEmail" />
       <Inputs
         holder="......"
@@ -21,70 +34,52 @@ export default function Signup() {
         name="SignupPassword"
         onChange={handelPassword}
       />
-      <div className=" flex gap-1 flex-col">
-        <div className=" flex gap-2 items-center">
-          <Icon
-            icon={`${
-              !error.includes("1") ? "icon-park-solid:correct" : "ph:x-bold"
-            }`}
-            className={`${!error.includes("1") ? "text-p" : "text-red-500"}`}
-          />
-          <p className=" text-p text-sm">
-            Password must be at least 12 characters.
-          </p>
-        </div>
-        <div className=" flex gap-2 items-center">
-          <Icon
-            icon={`${
-              !error.includes("2") ? "icon-park-solid:correct" : "ph:x-bold"
-            }`}
-            className={`${!error.includes("2") ? "text-p" : "text-red-500"}`}
-          />
-          <p className=" text-p text-sm">
-            Include at least one uppercase letter.
-          </p>
-        </div>
-        <div className=" flex gap-2 items-center  ">
-          <Icon
-            icon={`${
-              !error.includes("3") ? "icon-park-solid:correct" : "ph:x-bold"
-            }`}
-            className={`${!error.includes("3") ? "text-p" : "text-red-500"}`}
-          />
-          <p className=" text-p text-sm">
-            Must contain one special character (!, @, #, $, %).
-          </p>
-        </div>
-      </div>
+      <Constrains error={error} />
 
       <button
+        disabled={mutation.isPending}
         type="submit"
         className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
-        onClick={() => increment()}
       >
-        Continue
+        {mutation.isPending ? "Loading" : "Continue"}
       </button>
-      <ToastContainer />
     </form>
   );
   async function handel(e: any) {
     e.preventDefault();
     // get data from form
-    const Email = e.target.SignupEmail.value;
-    const Password = e.target.SignupPassword.value;
+    const email = e.target.SignupEmail.value;
+    const password = e.target.SignupPassword.value;
     // Email Testing
-    if (!testEmail(Email)) {
+    if (!testEmail(email)) {
       return notify("Invalid Email");
     }
     // Password Validation
-    if (Password.length === 0) {
+    if (password.length === 0) {
       return notify("Password Field is Required");
     }
     if (error.length !== 0) {
       return notify("password does not meet the specified constraints");
     }
-    updateEmail(Email);
-    updatePassword(Password);
+    // handel request
+    const requestJson = JSON.stringify({
+      email,
+      password,
+    });
+    // send Request
+    const response = await requestService.post(
+      SIGNUP,
+      undefined,
+      false,
+      requestJson
+    );
+    if (response["status"] === 409) {
+      return notify("Email Already Exist");
+    } else if (response["status"] === 200) {
+      await updateEmail(response["data"]["data"]["email"]);
+      await updateToken(response["data"]["token"]);
+      increment();
+    }
   }
   function handelPassword(e: any) {
     const validPassword = testPasswword(e.target.value);

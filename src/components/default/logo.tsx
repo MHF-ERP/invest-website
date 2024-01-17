@@ -8,7 +8,7 @@ export default function Logo() {
       alt="image"
       width={120}
       height={120}
-      className=" absolute left-10 top-10 z-10"
+      className=" absolute left-4 top-6 z-10"
     />
   );
 }
