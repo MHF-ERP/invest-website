@@ -81,6 +81,8 @@ export default function ID() {
     );
     if (response["status"] === 200) {
       increment();
+    } else if (response["status"] === 409) {
+      return notify("This NationaID is already registred");
     }
   }
 }
