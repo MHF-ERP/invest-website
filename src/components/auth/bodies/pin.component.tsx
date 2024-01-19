@@ -6,11 +6,25 @@ import { useMutation } from "@tanstack/react-query";
 import requestService from "@/static/requests";
 import { PIN } from "@/static/links";
 import signUpObj from "@/store/signUpObj";
+import process from "@/store/process";
+
 import { useRouter } from "next/navigation";
 
 export default function Pin() {
   const [code, setCode] = useState("");
-  const { token } = signUpObj();
+  const {
+    token,
+    updatePhone,
+    updateCity,
+    updateCountry,
+    updateEmail,
+    updateFirstName,
+    updateLastName,
+    updateImg,
+    updateNationalId,
+    updateToken,
+  } = signUpObj();
+  const { setCount } = process();
 
   const notify = (error: string) => toast.error(error);
 
@@ -49,6 +63,16 @@ export default function Pin() {
       );
 
       if (response.status === 200) {
+        setCount(0);
+        updateCity("");
+        updateCountry("Select a Country");
+        updateEmail("");
+        updatePhone("");
+        updateLastName("");
+        updateImg("");
+        updateNationalId("");
+        updateToken("");
+        updateFirstName("");
         router.replace("/");
       }
     } catch (error) {
