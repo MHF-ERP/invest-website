@@ -83,8 +83,6 @@ export default function Body() {
       false,
       requestJson
     );
-    console.log(requestJson);
-    console.log(response["status"]);
     if (response["status"] === 422) {
       return notify("Incorrect Email or Password");
     } else if (response["status"] === 200) {
@@ -94,7 +92,9 @@ export default function Body() {
         updateToken(response["data"]["token"]);
         router.replace("/signup");
       } else {
-        setName(response["data"]["data"]["name"]);
+        await setName(response["data"]["data"]["name"]);
+        document.cookie = `AccessToken=${response["data"]["token"]}; path=/`;
+
         router.replace("/home");
       }
     }

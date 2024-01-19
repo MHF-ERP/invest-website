@@ -5,12 +5,14 @@ export default function Inputs(props: {
   holder: string;
   name?: string;
   onChange?: any;
+  value?: string;
 }) {
-  const { text, holder, name, onChange } = props;
+  const { text, holder, name, onChange, value } = props;
   return (
     <div className=" flex flex-col gap-1 w-full">
       <span className="  text-textInput text-sm">{text}</span>
       <input
+        value={value}
         onChange={onChange}
         type={text === "Password" ? "password" : "text"}
         name={name}

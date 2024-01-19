@@ -13,9 +13,19 @@ import { PERSONAL } from "@/static/links";
 import signUpObj from "@/store/signUpObj";
 
 export default function Personal() {
-  const [value, setValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("Select a Country");
-  const { token } = signUpObj();
+  const {
+    token,
+    firstName,
+    lastName,
+    phone,
+    city,
+    country,
+    updatePhone,
+    updateCity,
+    updateCountry,
+    updateFirstName,
+    updateLastName,
+  } = signUpObj();
   const { increment } = process();
   const notify = async (error: string) => toast.error(error);
   const mutation = useMutation({
@@ -30,8 +40,20 @@ export default function Personal() {
       onSubmit={(e: any) => mutation.mutate(e)}
     >
       <div className=" w-full flex gap-2">
-        <Inputs holder="First name" text="First Name" name="firstName" />
-        <Inputs holder="Last name" text="Last Name" name="lastName" />
+        <Inputs
+          holder="First name"
+          text="First Name"
+          name="firstName"
+          value={firstName}
+          onChange={(e: any) => updateFirstName(e.target.value)}
+        />
+        <Inputs
+          holder="Last name"
+          text="Last Name"
+          name="lastName"
+          value={lastName}
+          onChange={(e: any) => updateLastName(e.target.value)}
+        />
       </div>
       <div className=" flex flex-col gap-1">
         <span className="  text-textInput text-sm">Phone Number</span>
@@ -40,16 +62,22 @@ export default function Personal() {
           disableSearchIcon
           enableSearch={true}
           country={"eg"}
-          value={value}
-          onChange={(phone) => setValue(phone)}
+          value={phone}
+          onChange={(phone) => updatePhone(phone)}
         />
       </div>
       <DropDown
         text="Country"
-        selectedValue={selectedValue}
-        setSelectedValue={setSelectedValue}
+        selectedValue={country}
+        setSelectedValue={updateCountry}
       />
-      <Inputs text="City" holder="Enter your city" name="city" />
+      <Inputs
+        text="City"
+        holder="Enter your city"
+        name="city"
+        value={city}
+        onChange={(e: any) => updateCity(e.target.value)}
+      />
       <button
         type="submit"
         className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
@@ -62,11 +90,6 @@ export default function Personal() {
   async function handel(e: any) {
     e.preventDefault();
     // get data from form
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
-    const phone = value;
-    const country = selectedValue;
-    const city = e.target.city.value;
 
     // firstName Testing
     if (firstName.length === 0) {

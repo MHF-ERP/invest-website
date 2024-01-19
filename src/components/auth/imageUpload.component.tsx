@@ -1,12 +1,12 @@
 "use client";
+import signUpObj from "@/store/signUpObj";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 
 export default function ImageUpload(props: { setFile: any }) {
   const { setFile } = props;
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-
+  const { img, updateImg } = signUpObj();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -15,7 +15,7 @@ export default function ImageUpload(props: { setFile: any }) {
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
+        updateImg(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -36,17 +36,17 @@ export default function ImageUpload(props: { setFile: any }) {
         style={{ display: "none" }}
       />
 
-      {previewImage && (
+      {img && (
         <Image
           width={100}
           height={100}
-          src={previewImage}
+          src={img}
           alt="Selected Image"
           className="w-36 h-20 rounded-xl mb-2 border-input border"
         />
       )}
 
-      {!previewImage && (
+      {!img && (
         <div className="w-fit p-1 rounded-xl mb-2 border-input border">
           <Icon icon={"la:id-card"} className="text-gray-600 text-3xl" />
         </div>

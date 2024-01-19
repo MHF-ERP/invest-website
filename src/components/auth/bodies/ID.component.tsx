@@ -19,7 +19,7 @@ export default function ID() {
     },
   });
   const [file, setFile] = useState<File>();
-  const { token } = signUpObj();
+  const { token, nationalId, img, updateNationalId } = signUpObj();
 
   return (
     <form
@@ -42,6 +42,8 @@ export default function ID() {
         text="National ID"
         holder="Enter your national ID"
         name="NationalId"
+        value={nationalId}
+        onChange={(e: any) => updateNationalId(e.target.value)}
       />
       <button
         type="submit"
@@ -63,7 +65,10 @@ export default function ID() {
     if (!national && !passport) {
       return notify("please choose NationalID or Passport");
     }
-
+    // img Testing
+    if (img.length === 0) {
+      return notify("please choose an image");
+    }
     // nationalId Testing
     if (nationalId.length === 0) {
       return notify("Invalid nationalId");
