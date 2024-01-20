@@ -499,12 +499,12 @@ export default function DateTimeChart(props: { title: string }) {
       </div>
 
       <div id="chart-timeline">
-        <ReactApexChart
+        {/* <ReactApexChart
           options={chartData.options as any}
           series={chartData.series}
           type="area"
           height={250}
-        />
+        /> */}
       </div>
     </div>
   );
