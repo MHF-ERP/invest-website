@@ -1,3 +1,4 @@
+"use client";
 import ApexChart from "@/components/home/main/graph.component";
 import WatchList from "../watchlist/index.component";
 import Score from "../stock/score.component";

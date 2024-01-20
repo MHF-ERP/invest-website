@@ -5,7 +5,7 @@ import Daily from "@/components/home/daily";
 import GraphBox from "./graphBox.component";
 import WelcomeBox from "./welcomeBox.component";
 
-export default function Home() {
+export default function DefHome() {
   const stocksData = [
     {
       img: "/images/companies/orange.png",

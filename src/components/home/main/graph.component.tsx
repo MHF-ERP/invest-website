@@ -1,8 +1,7 @@
-"use client";
 import ReactApexChart from "react-apexcharts";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const DateTimeChart = (props: { title: string }) => {
+export default function DateTimeChart(props: { title: string }) {
   const { title } = props;
   const [chartData, setChartData] = useState({
     series: [
@@ -430,9 +429,6 @@ const DateTimeChart = (props: { title: string }) => {
       default:
     }
   }
-  useEffect(() => {
-    // Fetch or update data here if needed
-  }, []);
 
   return (
     <div
@@ -503,21 +499,13 @@ const DateTimeChart = (props: { title: string }) => {
       </div>
 
       <div id="chart-timeline">
-        <ReactApexChart
+        {/* <ReactApexChart
           options={chartData.options as any}
           series={chartData.series}
           type="area"
           height={250}
-        />
+        /> */}
       </div>
     </div>
-    // <ReactApexChart
-    //   options={chartData.options as any}
-    //   series={chartData.series}
-    //   type="line"
-    //   height={350}
-    // />
   );
-};
-
-export default DateTimeChart;
+}

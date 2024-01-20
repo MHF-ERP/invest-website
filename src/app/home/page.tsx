@@ -1,4 +1,3 @@
-import Home from "@/components/home/main/index.component";
 import Navigator from "@/components/home/navigator/navigator.component";
 import Stock from "@/components/home/stock/index.component";
 import { NextPage } from "next";

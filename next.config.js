@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    domains: ["127.0.0.1"],
+    domains: ["179.61.219.117"],
   },
   async rewrites() {
     return [
