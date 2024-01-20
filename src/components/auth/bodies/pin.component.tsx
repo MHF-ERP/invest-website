@@ -63,7 +63,6 @@ export default function Pin() {
       );
 
       if (response.status === 200) {
-        setCount(0);
         updateCity("");
         updateCountry("Select a Country");
         updateEmail("");
@@ -74,6 +73,7 @@ export default function Pin() {
         updateToken("");
         updateFirstName("");
         router.replace("/");
+        setCount(0);
       }
     } catch (error) {
       // Handle errors here

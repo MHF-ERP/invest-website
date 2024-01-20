@@ -7,8 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
 import ImageUpload from "../imageUpload.component";
 import requestService from "@/static/requests";
-import { ID_verify } from "@/static/links";
+import { ID_verify, ID_verify_WithoutImg } from "@/static/links";
 import { useMutation } from "@tanstack/react-query";
+import { test } from "@/functions/validations";
 
 export default function ID() {
   const { increment } = process();
@@ -56,34 +57,45 @@ export default function ID() {
   );
   async function handel(e: any) {
     e.preventDefault();
-    // get data from form
+    // **************Get data from form******************
     const national = e.target.national.checked;
     const passport = e.target.passport.checked;
     const nationalId = e.target.NationalId.value;
-
-    // national and passport Testing
+    // **************National And Passport Testing******************
     if (!national && !passport) {
-      return notify("please choose NationalID or Passport");
+      return notify("Please select either National ID or Passport");
     }
-    // img Testing
-    if (img.length === 0) {
-      return notify("please choose an image");
+    // **************Test******************
+    if (
+      test("Img", img, "Please select a valid image") ||
+      test("any", nationalId, "The NationalID provided is invalid")
+    ) {
+      return;
     }
-    // nationalId Testing
-    if (nationalId.length === 0) {
-      return notify("Invalid nationalId");
-    }
-    // handel request
+
+    // **************handel Request if we want to upload file******************
     const formData = new FormData();
-    formData.append("idImage", file!);
-    formData.append("nationalId", nationalId);
-    formData.append("idType", national ? "NATIONAL_ID" : "PASSPORT");
-    const response = await requestService.post(
-      ID_verify,
-      token,
-      true,
-      formData
-    );
+    let response;
+    if (file) {
+      formData.append("idImage", file!);
+      formData.append("nationalId", nationalId);
+      formData.append("idType", national ? "NATIONAL_ID" : "PASSPORT");
+      response = await requestService.post(ID_verify, token, true, formData);
+    }
+    // **************handel Request if we donot want to upload file******************
+    else {
+      const requestJson = JSON.stringify({
+        nationalId,
+        idType: national ? "NATIONAL_ID" : "PASSPORT",
+      });
+      response = await requestService.post(
+        ID_verify_WithoutImg,
+        token,
+        false,
+        requestJson
+      );
+    }
+
     if (response["status"] === 200) {
       increment();
     } else if (response["status"] === 409) {

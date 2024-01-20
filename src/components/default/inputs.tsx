@@ -12,7 +12,7 @@ export default function Inputs(props: {
     <div className=" flex flex-col gap-1 w-full">
       <span className="  text-textInput text-sm">{text}</span>
       <input
-        value={value}
+        defaultValue={value}
         onChange={onChange}
         type={text === "Password" ? "password" : "text"}
         name={name}

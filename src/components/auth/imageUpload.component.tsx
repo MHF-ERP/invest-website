@@ -1,4 +1,5 @@
 "use client";
+import { isPDFFile } from "@/functions/validations";
 import signUpObj from "@/store/signUpObj";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
@@ -36,11 +37,20 @@ export default function ImageUpload(props: { setFile: any }) {
         style={{ display: "none" }}
       />
 
-      {img && (
+      {!isPDFFile(img) && img && (
         <Image
           width={100}
           height={100}
           src={img}
+          alt="Selected Image"
+          className="w-36 h-20 rounded-xl mb-2 border-input border"
+        />
+      )}
+      {isPDFFile(img) && img && (
+        <Image
+          width={100}
+          height={100}
+          src={"/images/pdf.png"}
           alt="Selected Image"
           className="w-36 h-20 rounded-xl mb-2 border-input border"
         />

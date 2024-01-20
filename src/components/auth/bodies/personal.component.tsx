@@ -11,6 +11,7 @@ import "react-phone-input-2/lib/style.css"; // Import the CSS file
 import requestService from "@/static/requests";
 import { PERSONAL } from "@/static/links";
 import signUpObj from "@/store/signUpObj";
+import { test } from "@/functions/validations";
 
 export default function Personal() {
   const {
@@ -44,15 +45,13 @@ export default function Personal() {
           holder="First name"
           text="First Name"
           name="firstName"
-          value={firstName}
-          onChange={(e: any) => updateFirstName(e.target.value)}
+          value={firstName.length > 0 ? firstName : ""}
         />
         <Inputs
           holder="Last name"
           text="Last Name"
           name="lastName"
           value={lastName}
-          onChange={(e: any) => updateLastName(e.target.value)}
         />
       </div>
       <div className=" flex flex-col gap-1">
@@ -71,13 +70,7 @@ export default function Personal() {
         selectedValue={country}
         setSelectedValue={updateCountry}
       />
-      <Inputs
-        text="City"
-        holder="Enter your city"
-        name="city"
-        value={city}
-        onChange={(e: any) => updateCity(e.target.value)}
-      />
+      <Inputs text="City" holder="Enter your city" name="city" value={city} />
       <button
         type="submit"
         className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
@@ -89,37 +82,28 @@ export default function Personal() {
   );
   async function handel(e: any) {
     e.preventDefault();
-    // get data from form
+    const firstName = e.target.firstName.value;
+    const lastName = e.target.lastName.value;
+    const city = e.target.city.value;
 
-    // firstName Testing
-    if (firstName.length === 0) {
-      return notify("Invalid First Name");
+    // **************Test******************
+    if (
+      test("any", firstName, "The first name provided is invalid") ||
+      test("any", lastName, "The last name provided is invalid") ||
+      test("Phone", phone, "The phone number provided is invalid") ||
+      test("Country", country, "Please select your country") ||
+      test("any", city, "The city provided is invalid")
+    ) {
+      return;
     }
-    // lastName Testing
-    if (lastName.length === 0) {
-      return notify("Invalid Last Name");
-    }
-    // phone Testing
-    if (phone.length === 0) {
-      return notify("Invalid Phone number");
-    }
-    // country Testing
-    if (country === "Select a Country") {
-      return notify("Please select your country");
-    }
-    // city Testing
-    if (city.length === 0) {
-      return notify("Invalid city");
-    }
-
-    // handel request
+    // **************Handel Request******************
     const requestJson = JSON.stringify({
       name: firstName + " " + lastName,
       phone,
       country,
       city,
     });
-    // send Request
+    // **************Send Request******************
     const response = await requestService.post(
       PERSONAL,
       token,
@@ -127,6 +111,9 @@ export default function Personal() {
       requestJson
     );
     if (response["status"] === 200) {
+      updateFirstName(firstName);
+      updateLastName(lastName);
+      updateCity(city);
       increment();
     }
   }

@@ -4,13 +4,14 @@ export const PROCESS = [
     brief: "Please provide your email and password",
   },
   {
+    title: "Email Verification",
+    brief: "Verify your identity for added security",
+  },
+  {
     title: "Personal Information",
     brief: "Tell us a bit about yourself",
   },
-  {
-    title: "Phone Verification",
-    brief: "Verify your identity for added security",
-  },
+
   {
     title: "ID Verification",
     brief: "Securely submit identification details",

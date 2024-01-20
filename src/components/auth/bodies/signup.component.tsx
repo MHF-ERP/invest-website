@@ -1,10 +1,10 @@
 import Inputs from "@/components/default/inputs";
-import { testEmail, testPasswword } from "@/functions/validations";
+import { test, testEmail, testPasswword } from "@/functions/validations";
 import requestService from "@/static/requests";
 import process from "@/store/process";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
 import Constrains from "../constrains.component";
@@ -43,41 +43,45 @@ export default function Signup() {
       >
         {mutation.isPending ? "Loading" : "Continue"}
       </button>
+      <ToastContainer />
     </form>
   );
   async function handel(e: any) {
     e.preventDefault();
-    // get data from form
+    //************* Get Data From Form*************** */
     const email = e.target.SignupEmail.value;
     const password = e.target.SignupPassword.value;
-    // Email Testing
-    if (!testEmail(email)) {
-      return notify("Invalid Email");
+    // **************Test******************
+    if (
+      test("Email", email, "The email entered is invalid") ||
+      test("Password", password, "The password field is required")
+    ) {
+      return;
     }
-    // Password Validation
-    if (password.length === 0) {
-      return notify("Password Field is Required");
-    }
-    if (error.length !== 0) {
-      return notify("password does not meet the specified constraints");
-    }
-    // handel request
+    // **************Handel Request******************
     const requestJson = JSON.stringify({
       email,
       password,
     });
-    // send Request
+    // **************Send Request******************
     const response = await requestService.post(
       SIGNUP,
       undefined,
       false,
       requestJson
     );
-    if (response["status"] === 409) {
+    // **************handel Response******************
+    handelResponse(response["status"], response["data"]);
+  }
+  function handelResponse(status: number, data: any) {
+    // **************conflict Email******************
+    if (status === 409) {
       return notify("Email Already Exist");
-    } else if (response["status"] === 200) {
-      await updateEmail(response["data"]["data"]["email"]);
-      await updateToken(response["data"]["token"]);
+    }
+    // **************valid Data******************
+    else if (status === 200) {
+      updateEmail(data["data"]["email"]);
+      updateToken(data["token"]);
       increment();
     }
   }

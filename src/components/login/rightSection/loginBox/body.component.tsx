@@ -4,11 +4,11 @@ import React from "react";
 import Remember from "./remember.component";
 import Link from "next/link";
 import requestService from "@/static/requests";
-import { testEmail } from "@/functions/validations";
+import { test, testEmail, testPasswword } from "@/functions/validations";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
-import { LOGIN } from "@/static/links";
+import { LOGIN, MEDIA } from "@/static/links";
 import { useRouter } from "next/navigation";
 import userStore from "@/store/user";
 import process from "@/store/process";
@@ -24,7 +24,17 @@ export default function Body() {
     },
   });
   const { setCount } = process();
-  const { updateEmail, updateToken } = signUpObj();
+  const {
+    updateEmail,
+    updateToken,
+    updateFirstName,
+    updateLastName,
+    updatePhone,
+    updateCountry,
+    updateCity,
+    updateImg,
+    updateNationalId,
+  } = signUpObj();
   const { setName } = userStore();
   return (
     <form
@@ -57,44 +67,62 @@ export default function Body() {
   );
   async function handelForm(e: any) {
     e.preventDefault();
-    // get data from form
+    //************* Get Data From Form*************** */
     const email = e.target.LoginEmail.value;
     const password = e.target.LoginPassword.value;
     const Remember = e.target.Remember.checked;
-    // Email Testing
-    if (!testEmail(email)) {
-      return notify("Invalid Email");
+    // **************Test******************
+    if (
+      test("Email", email, "The email entered is invalid") ||
+      test("Password", password, "The password field is required")
+    ) {
+      return;
     }
-    // Password Validation
-    if (password.length === 0) {
-      return notify("Password Field is Required");
-    }
-    // handel request
+    // **************Handel Request******************
     const requestJson = JSON.stringify({
       email,
       password,
       fcm: "user",
       socketId: "user",
     });
-    // send Request
+    // **************Send Request******************
     const response = await requestService.post(
       LOGIN,
       undefined,
       false,
       requestJson
     );
-    if (response["status"] === 422) {
-      return notify("Incorrect Email or Password");
-    } else if (response["status"] === 200) {
-      if (response["data"]["data"]["status"] !== "ACTIVE") {
-        setCount(processStatus(response["data"]["data"]["status"])!);
-        updateEmail(response["data"]["data"]["email"]);
-        updateToken(response["data"]["token"]);
-        router.replace("/signup");
-      } else {
-        await setName(response["data"]["data"]["name"]);
-        document.cookie = `AccessToken=${response["data"]["token"]}; path=/`;
+    // **************handel Response******************
 
+    handelResponse(response["status"], response["data"]);
+  }
+
+  function handelResponse(status: number, data: any) {
+    // **************Invalid Credintial******************
+    if (status === 422) {
+      return notify("The email or password provided is incorrect.");
+    }
+    // **************Valid Credintial and User not Active******************
+    else if (status === 200) {
+      if (data["data"]["status"] !== "ACTIVE") {
+        setCount(processStatus(data["data"]["status"])!);
+        updateEmail(data["data"]["email"]);
+        updateToken(data["token"]);
+        updateFirstName(data["data"]["name"].split(" ")[0]);
+        updateLastName(data["data"]["name"].split(" ").pop());
+        updatePhone(data["data"]["phone"]);
+        updateCountry(data["data"]["country"]);
+        updateCity(data["data"]["city"]);
+        updateImg(
+          data["data"]["idImage"] ? MEDIA + data["data"]["idImage"] : ""
+        );
+        updateNationalId(data["data"]["nationalId"]);
+        router.replace("/signup");
+      }
+      // **************Valid Credintial and User Active******************
+      else {
+        setName(data["data"]["name"]);
+        document.cookie = `AccessToken=${data["token"]}; path=/`;
         router.replace("/home");
       }
     }

@@ -37,7 +37,6 @@ class RequestService {
         Authorization: `Bearer ${token}`,
         "Content-Type": `${form ? "multipart/form-data" : "application/json"} `,
       };
-      console.log(headers);
     } else {
       headers = {
         ...config?.headers,
