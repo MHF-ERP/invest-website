@@ -1,5 +1,5 @@
-import ReactApexChart from "react-apexcharts";
 import React, { useState } from "react";
+import HandelDynamicGraph from "./handelDynamicGraph";
 
 export default function DateTimeChart(props: { title: string }) {
   const { title } = props;
@@ -499,12 +499,7 @@ export default function DateTimeChart(props: { title: string }) {
       </div>
 
       <div id="chart-timeline">
-        {/* <ReactApexChart
-          options={chartData.options as any}
-          series={chartData.series}
-          type="area"
-          height={250}
-        /> */}
+        <HandelDynamicGraph chartData={chartData} />
       </div>
     </div>
   );
