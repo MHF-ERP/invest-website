@@ -100,7 +100,7 @@ export default function Body() {
   function handelResponse(status: number, data: any) {
     // **************Invalid Credintial******************
     if (status === 422) {
-      return notify("The email or password provided is incorrect.");
+      return notify("The email or password provided is incorrect");
     }
     // **************Valid Credintial and User not Active******************
     else if (status === 200) {
