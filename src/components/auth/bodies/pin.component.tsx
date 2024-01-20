@@ -73,7 +73,6 @@ export default function Pin() {
         updateToken("");
         updateFirstName("");
         router.replace("/");
-        setCount(0);
       }
     } catch (error) {
       // Handle errors here

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
 
-export default function Logo() {
+export default function LightLogo() {
   return (
     <Image
-      src={"/images/Logo.png"}
+      src={"/images/lightLogo.png"}
       alt="image"
       width={120}
       height={120}

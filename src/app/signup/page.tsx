@@ -11,9 +11,12 @@ import Pin from "@/components/auth/bodies/pin.component";
 import process from "@/store/process";
 import { ToastContainer } from "react-toastify";
 import signUpObj from "@/store/signUpObj";
+import LightLogo from "@/components/default/lightLogo";
 
 export default function Page() {
   const { email, token } = signUpObj();
+  const { increment } = process();
+
   const page = [
     {
       layout: <Signup />,
@@ -21,7 +24,7 @@ export default function Page() {
       brief: "Please provide your email and password ",
     },
     {
-      layout: <Verification />,
+      layout: <Verification inc={increment} />,
       header: "Verification Code",
       brief: `We sent a verification code to ${email}`,
     },
@@ -48,10 +51,11 @@ export default function Page() {
     <main
       className={`w-screen h-screen p-2  flex flex-row overflow-hidden xl:bg-background lg:bg-background md:bg-background  bg-main`}
     >
-      <Logo />
+      <LightLogo />
       <LeftSection />
 
       <RightSection
+        idx={count}
         key={count}
         back={count > 2}
         body={page[count]["layout"]}

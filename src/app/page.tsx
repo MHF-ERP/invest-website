@@ -1,3 +1,4 @@
+import LightLogo from "@/components/default/lightLogo";
 import Logo from "@/components/default/logo";
 import LeftSection from "@/components/login/leftSection.component";
 import RightSection from "@/components/login/rightSection/index.component";
@@ -9,7 +10,7 @@ export default function Home() {
     <div
       className={`w-screen h-screen p-2  flex flex-row overflow-hidden xl:bg-background lg:bg-background md:bg-background  bg-main`}
     >
-      <Logo />
+      <LightLogo />
       <LeftSection />
       <RightSection />
     </div>

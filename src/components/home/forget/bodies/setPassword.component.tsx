@@ -1,38 +1,38 @@
+import Constrains from "@/components/auth/constrains.component";
 import Inputs from "@/components/default/inputs";
-import { test, testEmail, testPasswword } from "@/functions/validations";
+import { test, testPasswword } from "@/functions/validations";
+import { FORGET } from "@/static/links";
 import requestService from "@/static/requests";
-import process from "@/store/process";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import forgetStore from "@/store/forget";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
-import "react-toastify/dist/ReactToastify.css";
-import Constrains from "../constrains.component";
-import { SIGNUP } from "@/static/links";
-import signUpObj from "@/store/signUpObj";
 
-export default function Signup() {
+export default function SetPassword() {
+  const [error, setError] = useState<string>("");
+
+  const notify = async (error: string) => toast.error(error);
   const mutation = useMutation({
     mutationFn: (e) => {
       return handel(e);
     },
   });
-  const { increment } = process();
-  const { updateEmail, updateToken } = signUpObj();
-
-  const notify = async (error: string) => toast.error(error);
-  const [error, setError] = useState<string>("");
+  const { increment, updateEmail } = forgetStore();
   return (
     <form
       className=" flex flex-col gap-3"
       onSubmit={(e: any) => mutation.mutate(e)}
     >
-      <Inputs holder="Enter your email" text="Email" name="SignupEmail" />
       <Inputs
         holder="......"
         text="Password"
-        name="SignupPassword"
+        name="forgetPassword"
         onChange={handelPassword}
+      />
+      <Inputs
+        holder="......"
+        text="confirm password"
+        name="confirmForgetPassword"
       />
       <Constrains error={error} />
 
@@ -41,7 +41,7 @@ export default function Signup() {
         type="submit"
         className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
       >
-        {mutation.isPending ? "Loading" : "Continue"}
+        {mutation.isPending ? "Loading" : "Reset password"}
       </button>
       <ToastContainer />
     </form>
@@ -49,32 +49,40 @@ export default function Signup() {
   async function handel(e: any) {
     e.preventDefault();
     //************* Get Data From Form*************** */
-    const email = e.target.SignupEmail.value;
-    const password = e.target.SignupPassword.value;
+    const password = e.target.forgetPassword.value;
+    const confirmPassword = e.target.confirmForgetPassword.value;
+
     // **************Test******************
     if (
-      test("Email", email, "The email entered is invalid") ||
-      test("Password", password, "The password field is required")
+      test("Password", password, "The password field is required") ||
+      test(
+        "Password",
+        confirmPassword,
+        "The confirm password field is required"
+      )
     ) {
       return;
     }
     if (error.length > 0) {
-      return notify("Password not match the constrains");
+      return notify("Password not matxh the constrains");
+    }
+    if (password !== confirmPassword) {
+      return notify("Passwords not match");
     }
     // **************Handel Request******************
     const requestJson = JSON.stringify({
-      email,
       password,
     });
     // **************Send Request******************
     const response = await requestService.post(
-      SIGNUP,
+      FORGET,
       undefined,
       false,
       requestJson
     );
     // **************handel Response******************
-    handelResponse(response["status"], response["data"]);
+    increment();
+    // handelResponse(response["status"], response["data"]);
   }
   function handelResponse(status: number, data: any) {
     // **************conflict Email******************
@@ -84,7 +92,6 @@ export default function Signup() {
     // **************valid Data******************
     else if (status === 200) {
       updateEmail(data["data"]["email"]);
-      updateToken(data["token"]);
       increment();
     }
   }

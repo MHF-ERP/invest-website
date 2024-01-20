@@ -20,7 +20,7 @@ export default function Remember() {
         </label>
       </div>
       <Link
-        href={"ForgetPassword"}
+        href={"/forget-password"}
         className=" hover:underline font-bold text-main text-xs "
       >
         Forgot Password?

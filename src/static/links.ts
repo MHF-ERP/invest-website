@@ -8,6 +8,7 @@ export const VERIFY = `${AUTH}/verify-email`;
 export const PERSONAL = `${AUTH}/personal-info`;
 export const ID_verify = `${AUTH}/id-info`;
 export const ID_verify_WithoutImg = `${AUTH}/id-info-withoutImg`;
+export const FORGET = `${AUTH}/id-info-withoutImg`;
 
 export const PIN = `${AUTH}/set-pin`;
 //**************** USER *******************/

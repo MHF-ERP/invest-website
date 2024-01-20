@@ -31,7 +31,7 @@ function testPasswordConstraints(password: string): string | null {
     return null;
   }
 }
-function isPassword(password: string): boolean {
+export function isPassword(password: string): boolean {
   if (password.length < 12) {
     return false;
   }
@@ -72,9 +72,6 @@ export function test(type: string, text: string, brief: string) {
     if (text.length === 0 || !isEmail(text)) return notify(brief);
   } else if (type === "Password") {
     if (text.length === 0) return notify(brief);
-  } else if (type === "Password") {
-    if (!isPassword(text))
-      return notify("The email or password provided is incorrect.");
   } else if (type === "Phone") {
     if (text.length === 0 || !isPhone(text)) return notify(brief);
   } else if (type === "Country") {

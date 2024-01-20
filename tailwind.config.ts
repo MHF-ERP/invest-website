@@ -12,6 +12,7 @@ const config: Config = {
         background: "#F2F2F2",
         main: "#1F332B",
         main2: "#2E644E",
+        border: "#030B00",
         primary: "#8BF465",
         secondary: "#C1F6AE",
         white: "#FFFFFF",

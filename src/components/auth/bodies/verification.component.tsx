@@ -7,10 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import requestService from "@/static/requests";
 import { VERIFY } from "@/static/links";
 //import VerificationInput from "react-verification-input";
-export default function Verification() {
+export default function Verification(props: { inc: any }) {
   const [code, setCode] = useState<string>("");
   const notify = async (error: string) => toast.error(error);
-
+  const { inc } = props;
   const mutation = useMutation({
     mutationFn: (e) => {
       return handel(e);
@@ -55,7 +55,7 @@ export default function Verification() {
       otp: code,
     });
     // send Request
-    increment();
+    inc();
     // const response = await requestService.post(VERIFY, requestJson);
     // if (response["status"] === 401) {
     //   return notify("Code isnot correct");

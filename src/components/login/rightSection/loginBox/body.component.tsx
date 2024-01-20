@@ -1,10 +1,15 @@
 "use client";
 import Inputs from "@/components/default/inputs";
-import React from "react";
+import React, { useEffect } from "react";
 import Remember from "./remember.component";
 import Link from "next/link";
 import requestService from "@/static/requests";
-import { test, testEmail, testPasswword } from "@/functions/validations";
+import {
+  isPassword,
+  test,
+  testEmail,
+  testPasswword,
+} from "@/functions/validations";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
@@ -16,6 +21,11 @@ import { processStatus } from "@/functions/processStatus";
 import signUpObj from "@/store/signUpObj";
 
 export default function Body() {
+  const { setCount } = process();
+
+  useEffect(() => {
+    setCount(0);
+  }, []);
   const router = useRouter();
   const notify = async (error: string) => toast.error(error);
   const mutation = useMutation({
@@ -23,7 +33,6 @@ export default function Body() {
       return handelForm(e);
     },
   });
-  const { setCount } = process();
   const {
     updateEmail,
     updateToken,
@@ -78,6 +87,8 @@ export default function Body() {
     ) {
       return;
     }
+    if (!isPassword(password))
+      return notify("The email or password provided is incorrect.");
     // **************Handel Request******************
     const requestJson = JSON.stringify({
       email,

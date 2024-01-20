@@ -1,9 +1,11 @@
 import Header from "@/components/auth/header.component";
 import process from "@/store/process";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function RightSection(props: {
+  idx: number;
   body: any;
   back?: boolean;
   header: string;
@@ -11,7 +13,8 @@ export default function RightSection(props: {
 }) {
   const { decrement } = process();
 
-  const { body, back, header, brief } = props;
+  const { body, back, idx, header, brief } = props;
+  const router = useRouter();
   return (
     <div
       className=" xl:mt-0 lg:mt-0 md:mt-0 mt-20 flex flex-col items-center justify-center xl:gap-6 lg:gap-6 md:gap-6 gap-2   "
@@ -26,7 +29,7 @@ export default function RightSection(props: {
       {back && (
         <div
           className=" flex items-center  gap-2 font-bold cursor-pointer"
-          onClick={() => decrement()}
+          onClick={() => (idx === 0 ? router.replace("/") : decrement())}
         >
           <Icon icon={"ep:back"} />
           <span className=" font-bold">Back</span>
