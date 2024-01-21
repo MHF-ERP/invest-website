@@ -14,7 +14,7 @@ export default function Inputs(props: {
       <input
         defaultValue={value}
         onChange={onChange}
-        type={text === "Password" ? "password" : "text"}
+        type={text.includes("Password") ? "password" : "text"}
         name={name}
         placeholder={holder}
         className=" border w-full border-input px-4 py-2 text-sm rounded-md placeholder:text-placeholder placeholder:text-sm outline-none"

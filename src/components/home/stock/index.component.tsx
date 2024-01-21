@@ -1,3 +1,4 @@
+import HomeLayout from "@/components/layouts/home.layout";
 import GraphBox from "../main/graphBox.component";
 import News from "../news/index.component";
 import About from "./about.component";
@@ -7,7 +8,7 @@ import StockCard from "./stockCard.component";
 
 export default function Stock() {
   return (
-    <div className=" bg-white  rounded-tl-3xl mt-4 p-6 w-full overflow-y-auto flex-1 ">
+    <HomeLayout>
       <HeaderNav />
       <StockCard />
       <GraphBox title="Performance" stock={true} />
@@ -18,6 +19,6 @@ export default function Stock() {
         </div>
         <News />
       </div>
-    </div>
+    </HomeLayout>
   );
 }

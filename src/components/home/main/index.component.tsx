@@ -4,6 +4,7 @@ import WatchList from "@/components/home/watchlist/index.component";
 import Daily from "@/components/home/daily";
 import GraphBox from "./graphBox.component";
 import WelcomeBox from "./welcomeBox.component";
+import HomeLayout from "@/components/layouts/home.layout";
 
 export default function DefHome() {
   const stocksData = [
@@ -37,10 +38,7 @@ export default function DefHome() {
     },
   ];
   return (
-    <div
-      className=" bg-white  rounded-tl-3xl mt-4 p-6 w-full overflow-y-auto flex-1 "
-      // style={{ width: `calc(100vw - 240px)` }}
-    >
+    <HomeLayout>
       <WelcomeBox />
       <Indices />
 
@@ -64,6 +62,6 @@ export default function DefHome() {
         <WatchList data={stocksData} title="Most traded stocks" />
         <Daily />
       </div>
-    </div>
+    </HomeLayout>
   );
 }

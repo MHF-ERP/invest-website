@@ -1,3 +1,4 @@
+import TextColor from "@/functions/textColor";
 import Image from "next/image";
 import React from "react";
 
@@ -85,17 +86,7 @@ export default function Recommendations() {
               <span className=" font-semibold xl:text-base lg:text-base md:text-base text-xs">
                 {item["title"]}
               </span>
-              <span
-                className={`${
-                  item["value"][0] === "+"
-                    ? "text-success"
-                    : `${
-                        item["value"][0] === "-"
-                          ? "text-decrease"
-                          : "text-main2"
-                      }`
-                }`}
-              >
+              <span className={`${TextColor(item["value"][0])}`}>
                 {item["value"]}
               </span>
             </div>

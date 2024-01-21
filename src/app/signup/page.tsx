@@ -45,7 +45,7 @@ export default function Page() {
       brief: "Set up a 4-digit PIN",
     },
   ];
-  const { count } = process();
+  const { count, decrement } = process();
 
   return (
     <main
@@ -61,6 +61,7 @@ export default function Page() {
         body={page[count]["layout"]}
         header={page[count]["header"]}
         brief={page[count]["brief"]}
+        func={decrement}
       />
     </main>
   );

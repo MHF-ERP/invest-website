@@ -19,12 +19,14 @@ import userStore from "@/store/user";
 import process from "@/store/process";
 import { processStatus } from "@/functions/processStatus";
 import signUpObj from "@/store/signUpObj";
+import forgetStore from "@/store/forget";
 
 export default function Body() {
-  const { setCount } = process();
-
+  const { setCount: setCountProcess } = process();
+  const { setCount: setCountForget } = forgetStore();
   useEffect(() => {
-    setCount(0);
+    setCountProcess(0);
+    setCountForget(0);
   }, []);
   const router = useRouter();
   const notify = async (error: string) => toast.error(error);
@@ -116,7 +118,7 @@ export default function Body() {
     // **************Valid Credintial and User not Active******************
     else if (status === 200) {
       if (data["data"]["status"] !== "ACTIVE") {
-        setCount(processStatus(data["data"]["status"])!);
+        setCountProcess(processStatus(data["data"]["status"])!);
         updateEmail(data["data"]["email"]);
         updateToken(data["token"]);
         updateFirstName(data["data"]["name"].split(" ")[0]);

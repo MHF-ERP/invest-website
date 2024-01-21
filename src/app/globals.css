@@ -91,3 +91,9 @@ label span:before {
 .apexcharts-toolbar {
   display: none !important;
 }
+.apexcharts-xaxis-tick {
+  display: none !important;
+}
+.apexcharts-tooltip {
+  display: none !important;
+}

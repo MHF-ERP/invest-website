@@ -10,10 +10,9 @@ export default function RightSection(props: {
   back?: boolean;
   header: string;
   brief: string;
+  func: any;
 }) {
-  const { decrement } = process();
-
-  const { body, back, idx, header, brief } = props;
+  const { body, back, idx, header, brief, func } = props;
   const router = useRouter();
   return (
     <div
@@ -29,7 +28,7 @@ export default function RightSection(props: {
       {back && (
         <div
           className=" flex items-center  gap-2 font-bold cursor-pointer"
-          onClick={() => (idx === 0 ? router.replace("/") : decrement())}
+          onClick={() => (idx === 0 ? router.replace("/") : func())}
         >
           <Icon icon={"ep:back"} />
           <span className=" font-bold">Back</span>

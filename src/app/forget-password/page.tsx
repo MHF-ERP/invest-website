@@ -10,7 +10,7 @@ import forgetStore from "@/store/forget";
 import React from "react";
 
 export default function page() {
-  const { increment, email, count } = forgetStore();
+  const { increment, email, count, decrement } = forgetStore();
   const page = [
     {
       layout: <Forget />,
@@ -43,10 +43,11 @@ export default function page() {
         <RightSection
           idx={count}
           key={count}
-          back={count !== 1}
+          back={count < 2}
           body={page[count]["layout"]}
           header={page[count]["header"]}
           brief={page[count]["brief"]}
+          func={decrement}
         />
       </div>
     </main>

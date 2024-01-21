@@ -1,7 +1,7 @@
 import Constrains from "@/components/auth/constrains.component";
 import Inputs from "@/components/default/inputs";
 import { test, testPasswword } from "@/functions/validations";
-import { FORGET } from "@/static/links";
+import { FORGET, RESET } from "@/static/links";
 import requestService from "@/static/requests";
 import forgetStore from "@/store/forget";
 import { useMutation } from "@tanstack/react-query";
@@ -17,7 +17,7 @@ export default function SetPassword() {
       return handel(e);
     },
   });
-  const { increment, updateEmail } = forgetStore();
+  const { increment, email } = forgetStore();
   return (
     <form
       className=" flex flex-col gap-3"
@@ -31,7 +31,7 @@ export default function SetPassword() {
       />
       <Inputs
         holder="......"
-        text="confirm password"
+        text="confirm Password"
         name="confirmForgetPassword"
       />
       <Constrains error={error} />
@@ -71,27 +71,24 @@ export default function SetPassword() {
     }
     // **************Handel Request******************
     const requestJson = JSON.stringify({
+      email,
       password,
     });
     // **************Send Request******************
     const response = await requestService.post(
-      FORGET,
+      RESET,
       undefined,
       false,
       requestJson
     );
     // **************handel Response******************
-    increment();
-    // handelResponse(response["status"], response["data"]);
+
+    handelResponse(response["status"], response["data"]);
   }
   function handelResponse(status: number, data: any) {
-    // **************conflict Email******************
-    if (status === 409) {
-      return notify("Email Already Exist");
-    }
     // **************valid Data******************
-    else if (status === 200) {
-      updateEmail(data["data"]["email"]);
+    if (status === 200) {
+      // updateEmail(data["data"]["email"]);
       increment();
     }
   }

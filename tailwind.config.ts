@@ -29,6 +29,8 @@ const config: Config = {
         decrease: "#F04438",
         divider: "#E7E7E7",
         news: "#EAECF0",
+        headerWatch: "#0B0E0C",
+        taps: "#26312A",
       },
     },
   },
