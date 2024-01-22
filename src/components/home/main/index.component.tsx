@@ -4,7 +4,7 @@ import WatchList from "@/components/home/watchlist/index.component";
 import Daily from "@/components/home/daily";
 import GraphBox from "./graphBox.component";
 import WelcomeBox from "./welcomeBox.component";
-import HomeLayout from "@/layouts/home.layout";
+import HomeLayout from "@/components/layouts/home.layout";
 
 export default function DefHome() {
   const stocksData = [
