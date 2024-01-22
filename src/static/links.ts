@@ -1,7 +1,7 @@
 import { SERVERIP } from "../../secrets";
 
 //**************** SERVER *******************/
-export const SERVER = `http://${SERVERIP}/api/v1`;
+export const SERVER = `${SERVERIP}/api/v1`;
 //**************** AUTHENTICATION *******************/
 export const AUTH = `${SERVER}/authentication`;
 export const LOGIN = `${AUTH}/login`;
