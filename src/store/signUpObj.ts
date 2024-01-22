@@ -22,7 +22,7 @@ interface StoreState {
   updateNationalId: (text: string) => void;
 }
 
-const signUpObj = create<StoreState>((set) => ({
+export const signUpObj = create<StoreState>((set) => ({
   email: "",
   token: "",
   firstName: "",
@@ -42,5 +42,3 @@ const signUpObj = create<StoreState>((set) => ({
   updateImg: (text) => set((state) => ({ ...state, img: text })),
   updateNationalId: (text) => set((state) => ({ ...state, nationalId: text })),
 }));
-
-export default signUpObj;

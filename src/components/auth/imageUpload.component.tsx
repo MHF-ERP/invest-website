@@ -1,6 +1,6 @@
 "use client";
 import { isPDFFile } from "@/functions/validations";
-import signUpObj from "@/store/signUpObj";
+import { signUpObj } from "@/store/signUpObj";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import React, { useRef, useState } from "react";

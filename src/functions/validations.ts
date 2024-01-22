@@ -46,6 +46,24 @@ export function isPassword(password: string): boolean {
   // If all constraints are met, return null
   return true;
 }
+export function testPasswwordWithNotify(password: string) {
+  const notify = async (error: string) => toast.error(error);
+
+  if (password.length < 12) {
+    return notify("Password not match the constrains");
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    return notify("Password not match the constrains");
+  }
+
+  if (!/[!@#$%]/.test(password)) {
+    return notify("Password not match the constrains");
+  }
+  // If all constraints are met, return null
+  return "valid";
+}
+
 function isPhone(text: string) {
   const phoneRegex = /^[+\d\s()-]+$/;
   return phoneRegex.test(text);
@@ -94,4 +112,12 @@ export function testPasswword(text: string): string | null {
 }
 export function isPDFFile(fileName: any) {
   return fileName.includes("/pdf");
+}
+export function codeVerification(code: string) {
+  const notify = async (error: string) => toast.error(error);
+
+  if (code.length < 4) {
+    return false;
+  }
+  return true;
 }

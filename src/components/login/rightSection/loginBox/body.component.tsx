@@ -16,9 +16,9 @@ import { useMutation } from "@tanstack/react-query";
 import { LOGIN, MEDIA } from "@/static/links";
 import { useRouter } from "next/navigation";
 import userStore from "@/store/user";
-import process from "@/store/process";
+import { process } from "@/store/process";
 import { processStatus } from "@/functions/processStatus";
-import signUpObj from "@/store/signUpObj";
+import { signUpObj } from "@/store/signUpObj";
 import forgetStore from "@/store/forget";
 
 export default function Body() {

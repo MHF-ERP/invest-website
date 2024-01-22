@@ -1,31 +1,31 @@
 import Inputs from "@/components/default/inputs";
-import { test, testEmail, testPasswword } from "@/functions/validations";
-import requestService from "@/static/requests";
-import process from "@/store/process";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { testPasswword } from "@/functions/validations";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
 import Constrains from "../constrains.component";
-import { SIGNUP } from "@/static/links";
-import signUpObj from "@/store/signUpObj";
+import signupService from "@/services/signup/signup.service";
+import { signUpObj } from "@/store/signUpObj";
+import { process } from "@/store/process";
 
 export default function Signup() {
+  const { updateEmail, updateToken } = signUpObj();
+  const { increment } = process();
+
   const mutation = useMutation({
     mutationFn: (e) => {
-      return handel(e);
+      return signupService(e, updateEmail, updateToken, increment);
     },
   });
-  const { increment } = process();
-  const { updateEmail, updateToken } = signUpObj();
-
-  const notify = async (error: string) => toast.error(error);
   const [error, setError] = useState<string>("");
   return (
     <form
       className=" flex flex-col gap-3"
-      onSubmit={(e: any) => mutation.mutate(e)}
+      onSubmit={(e: any) => {
+        e.preventDefault();
+        mutation.mutate(e);
+      }}
     >
       <Inputs holder="Enter your email" text="Email" name="SignupEmail" />
       <Inputs
@@ -46,48 +46,7 @@ export default function Signup() {
       <ToastContainer />
     </form>
   );
-  async function handel(e: any) {
-    e.preventDefault();
-    //************* Get Data From Form*************** */
-    const email = e.target.SignupEmail.value;
-    const password = e.target.SignupPassword.value;
-    // **************Test******************
-    if (
-      test("Email", email, "The email entered is invalid") ||
-      test("Password", password, "The password field is required")
-    ) {
-      return;
-    }
-    if (error.length > 0) {
-      return notify("Password not match the constrains");
-    }
-    // **************Handel Request******************
-    const requestJson = JSON.stringify({
-      email,
-      password,
-    });
-    // **************Send Request******************
-    const response = await requestService.post(
-      SIGNUP,
-      undefined,
-      false,
-      requestJson
-    );
-    // **************handel Response******************
-    handelResponse(response["status"], response["data"]);
-  }
-  function handelResponse(status: number, data: any) {
-    // **************conflict Email******************
-    if (status === 409) {
-      return notify("Email Already Exist");
-    }
-    // **************valid Data******************
-    else if (status === 200) {
-      updateEmail(data["data"]["email"]);
-      updateToken(data["token"]);
-      increment();
-    }
-  }
+
   function handelPassword(e: any) {
     const validPassword = testPasswword(e.target.value);
     if (validPassword) setError(validPassword);

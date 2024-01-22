@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Point from "./point.component";
 import { PROCESS } from "../../../static/process";
-import process from "@/store/process";
+import { process } from "@/store/process";
 
 export default function Process() {
   const { count } = process();

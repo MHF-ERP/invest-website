@@ -1,88 +1,56 @@
-"use client";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import VerificationInput from "react-verification-input";
 import { useMutation } from "@tanstack/react-query";
-import requestService from "@/static/requests";
-import { PIN } from "@/static/links";
-import signUpObj from "@/store/signUpObj";
-import process from "@/store/process";
-
 import { useRouter } from "next/navigation";
-
+import { pinService } from "@/services/signup/pin.service";
+import { signUpObj } from "@/store/signUpObj";
 export default function Pin() {
   const [code, setCode] = useState("");
-  const {
-    token,
-    updatePhone,
-    updateCity,
-    updateCountry,
-    updateEmail,
-    updateFirstName,
-    updateLastName,
-    updateImg,
-    updateNationalId,
-    updateToken,
-  } = signUpObj();
-  const { setCount } = process();
 
-  const notify = (error: string) => toast.error(error);
-
+  const router = useRouter();
   const mutation = useMutation({
-    mutationFn: (e) => handel(e),
+    mutationFn: (e) =>
+      pinService(
+        e,
+        code,
+        router,
+        token,
+        updateCity,
+        updateCountry,
+        updateEmail,
+        updatePhone,
+        updateLastName,
+        updateImg,
+        updateNationalId,
+        updateToken,
+        updateFirstName
+      ),
   });
 
   const handleVerificationChange = (value: string) => {
     setCode(value);
   };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    mutation.mutate(e);
-  };
-  const router = useRouter();
-
-  async function handel(e: any) {
-    // pin Testing
-    if (code.length < 4) {
-      return notify("Please provide a 4-digit pin");
-    }
-
-    // handle request
-    const requestJson = JSON.stringify({
-      pinCode: code,
-    });
-
-    // send Request
-    try {
-      const response = await requestService.post(
-        PIN,
-        token,
-        false,
-        requestJson
-      );
-
-      if (response.status === 200) {
-        updateCity("");
-        updateCountry("Select a Country");
-        updateEmail("");
-        updatePhone("");
-        updateLastName("");
-        updateImg("");
-        updateNationalId("");
-        updateToken("");
-        updateFirstName("");
-        router.replace("/");
-      }
-    } catch (error) {
-      // Handle errors here
-      console.error("Error:", error);
-      notify("An error occurred");
-    }
-  }
-
+  const {
+    token,
+    updateCity,
+    updateCountry,
+    updateEmail,
+    updatePhone,
+    updateLastName,
+    updateImg,
+    updateNationalId,
+    updateToken,
+    updateFirstName,
+  } = signUpObj();
   return (
-    <form className="flex flex-col gap-3 items-center" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-3 items-center"
+      onSubmit={(e: any) => {
+        e.preventDefault();
+        mutation.mutate(e);
+      }}
+    >
       <VerificationInput
         autoFocus
         placeholder=""

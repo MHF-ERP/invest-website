@@ -8,14 +8,15 @@ import Personal from "@/components/auth/bodies/personal.component";
 import Verification from "@/components/auth/bodies/verification.component";
 import ID from "@/components/auth/bodies/ID.component";
 import Pin from "@/components/auth/bodies/pin.component";
-import process from "@/store/process";
+import { process } from "@/store/process";
 import { ToastContainer } from "react-toastify";
-import signUpObj from "@/store/signUpObj";
+import { signUpObj } from "@/store/signUpObj";
 import LightLogo from "@/components/default/lightLogo";
 
 export default function Page() {
   const { email, token } = signUpObj();
   const { increment } = process();
+  const { count, decrement } = process();
 
   const page = [
     {
@@ -45,7 +46,6 @@ export default function Page() {
       brief: "Set up a 4-digit PIN",
     },
   ];
-  const { count, decrement } = process();
 
   return (
     <main

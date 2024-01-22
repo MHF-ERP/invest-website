@@ -2,9 +2,7 @@ import Stock from "@/components/home/stock/index.component";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 
-const AllPageLayout = dynamic(
-  () => import("@/components/layouts/allPage.layout")
-);
+const AllPageLayout = dynamic(() => import("@/layouts/allPage.layout"));
 const Navigator = dynamic(
   () => import("@/components/home/navigator/navigator.component")
 );

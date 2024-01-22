@@ -1,31 +1,29 @@
-"use client";
 import Inputs from "@/components/default/inputs";
-import process from "@/store/process";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import signUpObj from "@/store/signUpObj";
+import { signUpObj } from "@/store/signUpObj";
+import { process } from "@/store/process";
+
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
 import ImageUpload from "../imageUpload.component";
-import requestService from "@/static/requests";
-import { ID_verify, ID_verify_WithoutImg } from "@/static/links";
 import { useMutation } from "@tanstack/react-query";
-import { test } from "@/functions/validations";
+import { idServises } from "@/services/signup/id.service";
 
 export default function ID() {
-  const { increment } = process();
-  const notify = async (error: string) => toast.error(error);
   const mutation = useMutation({
     mutationFn: (e) => {
-      return handel(e);
+      return idServises(e, img, file, token, increment);
     },
   });
   const [file, setFile] = useState<File>();
-  const { token, nationalId, img, updateNationalId } = signUpObj();
-
+  const { nationalId, img, updateNationalId, token } = signUpObj();
+  const { increment } = process();
   return (
     <form
       className=" flex flex-col gap-3 items-center"
-      onSubmit={(e: any) => mutation.mutate(e)}
+      onSubmit={(e: any) => {
+        e.preventDefault();
+        mutation.mutate(e);
+      }}
     >
       <div className=" flex justify-between items-center w-full">
         <label className="  shadow-lg rounded-2xl p-2 pr-8 ">
@@ -55,51 +53,4 @@ export default function ID() {
       <ToastContainer />
     </form>
   );
-  async function handel(e: any) {
-    e.preventDefault();
-    // **************Get data from form******************
-    const national = e.target.national.checked;
-    const passport = e.target.passport.checked;
-    const nationalId = e.target.NationalId.value;
-    // **************National And Passport Testing******************
-    if (!national && !passport) {
-      return notify("Please select either National ID or Passport");
-    }
-    // **************Test******************
-    if (
-      test("Img", img, "Please select a valid image") ||
-      test("any", nationalId, "The NationalID provided is invalid")
-    ) {
-      return;
-    }
-
-    // **************handel Request if we want to upload file******************
-    const formData = new FormData();
-    let response;
-    if (file) {
-      formData.append("idImage", file!);
-      formData.append("nationalId", nationalId);
-      formData.append("idType", national ? "NATIONAL_ID" : "PASSPORT");
-      response = await requestService.post(ID_verify, token, true, formData);
-    }
-    // **************handel Request if we donot want to upload file******************
-    else {
-      const requestJson = JSON.stringify({
-        nationalId,
-        idType: national ? "NATIONAL_ID" : "PASSPORT",
-      });
-      response = await requestService.post(
-        ID_verify_WithoutImg,
-        token,
-        false,
-        requestJson
-      );
-    }
-
-    if (response["status"] === 200) {
-      increment();
-    } else if (response["status"] === 409) {
-      return notify("This NationaID is already registred");
-    }
-  }
 }

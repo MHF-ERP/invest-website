@@ -1,5 +1,5 @@
 import Header from "@/components/auth/header.component";
-import process from "@/store/process";
+import { process } from "@/store/process";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
 import React from "react";

@@ -1,4 +1,4 @@
-import HomeLayout from "@/components/layouts/home.layout";
+import HomeLayout from "@/layouts/home.layout";
 import GraphBox from "../main/graphBox.component";
 import News from "../news/index.component";
 import About from "./about.component";
