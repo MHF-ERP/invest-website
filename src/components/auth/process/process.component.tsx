@@ -8,7 +8,7 @@ export default function Process() {
   const { count } = process();
 
   return (
-    <div className=" pt-32 px-10 h-full flex justify-between flex-col absolute left-0">
+    <div className=" xl:pt-8r lg:pt-6r  pt-5r px-10 h-full flex justify-between flex-col absolute left-0">
       <div className=" flex flex-col gap-1">
         {PROCESS.map((item, idx) => {
           return (
@@ -19,12 +19,11 @@ export default function Process() {
 
                   {idx + 1 < PROCESS.length && (
                     <hr
-                      className={`${
+                      className={` xl:h-6 lg:h-6 h-3 ${
                         idx >= count ? "opacity-45" : ""
                       } border-none `}
                       style={{
                         borderLeft: "2px solid #8BF465",
-                        height: "30px",
                       }}
                     />
                   )}
@@ -39,7 +38,7 @@ export default function Process() {
           );
         })}
       </div>
-      <div className=" flex w-full gap-1 pb-16 text-xs text-center items-center justify-center">
+      <div className=" flex w-full gap-1 xl:pb-4r pb-2r text-xs text-center items-center justify-center">
         <p className=" text-white">Already have an account?</p>
         <Link href={"/"} className=" text-primary hover:underline">
           Login

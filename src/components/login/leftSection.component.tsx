@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function LeftSection() {
   return (
-    <div className="h-full py-3 w-1/2 overflow-hidden md:flex md:flex-col hidden rounded-2xl items-center justify-center !bg-[url('/images/login/Section.png')]">
+    <div className="h-full py-3 w-1/2 overflow-hidden md:flex md:flex-col hidden rounded-2xl items-center justify-center bg-cover !bg-[url('/images/login/Section.png')]">
       <Image
         width={450}
         height={450}

@@ -43,6 +43,12 @@ export default function Verification(props: { inc: any; isNew?: boolean }) {
       >
         {mutation.isPending ? "Loading" : "Verify"}
       </button>
+      <p className=" text-p flex gap-2">
+        Didn’t receive the SMS?{" "}
+        <span className=" text-headerWatch font-bold hover:underline cursor-pointer">
+          Click to resend
+        </span>
+      </p>
       <ToastContainer />
     </form>
   );

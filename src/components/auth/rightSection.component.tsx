@@ -1,6 +1,6 @@
 import Header from "@/components/auth/header.component";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 export default function RightSection(props: {
   idx: number;
@@ -30,10 +30,11 @@ export default function RightSection(props: {
       </div>
       {back && (
         <div
-          className=" flex items-center  gap-2 font-bold cursor-pointer"
+          className=" flex items-center justify-center  gap-2  text-center font-bold cursor-pointer"
           onClick={() => (idx === 0 ? router.replace("/") : func())}
         >
-          <Icon icon={"ep:back"} />
+          <IoArrowBackSharp />
+
           <span className=" font-bold">Back</span>
         </div>
       )}
