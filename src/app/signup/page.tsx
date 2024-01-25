@@ -1,17 +1,14 @@
 "use client";
+import ID from "@/components/auth/bodies/ID.component";
+import Personal from "@/components/auth/bodies/personal.component";
+import Pin from "@/components/auth/bodies/pin.component";
+import Signup from "@/components/auth/bodies/signup.component";
+import Verification from "@/components/auth/bodies/verification.component";
 import LeftSection from "@/components/auth/leftSection.component";
 import RightSection from "@/components/auth/rightSection.component";
-import Logo from "@/components/default/logo";
-import React from "react";
-import Signup from "@/components/auth/bodies/signup.component";
-import Personal from "@/components/auth/bodies/personal.component";
-import Verification from "@/components/auth/bodies/verification.component";
-import ID from "@/components/auth/bodies/ID.component";
-import Pin from "@/components/auth/bodies/pin.component";
-import { process } from "@/store/process";
-import { ToastContainer } from "react-toastify";
-import { signUpObj } from "@/store/signUpObj";
 import LightLogo from "@/components/default/lightLogo";
+import { process } from "@/store/process";
+import { signUpObj } from "@/store/signUpObj";
 
 export default function Page() {
   const { email, token } = signUpObj();
@@ -25,7 +22,7 @@ export default function Page() {
       brief: "Please provide your email and password ",
     },
     {
-      layout: <Verification inc={increment} />,
+      layout: <Verification inc={increment} isNew />,
       header: "Verification Code",
       brief: `We sent a verification code to ${email}`,
     },

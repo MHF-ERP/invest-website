@@ -6,7 +6,7 @@ import Body from "./body.component";
 export default function LoginBox() {
   return (
     <>
-      <div className="flex gap-8 flex-col bg-white px-6 py-8 rounded-lg md:w-[30vw] h-fit shadow-xl text-xlg font-">
+      <div className="flex gap-8 flex-col bg-white px-6 py-8 rounded-lg md:w-[30vw] h-fit form-shadow text-xlg font-">
         <Header
           title={"Log in"}
           brief={"Welcome back! Please enter your details."}

@@ -45,7 +45,7 @@ export default function Pin() {
   } = signUpObj();
   return (
     <form
-      className="flex flex-col gap-3 items-center"
+      className="flex flex-col gap-3 items-center form-shadow"
       onSubmit={(e: any) => {
         e.preventDefault();
         mutation.mutate(e);

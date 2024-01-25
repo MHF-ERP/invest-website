@@ -1,13 +1,13 @@
 import Inputs from "@/components/default/inputs";
 import { testPasswword } from "@/functions/validations";
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import signupService from "@/services/signup/signup.service";
+import { process } from "@/store/process";
+import { signUpObj } from "@/store/signUpObj";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Constrains from "../constrains.component";
-import signupService from "@/services/signup/signup.service";
-import { signUpObj } from "@/store/signUpObj";
-import { process } from "@/store/process";
 
 export default function Signup() {
   const { updateEmail, updateToken } = signUpObj();
@@ -20,31 +20,44 @@ export default function Signup() {
   });
   const [error, setError] = useState<string>("");
   return (
-    <form
-      className=" flex flex-col gap-3"
-      onSubmit={(e: any) => {
-        e.preventDefault();
-        mutation.mutate(e);
-      }}
-    >
-      <Inputs holder="Enter your email" text="Email" name="SignupEmail" />
-      <Inputs
-        holder="......"
-        text="Password"
-        name="SignupPassword"
-        onChange={handelPassword}
-      />
-      <Constrains error={error} />
-
-      <button
-        disabled={mutation.isPending}
-        type="submit"
-        className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
+    <>
+      <form
+        className="flex flex-col gap-8 form-shadow"
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          mutation.mutate(e);
+        }}
       >
-        {mutation.isPending ? "Loading" : "Continue"}
-      </button>
-      <ToastContainer />
-    </form>
+        <div className="flex flex-col gap-[20px]">
+          <Inputs
+            holder="Enter your email"
+            text="Email"
+            name="SignupEmail"
+            inputClassName="placeholder:text-base text-base"
+            spanClassName="font-medium"
+          />
+          <div className="flex flex-col gap-2">
+            <Inputs
+              holder="**********"
+              text="Password"
+              name="SignupPassword"
+              onChange={handelPassword}
+              inputClassName="placeholder:text-base text-base"
+              spanClassName="font-medium"
+            />
+            <Constrains error={error} />
+          </div>
+        </div>
+        <button
+          disabled={mutation.isPending}
+          type="submit"
+          className=" bg-main2 px-[10px] py-4 hover:shadow-md text-white rounded-md w-full font-semibold"
+        >
+          {mutation.isPending ? "Loading" : "Continue"}
+          <ToastContainer />
+        </button>
+      </form>
+    </>
   );
 
   function handelPassword(e: any) {

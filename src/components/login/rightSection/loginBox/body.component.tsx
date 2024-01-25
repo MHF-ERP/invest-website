@@ -44,7 +44,7 @@ export default function Body() {
   return (
     <>
       <form
-        className="flex flex-col gap-[20px]"
+        className="flex flex-col gap-[20px] form-shadow"
         onSubmit={(e: any) => mutation.mutate(e)}
       >
         <Inputs
@@ -119,8 +119,8 @@ export default function Body() {
         setCountProcess(processStatus(data["data"]["status"])!);
         updateEmail(data["data"]["email"]);
         updateToken(data["token"]);
-        updateFirstName(data["data"]["name"].split(" ")[0]);
-        updateLastName(data["data"]["name"].split(" ").pop());
+        updateFirstName(data["data"]["name"]?.split(" ")?.at(0));
+        updateLastName(data["data"]["name"]?.split(" ")?.pop());
         updatePhone(data["data"]["phone"]);
         updateCountry(data["data"]["country"]);
         updateCity(data["data"]["city"]);

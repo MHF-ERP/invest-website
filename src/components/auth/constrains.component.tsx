@@ -1,5 +1,4 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
 
 export default function Constrains(props: { error: string }) {
   const { error } = props;
@@ -36,6 +35,17 @@ export default function Constrains(props: { error: string }) {
         />
         <p className=" text-p text-sm">
           Must contain one special character (!, @, #, $, %).
+        </p>
+      </div>
+      <div className=" flex gap-2 items-center  ">
+        <Icon
+          icon={`${
+            !error.includes("4") ? "icon-park-solid:correct" : "ph:x-bold"
+          }`}
+          className={`${!error.includes("4") ? "text-p" : "text-red-500"}`}
+        />
+        <p className=" text-p text-sm">
+          Must contain at least one small letter.
         </p>
       </div>
     </div>

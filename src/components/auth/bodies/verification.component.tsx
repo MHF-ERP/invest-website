@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-import VerificationInput from "react-verification-input";
-import { ToastContainer, toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
-import "react-toastify/dist/ReactToastify.css";
 import verificationServices from "@/services/signup/verification,service";
+import forgetStore from "@/store/forget";
+import { signUpObj } from "@/store/signUpObj";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import VerificationInput from "react-verification-input";
 
-export default function Verification(props: { inc: any }) {
+export default function Verification(props: { inc: any; isNew?: boolean }) {
   const [code, setCode] = useState<string>("");
+  const { token } = signUpObj();
+  const { email } = forgetStore();
   const { inc } = props;
   const mutation = useMutation({
     mutationFn: (e) => {
-      return verificationServices(e, code, inc);
+      return verificationServices(e, code, inc, token, props.isNew, email);
     },
   });
   const handleVerificationChange = (value: string) => {
@@ -18,7 +22,7 @@ export default function Verification(props: { inc: any }) {
   };
   return (
     <form
-      className=" flex flex-col gap-3 items-center"
+      className=" flex flex-col gap-3 items-center form-shadow"
       onSubmit={(e: any) => {
         e.preventDefault();
         mutation.mutate(e);

@@ -1,5 +1,4 @@
 import { cn } from "@/lib/cn";
-import React from "react";
 
 export default function Header(props: {
   title: string;
@@ -9,7 +8,7 @@ export default function Header(props: {
 }) {
   const { title, brief, headerClassName, briefClassName } = props;
   return (
-    <div className="w-full flex flex-col items-center mb-4 gap-3">
+    <div className="w-full flex flex-col items-center gap-3">
       <h1 className={cn("font-bold text-xl text-main", headerClassName)}>
         {title}
       </h1>

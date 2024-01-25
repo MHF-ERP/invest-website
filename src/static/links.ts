@@ -7,6 +7,7 @@ export const AUTH = `${SERVER}/authentication`;
 export const LOGIN = `${AUTH}/login`;
 export const SIGNUP = `${AUTH}/init`;
 export const VERIFY = `${AUTH}/verify-email`;
+export const VERIFY_FORGOT_PASSWORD = `${AUTH}/verify-forgot-password`;
 export const PERSONAL = `${AUTH}/personal-info`;
 export const ID_verify = `${AUTH}/id-info`;
 export const ID_verify_WithoutImg = `${AUTH}/id-info-withoutImg`;

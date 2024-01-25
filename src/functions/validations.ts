@@ -24,6 +24,9 @@ function testPasswordConstraints(password: string): string | null {
   if (!/[!@#$%]/.test(password)) {
     error += "3";
   }
+  if (!/[a-z]/.test(password)) {
+    error += "4";
+  }
   // If all constraints are met, return null
   if (error !== "") {
     return error;
@@ -54,6 +57,9 @@ export function testPasswwordWithNotify(password: string) {
   }
 
   if (!/[A-Z]/.test(password)) {
+    return notify("Password not match the constrains");
+  }
+  if (!/[a-z]/.test(password)) {
     return notify("Password not match the constrains");
   }
 

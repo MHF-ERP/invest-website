@@ -1,11 +1,11 @@
 import DropDown from "@/components/default/dropdown";
 import Inputs from "@/components/default/inputs";
-import PhoneInput from "react-phone-input-2";
-import { ToastContainer, toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
-import "react-phone-input-2/lib/style.css";
-import { signUpObj } from "@/store/signUpObj";
 import { process } from "@/store/process";
+import { signUpObj } from "@/store/signUpObj";
+import { useMutation } from "@tanstack/react-query";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { ToastContainer } from "react-toastify";
 
 import { personalSerives } from "@/services/signup/personal.service";
 
@@ -38,7 +38,7 @@ export default function Personal() {
 
   return (
     <form
-      className=" flex flex-col gap-3"
+      className=" flex flex-col gap-3 form-shadow"
       onSubmit={(e: any) => {
         e.preventDefault();
         mutation.mutate(e);
@@ -49,7 +49,7 @@ export default function Personal() {
           holder="First name"
           text="First Name"
           name="firstName"
-          value={firstName.length > 0 ? firstName : ""}
+          value={firstName?.length > 0 ? firstName : ""}
         />
         <Inputs
           holder="Last name"

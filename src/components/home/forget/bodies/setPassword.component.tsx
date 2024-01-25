@@ -1,7 +1,7 @@
 import Constrains from "@/components/auth/constrains.component";
 import Inputs from "@/components/default/inputs";
 import { test, testPasswword } from "@/functions/validations";
-import { FORGET, RESET } from "@/static/links";
+import { RESET } from "@/static/links";
 import requestService from "@/static/requests";
 import forgetStore from "@/store/forget";
 import { useMutation } from "@tanstack/react-query";
@@ -20,19 +20,23 @@ export default function SetPassword() {
   const { increment, email } = forgetStore();
   return (
     <form
-      className=" flex flex-col gap-3"
+      className=" flex flex-col gap-3 form-shadow"
       onSubmit={(e: any) => mutation.mutate(e)}
     >
       <Inputs
-        holder="......"
+        holder="***********"
         text="Password"
         name="forgetPassword"
         onChange={handelPassword}
+        inputClassName="placeholder:text-base text-base"
+        spanClassName="font-medium"
       />
       <Inputs
-        holder="......"
-        text="confirm Password"
+        holder="***********"
+        text="Confirm Password"
         name="confirmForgetPassword"
+        inputClassName="placeholder:text-base text-base"
+        spanClassName="font-medium"
       />
       <Constrains error={error} />
 
@@ -64,7 +68,7 @@ export default function SetPassword() {
       return;
     }
     if (error.length > 0) {
-      return notify("Password not matxh the constrains");
+      return notify("Password not match the constrains");
     }
     if (password !== confirmPassword) {
       return notify("Passwords not match");

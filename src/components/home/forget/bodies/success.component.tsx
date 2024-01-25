@@ -1,6 +1,5 @@
 import forgetStore from "@/store/forget";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 export default function Success() {
   const router = useRouter();
@@ -12,7 +11,7 @@ export default function Success() {
           updateEmail("");
           router.replace("/");
         }}
-        className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
+        className="bg-main2 py-2  hover:shadow-md text-white rounded-md w-full "
       >
         Continue
       </button>
