@@ -2,6 +2,11 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+* {
+  @apply !leading-[120%]
+}
+
 .form-control {
   margin-top: 0 !important;
   width: 100% !important;

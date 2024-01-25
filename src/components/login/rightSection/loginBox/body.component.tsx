@@ -1,25 +1,19 @@
 "use client";
 import Inputs from "@/components/default/inputs";
-import React, { useEffect } from "react";
-import Remember from "./remember.component";
-import Link from "next/link";
-import requestService from "@/static/requests";
-import {
-  isPassword,
-  test,
-  testEmail,
-  testPasswword,
-} from "@/functions/validations";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
-import { LOGIN, MEDIA } from "@/static/links";
-import { useRouter } from "next/navigation";
-import userStore from "@/store/user";
-import { process } from "@/store/process";
 import { processStatus } from "@/functions/processStatus";
-import { signUpObj } from "@/store/signUpObj";
+import { isPassword, test } from "@/functions/validations";
+import { LOGIN, MEDIA } from "@/static/links";
+import requestService from "@/static/requests";
 import forgetStore from "@/store/forget";
+import { process } from "@/store/process";
+import { signUpObj } from "@/store/signUpObj";
+import userStore from "@/store/user";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Remember from "./remember.component";
 
 export default function Body() {
   const { setCount: setCountProcess } = process();
@@ -48,33 +42,37 @@ export default function Body() {
   } = signUpObj();
   const { setName } = userStore();
   return (
-    <form
-      className=" flex flex-col gap-3"
-      onSubmit={(e: any) => mutation.mutate(e)}
-    >
-      <Inputs holder="Enter your email" text="Email" name="LoginEmail" />
-      <Inputs holder="......" text="Password" name="LoginPassword" />
-      <Remember />
-      <button
-        disabled={mutation.isPending}
-        type="submit"
-        className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mb-4 "
+    <>
+      <form
+        className="flex flex-col gap-[20px]"
+        onSubmit={(e: any) => mutation.mutate(e)}
       >
-        {mutation.isPending ? "Loading" : "Sign in"}
-      </button>
-      <div className=" flex items-center justify-center gap-1">
-        <span className=" text-placeholer text-sm  text-center">
-          Don’t have an account?{" "}
-        </span>
-        <Link
-          className=" text-main text-sm font-semibold hover:underline "
-          href={"/signup"}
+        <Inputs
+          holder="Enter your email"
+          text="Email"
+          name="LoginEmail"
+          inputClassName="placeholder:text-base text-base"
+          spanClassName="font-medium"
+        />
+        <div className="flex flex-col gap-4">
+          <Inputs
+            holder="*************"
+            text="Password"
+            name="LoginPassword"
+            inputClassName="placeholder:text-base text-base"
+            spanClassName="font-medium"
+          />
+          <Remember />
+        </div>
+        <button
+          disabled={mutation.isPending}
+          type="submit"
+          className=" bg-main2 px-[10px] py-4 hover:shadow-md text-white rounded-md w-full mb-4 font-semibold"
         >
-          Sign Up
-        </Link>
-      </div>
-      <ToastContainer />
-    </form>
+          {mutation.isPending ? "Loading" : "Sign in"}
+        </button>
+      </form>
+    </>
   );
   async function handelForm(e: any) {
     e.preventDefault();

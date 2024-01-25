@@ -1,4 +1,4 @@
-import { SERVERIP } from "../../secrets";
+import { SERVERIP } from "@/../secrets";
 
 //**************** SERVER *******************/
 export const SERVER = `${SERVERIP}/api/v1`;
