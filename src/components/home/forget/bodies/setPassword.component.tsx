@@ -20,7 +20,7 @@ export default function SetPassword() {
   const { increment, email } = forgetStore();
   return (
     <form
-      className=" flex flex-col gap-3 form-shadow"
+      className=" flex flex-col gap-3"
       onSubmit={(e: any) => mutation.mutate(e)}
     >
       <Inputs

@@ -44,7 +44,7 @@ export default function Body() {
   return (
     <>
       <form
-        className="flex flex-col gap-[20px] form-shadow"
+        className="flex flex-col gap-[20px]"
         onSubmit={(e: any) => mutation.mutate(e)}
       >
         <Inputs

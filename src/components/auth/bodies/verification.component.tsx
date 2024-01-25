@@ -22,7 +22,7 @@ export default function Verification(props: { inc: any; isNew?: boolean }) {
   };
   return (
     <form
-      className=" flex flex-col gap-3 items-center form-shadow"
+      className=" flex flex-col gap-3 items-center"
       onSubmit={(e: any) => {
         e.preventDefault();
         mutation.mutate(e);

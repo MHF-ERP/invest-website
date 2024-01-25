@@ -22,7 +22,7 @@ export default function Signup() {
   return (
     <>
       <form
-        className="flex flex-col gap-8 form-shadow"
+        className="flex flex-col gap-8"
         onSubmit={(e: any) => {
           e.preventDefault();
           mutation.mutate(e);

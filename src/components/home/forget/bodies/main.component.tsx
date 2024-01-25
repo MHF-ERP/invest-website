@@ -16,7 +16,7 @@ export default function Forget() {
   const { email, count, increment, updateEmail } = forgetStore();
   return (
     <form
-      className=" flex flex-col gap-3 items-center form-shadow"
+      className=" flex flex-col gap-3 items-center"
       onSubmit={(e: any) => mutation.mutate(e)}
     >
       <Inputs

@@ -38,7 +38,7 @@ export default function Personal() {
 
   return (
     <form
-      className=" flex flex-col gap-3 form-shadow"
+      className=" flex flex-col gap-3"
       onSubmit={(e: any) => {
         e.preventDefault();
         mutation.mutate(e);
