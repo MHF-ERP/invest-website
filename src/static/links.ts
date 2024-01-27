@@ -13,6 +13,7 @@ export const ID_verify = `${AUTH}/id-info`;
 export const ID_verify_WithoutImg = `${AUTH}/id-info-withoutImg`;
 export const FORGET = `${AUTH}/forgot-password`;
 export const RESET = `${AUTH}/reset-password`;
+export const LOGOOUT = `${AUTH}/logout`;
 
 export const PIN = `${AUTH}/set-pin`;
 //**************** USER *******************/

@@ -18,8 +18,26 @@ class RequestService {
     });
   }
 
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<RESPONSE> {
-    const response = await this.axiosInstance.get<T>(url, config);
+  async get<T>(
+    url: string,
+    token?: string,
+    config?: AxiosRequestConfig
+  ): Promise<RESPONSE> {
+    let headers;
+    if (token) {
+      headers = {
+        ...config?.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    } else {
+      headers = {
+        ...config?.headers,
+      };
+    }
+    const response = await this.axiosInstance.get<T>(url, {
+      ...config,
+      headers,
+    });
     return response;
   }
 

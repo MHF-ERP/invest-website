@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Remember from "./remember.component";
+import { setCookie } from "cookies-next";
 
 export default function Body() {
   const { setCount: setCountProcess } = process();
@@ -133,7 +134,9 @@ export default function Body() {
       // **************Valid Credintial and User Active******************
       else {
         setName(data["data"]["name"]);
-        document.cookie = `AccessToken=${data["token"]}; path=/`;
+        setCookie("AccessToken", data["token"]);
+
+        // document.cookie = `AccessToken=${data["token"]}; path=/`;
         router.replace("/home");
       }
     }
