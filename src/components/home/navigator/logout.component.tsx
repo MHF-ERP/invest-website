@@ -10,7 +10,7 @@ export default function Logout() {
   //   const mutation = useMutation({
   const router = useRouter();
   const mutation = useMutation({
-    mutationFn: (e) => {
+    mutationFn: () => {
       return logoutRequest(getCookie("AccessToken")!, router, deleteCookie);
     },
   });

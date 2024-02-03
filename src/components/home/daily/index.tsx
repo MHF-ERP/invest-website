@@ -26,14 +26,28 @@ export default function Daily() {
       value: "139.99",
       change: "+2.89%",
     },
+    {
+      img: "/images/companies/orange.png",
+      title: "AMD",
+      brief: "Advanced Microsoft Development",
+      value: "139.99",
+      change: "+2.89%",
+    },
+    {
+      img: "/images/companies/orange.png",
+      title: "AMD",
+      brief: "Advanced Microsoft Development",
+      value: "139.99",
+      change: "+2.89%",
+    },
   ];
   return (
-    <div className=" flex-1 flex flex-col p-4 border border-graph shadow rounded-xl">
+    <div className=" flex-1 -mt-2 flex flex-col p-4 border border-divider shadow rounded-xl">
       <Header />
       <div className=" flex w-full gap-6 mt-2 xl:flex-row lg:flex-row md:flex-row flex-col ">
         <div className=" flex gap-2 flex-col w-full ">
           <div
-            className=" mb-4  px-4  flex w-full justify-between items-center rounded-xl text-text2"
+            className=" mb-4  px-2 py-1  flex w-full justify-between items-center rounded-[6px] text-text2"
             style={{ backgroundColor: "#dff4ea" }}
           >
             Gainers
@@ -50,7 +64,7 @@ export default function Daily() {
         </div>
         <div className=" flex gap-2 flex-col w-full">
           <div
-            className=" mb-4  px-4  flex w-full justify-between items-center rounded-xl text-decrease"
+            className=" mb-4  px-2 py-1  flex w-full justify-between items-center rounded-[6px] text-decrease"
             style={{ backgroundColor: "#FDE6E4" }}
           >
             Losers

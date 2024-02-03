@@ -38,6 +38,7 @@ export default function Navigator(props: { current: number }) {
       link: "/discover",
     },
   ];
+
   return (
     <div className=" h-full xl:min-w-60 lg:min-w-60 md:w-fit flex flex-col justify-between">
       <SmallLogo />

@@ -36,13 +36,20 @@ export default function DefHome() {
       value: "139.99",
       change: "+2.89%",
     },
+    {
+      img: "/images/companies/orange.png",
+      title: "AMD",
+      brief: "Advanced Microsoft Development",
+      value: "139.99",
+      change: "+2.89%",
+    },
   ];
   return (
     <HomeLayout>
       <WelcomeBox />
       <Indices />
 
-      <div className=" flex gap-4 overflow-scroll w-full cat  cursor-grab mt-4">
+      <div className=" flex gap-4 overflow-x-scroll w-full cat  cursor-grab overflow-y-hidden ">
         <Card />
         <Card />
         <Card />
@@ -58,9 +65,14 @@ export default function DefHome() {
         <Card />
       </div>
       <GraphBox title={"Sales Report"} stock={false} />
-      <div className=" flex gap-4  w-full mt-4 xl:flex-row lg:flex-row md:flex-row flex-col">
-        <WatchList data={stocksData} title="Most traded stocks" />
+      <div className=" flex gap-4  w-full  xl:flex-row lg:flex-row md:flex-row flex-col">
         <Daily />
+
+        <WatchList
+          data={stocksData}
+          title="Top Turnover"
+          brief="Most traded stocks"
+        />
       </div>
     </HomeLayout>
   );

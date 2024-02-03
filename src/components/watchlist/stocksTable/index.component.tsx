@@ -8,20 +8,24 @@ export default function StockTable() {
       style={{ borderCollapse: "collapse" }}
     >
       <table className=" w-full ">
-        <thead className=" w-full text-p">
+        <thead className=" w-full text-[#475467]">
           <tr style={{ width: "100%" }} className="  ">
-            <th className=" text-start w-60 font-semibold py-4 px-8 border-b-2">
+            <th className=" w-[40%]  text-start flex-1 text-[12px] text-[#475467] font-semibold py-[12px] px-[24px] border-b-2">
               Markets
             </th>
-            <th className=" text-start w-32 font-semibold border-b-2">
+            <th className=" text-start w-[10%] text-[12px] text-[#475467] font-semibold py-[12px] px-[24px] border-b-2">
               Change1D
             </th>
-            <th className=" border-b-2"></th>
+            <th className=" border-b-2 w-[20%]"></th>
 
-            <th className="w-32 border-b-2 text-start font-semibold">Short</th>
-            <th className="w-32 border-b-2 text-start font-semibold">buy</th>
+            <th className="w-[10%] border-b-2 text-start text-[12px] text-[#475467] font-semibold py-[12px] px-[24px]">
+              Short
+            </th>
+            <th className="w-[10%] border-b-2 text-start text-[12px] text-[#475467] font-semibold py-[12px] px-[24px]">
+              buy
+            </th>
 
-            <th className=" border-b-2 px-8"></th>
+            <th className=" w-[10%] border-b-2 px-8"></th>
           </tr>
         </thead>
         <tbody className=" w-full ">

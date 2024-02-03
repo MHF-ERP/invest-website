@@ -20,9 +20,9 @@ export default function About() {
     },
   ];
   return (
-    <div className=" border border-divider shadow p-4 rounded-xl flex-1 flex flex-col gap-3">
-      <h1 className=" font-bold text-main">About</h1>
-      <p className=" text-sm" style={{ color: "#26312A" }}>
+    <div className=" border border-divider shadow p-[21px] rounded-xl flex-1 flex flex-col gap-3">
+      <h1 className=" font-bold text-[#0B0E0C] text-[16px] ">About</h1>
+      <p className=" text-[16px] text-[#26312A] font-[400] ">
         Nvidia is a leading developer of graphics processing units.
         Traditionally, GPUs were used to enhance the experience on computing
         platforms, most notably in gaming applications on PCs. GPU use cases
@@ -38,13 +38,13 @@ export default function About() {
           return (
             <div key={idx} className=" flex flex-col">
               <span
-                className=" font-semibold xl:text-base lg:text-base md:text-base text-sm"
+                className=" font-semibold text-[14px]"
                 style={{ color: "#6B8373" }}
               >
                 {item["title"]}
               </span>
               <span
-                className=" font-semibold xl:text-base lg:text-base text-sm"
+                className=" font-semibold text-[16px]"
                 style={{ color: "#26312A" }}
               >
                 {item["value"]}

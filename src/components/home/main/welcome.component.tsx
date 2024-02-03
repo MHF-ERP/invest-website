@@ -16,7 +16,8 @@ export default function Welcome() {
   return (
     <div className=" flex flex-col">
       <h1 className=" text-main font-bold text-3xl">
-        Welcome back, {!isLoading && data!["data"]["data"]["name"]}
+        Welcome back,{" "}
+        {!isLoading && data !== undefined && data!["data"]["data"]["name"]}
       </h1>
       <p className="text-p text-m">
         Track, manage and forecast your customers and orders.

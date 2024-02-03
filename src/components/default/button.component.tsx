@@ -9,7 +9,7 @@ export default function Button(props: {
   return (
     <button
       style={{ backgroundColor: bgColor, color: color }}
-      className=" py-2 px-3 rounded-lg"
+      className=" py-[10px] px-[14px] rounded-lg text-[14px] w-[104px]"
     >
       {text}
     </button>

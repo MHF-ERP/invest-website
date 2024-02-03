@@ -18,7 +18,7 @@ export default function HandelDynamicGraph(props: { chartData: any }) {
         options={chartData.options as any}
         series={chartData.series}
         type="area"
-        height={250}
+        height={200}
         width={"100%"}
       />
     </div>

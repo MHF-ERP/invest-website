@@ -299,13 +299,7 @@ export default function DateTimeChart(props: { title: string }) {
           autoScaleYaxis: true,
         },
       },
-      yaxis: {
-        labels: {
-          formatter: function (val: any) {
-            return val.toFixed(0);
-          },
-        },
-      },
+
       annotations: {
         yaxis: [
           {
@@ -340,6 +334,14 @@ export default function DateTimeChart(props: { title: string }) {
       dataLabels: {
         enabled: false,
       },
+      yaxis: {
+        labels: {
+          show: false,
+        },
+        tooltip: {
+          enabled: false, // disable tooltips
+        },
+      },
       markers: {
         size: 0,
         style: "hollow",
@@ -347,7 +349,7 @@ export default function DateTimeChart(props: { title: string }) {
       xaxis: {
         type: "datetime",
         min: new Date("01 Mar 2012").getTime(),
-        tickAmount: 6,
+        tickAmount: 1,
       },
       tooltip: {
         x: {
@@ -364,13 +366,14 @@ export default function DateTimeChart(props: { title: string }) {
           colorStops: [
             {
               offset: 0,
-              color: "#9AFF9A", // Light green color start
+              color: "#2E644E", // Light green color start
               opacity: 1,
             },
+
             {
               offset: 100,
               color: "#FFFFFF", // Lime green color end
-              opacity: 1,
+              opacity: 0,
             },
           ],
         },
@@ -380,12 +383,19 @@ export default function DateTimeChart(props: { title: string }) {
       show: true,
     },
 
-    selection: "one_year",
+    selection: "five_days",
   });
   function updateData(timeline: any) {
     setChartData({ ...chartData, selection: timeline });
 
     switch (timeline) {
+      case "five_days":
+        ApexCharts.exec(
+          "area-datetime",
+          "zoomX",
+          new Date("28 Jan 2013").getTime(),
+          new Date("27 Feb 2013").getTime()
+        );
       case "one_month":
         ApexCharts.exec(
           "area-datetime",
@@ -394,14 +404,15 @@ export default function DateTimeChart(props: { title: string }) {
           new Date("27 Feb 2013").getTime()
         );
         break;
-      case "six_months":
+      case "three_months":
         ApexCharts.exec(
           "area-datetime",
           "zoomX",
-          new Date("27 Sep 2012").getTime(),
+          new Date("28 Jan 2013").getTime(),
           new Date("27 Feb 2013").getTime()
         );
         break;
+
       case "one_year":
         ApexCharts.exec(
           "area-datetime",
@@ -410,14 +421,31 @@ export default function DateTimeChart(props: { title: string }) {
           new Date("27 Feb 2013").getTime()
         );
         break;
-      case "ytd":
+      case "three_year":
         ApexCharts.exec(
           "area-datetime",
           "zoomX",
-          new Date("01 Jan 2013").getTime(),
+          new Date("27 Feb 2012").getTime(),
           new Date("27 Feb 2013").getTime()
         );
         break;
+      case "five_year":
+        ApexCharts.exec(
+          "area-datetime",
+          "zoomX",
+          new Date("27 Feb 2012").getTime(),
+          new Date("27 Feb 2013").getTime()
+        );
+        break;
+      case "ten_year":
+        ApexCharts.exec(
+          "area-datetime",
+          "zoomX",
+          new Date("27 Feb 2012").getTime(),
+          new Date("27 Feb 2013").getTime()
+        );
+        break;
+
       case "all":
         ApexCharts.exec(
           "area-datetime",
@@ -433,16 +461,27 @@ export default function DateTimeChart(props: { title: string }) {
   return (
     <div
       id="chart"
-      className=" border border-graph shadow p-4 rounded-xl flex-1"
+      className=" border border-divider p-[21px]  shadow rounded-xl flex-1"
     >
-      <h1 className=" font-bold text-main">{title}</h1>
-      <div className="flex xl:gap-4 lg:gap-4 md:gap-4 -mb-2">
+      <h1 className=" font-bold text-main text-[16px]">{title}</h1>
+      <div className="flex xl:gap-4 lg:gap-4 md:gap-4 -mb-2 pt-[20px]">
+        <button
+          id="five_days"
+          onClick={() => updateData("five_days")}
+          className={`${
+            chartData.selection === "five_days"
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
+        >
+          5D
+        </button>
         <button
           id="one_month"
           onClick={() => updateData("one_month")}
           className={`${
             chartData.selection === "one_month"
-              ? "bg-graph text-main font-bold"
+              ? "bg-[#E7E7E7] text-main font-bold"
               : "text-placeholer font-semibold "
           }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
         >
@@ -450,15 +489,15 @@ export default function DateTimeChart(props: { title: string }) {
         </button>
 
         <button
-          id="six_months"
-          onClick={() => updateData("six_months")}
+          id="three_months"
+          onClick={() => updateData("three_months")}
           className={`${
-            chartData.selection === "six_months"
-              ? "bg-graph text-main font-bold"
-              : " text-placeholer font-semibold"
-          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl`}
+            chartData.selection === "three_months"
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
         >
-          6M
+          3M
         </button>
 
         <button
@@ -466,35 +505,55 @@ export default function DateTimeChart(props: { title: string }) {
           onClick={() => updateData("one_year")}
           className={`${
             chartData.selection === "one_year"
-              ? "bg-graph text-main font-bold"
-              : " text-placeholer font-semibold"
-          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit  rounded-xl`}
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
         >
           1Y
         </button>
-
         <button
-          id="ytd"
-          onClick={() => updateData("ytd")}
+          id="three_year"
+          onClick={() => updateData("three_year")}
           className={`${
-            chartData.selection === "ytd"
-              ? "bg-graph text-main font-bold"
-              : " text-placeholer font-semibold"
-          }   xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl`}
+            chartData.selection === "three_year"
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
         >
-          5M
+          3Y
         </button>
-
+        <button
+          id="five_year"
+          onClick={() => updateData("five_year")}
+          className={`${
+            chartData.selection === "five_year"
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
+        >
+          5Y
+        </button>
+        <button
+          id="ten_year"
+          onClick={() => updateData("ten_year")}
+          className={`${
+            chartData.selection === "ten_year"
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
+        >
+          10Y
+        </button>
         <button
           id="all"
           onClick={() => updateData("all")}
           className={`${
             chartData.selection === "all"
-              ? "bg-graph text-main font-bold"
-              : " text-placeholer font-semibold"
-          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl`}
+              ? "bg-[#E7E7E7] text-main font-bold"
+              : "text-placeholer font-semibold "
+          }    xl:p-4 lg:p-4 md:p-4 p-2 h-fit rounded-xl cursor-pointer`}
         >
-          ALL
+          10Y
         </button>
       </div>
 

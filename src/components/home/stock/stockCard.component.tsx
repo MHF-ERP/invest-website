@@ -8,28 +8,32 @@ import { FaArrowTrendDown } from "react-icons/fa6";
 
 export default function StockCard() {
   return (
-    <div className=" flex w-full justify-between items-start mt-4 text-sm">
+    <div className=" flex w-full justify-between items-start mt-6 text-sm">
       <div className=" flex gap-2">
         <Image
           alt="stockImage"
           src={"/images/companies/orange.png"}
-          width={50}
-          height={50}
+          width={66}
+          height={66}
+          className=" rounded-[6px]"
         />
-        <div className=" flex-col flex">
-          <span className="  font-semibold" style={{ color: "#0B0E0C" }}>
+        <div className=" flex-col flex justify-center">
+          <span
+            className="  font-semibold text-[16px] text-[#171D19]"
+            style={{ color: "#0B0E0C" }}
+          >
             NVIDIA Corp{" "}
-            <span className=" font-normal" style={{ color: "#45564B" }}>
+            <span className=" font-light" style={{ color: "#45564B" }}>
               {" "}
               | NVDA (USA)
             </span>{" "}
           </span>
           <span
-            className=" xl:flex-row lg:flex-row md:flex-row flex-col  font-bold flex xl:text-4xl lg:text-4xl md:text-3xl text-xl gap-1 "
+            className=" xl:flex-row lg:flex-row md:flex-row flex-col  font-bold flex  text-[32px] gap-1 "
             style={{ color: "#0B0E0C" }}
           >
             $546.81
-            <span className=" text-decrease font-normal flex flex-row items-end text-xs gap-1">
+            <span className=" text-decrease font-semibold  text-[12px] flex flex-row items-end text-xs gap-2">
               <FaArrowTrendDown />
               -1.12 (-0.2%)
               <span className=" text-xs font-normal flex items-end text-p">
@@ -44,8 +48,8 @@ export default function StockCard() {
           text="Add to Watchlist"
           color="#2E644E"
           bgColor="#FFFFFF"
-          left={false}
-          icon={<MdFormatListBulletedAdd className=" text-main2" />}
+          left={true}
+          icon={<MdFormatListBulletedAdd className=" text-[#323232]" />}
         />
         <Button text="Trade" color="#FFFFFF" bgColor="#2E644E" />
       </div>

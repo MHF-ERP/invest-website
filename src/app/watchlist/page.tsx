@@ -1,40 +1,107 @@
+"use client";
 import IconButton from "@/components/default/iconButton.component";
 import Garph from "@/components/graph.component";
 import Navigator from "@/components/home/navigator/navigator.component";
+import Empty from "@/components/home/watchlist/empty.component";
 import Stocks from "@/components/home/watchlist/stocks/index.component";
 import AllPageLayout from "@/components/layouts/allPage.layout";
 import HomeLayout from "@/components/layouts/home.layout";
 import Changes from "@/components/watchlist/changes.component";
 import Header from "@/components/watchlist/header.component";
-import StockTable from "@/components/watchlist/stocksTable/index.component";
+import CreateList from "@/components/watchlist/popup/createList.component";
+import DeleteList from "@/components/watchlist/popup/deleteList.component";
 import Actions from "@/components/watchlist/taps/actions.component";
 import Taps from "@/components/watchlist/taps/taps.component";
-import React from "react";
-import { IoFilter } from "react-icons/io5";
+import { GetWatchLists } from "@/services/watchlist/getWatchLists.service";
+import { useQuery } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { IoMdAdd } from "react-icons/io";
 
-export default function page() {
+export default function Page() {
+  const cards = [];
+  const [overlay, setOverlay] = useState(0);
+  const { data, isLoading } = useQuery({
+    queryKey: ["Watchlists"],
+    queryFn: () => GetWatchLists(getCookie("AccessToken")!),
+    enabled: true,
+  });
+  // useEffect(() => {
+  //   refetch();
+  // }, [refetch]);
+  if (isLoading)
+    return (
+      <div className=" w-screen h-screen flex items-center justify-center text-main2">
+        Loading...
+      </div>
+    );
+  const popup = [
+    <CreateList setOverlay={setOverlay} key={0} />,
+    <DeleteList key={1} setOverlay={setOverlay} />,
+  ];
   return (
-    <AllPageLayout>
-      <Navigator current={2} />
+    <>
+      {overlay !== 0 && popup[overlay - 1]}
+      <main
+        className={`  flex  h-screen max-w-screen  bg-[#1F332B] ${
+          overlay ? "over" : ""
+        }`}
+      >
+        {overlay !== 0 && (
+          <div className=" bg-[#0C111D] w-screen h-screen  opacity-60 absolute top-0 left-0 z-10"></div>
+        )}
 
-      <HomeLayout>
-        <Header />
-        <hr className="my-4" />
-        <div className=" flex justify-between items-center">
-          <Taps />
-          <div className=" flex gap-4">
-            <Actions />
-            <IconButton
-              bgColor="#FFFFFF"
-              color="#26312A"
-              icon={<IoFilter className=" text-taps" />}
-              left={false}
-              text="Filters"
-            />
-          </div>
-        </div>
-        <Changes />
-      </HomeLayout>
-    </AllPageLayout>
+        <Navigator current={2} />
+
+        {data && data !== undefined && data!["data"]["data"].length === 0 ? (
+          <HomeLayout>
+            <Header empty={true} />
+            <hr className="my-4" />
+            <div
+              className=" flex items-center justify-center"
+              style={{ width: "100%", height: "87%" }}
+            >
+              <div className=" flex items-center flex-col gap-[4px]">
+                <Image
+                  src={"/images/empty.png"}
+                  alt="empty"
+                  width={150}
+                  height={150}
+                />
+                <h1 className=" text-[20px] font-[600] text-[#0B0E0C]">
+                  No watchlists yet
+                </h1>
+                <p className=" text-[14px] text-[#45564B] font-[400]">
+                  Begin choosing the stocks you want to keep an eye on.
+                </p>
+                <div className=" flex gap-3 mt-[16px]">
+                  <IconButton
+                    text="Create Watchlist"
+                    color="#FFFFFF"
+                    bgColor="#2E644E"
+                    icon={<IoMdAdd className=" text-white text-[20px]" />}
+                    left={true}
+                    onClick={() => setOverlay(1)}
+                  />
+                </div>
+              </div>
+            </div>
+          </HomeLayout>
+        ) : (
+          <HomeLayout>
+            <Header empty={false} setOverlay={setOverlay} />
+            <hr className="my-4" />
+            <div className=" flex justify-between items-center">
+              <Taps data={data!["data"]["data"]} />
+              <div className=" flex gap-4">
+                <Actions />
+              </div>
+            </div>
+            <Changes />
+          </HomeLayout>
+        )}
+      </main>
+    </>
   );
 }

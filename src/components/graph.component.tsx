@@ -9,8 +9,9 @@ export default function Garph(props: {
   color1: string;
   color2: string;
   data: any;
+  margin?: string;
 }) {
-  const { height, height2, color1, color2, data } = props;
+  const { height, height2, color1, color2, data, margin } = props;
   const [chartData, setChartData] = useState({
     series: [
       {
@@ -29,7 +30,7 @@ export default function Garph(props: {
       },
       chart: {
         id: "area-datetime",
-        type: "area",
+        type: "line",
         height: 100,
         zoom: {
           autoScaleYaxis: false,
@@ -99,6 +100,7 @@ export default function Garph(props: {
               color: color2, // Light green color start
               opacity: 1,
             },
+
             {
               offset: 100,
               color: "#FFFFFF", // Lime green color end
@@ -115,7 +117,7 @@ export default function Garph(props: {
     selection: "one_year",
   });
   return (
-    <div className={` w-full ${height}`}>
+    <div className={` w-full ${height} -mt-[${margin}px]`}>
       <Chart
         options={chartData.options as any}
         series={chartData.series}

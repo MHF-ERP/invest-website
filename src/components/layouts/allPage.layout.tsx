@@ -4,6 +4,8 @@ export default function AllPageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className=" bg-main flex  h-screen max-w-screen">{children}</main>
+    <main className="  flex  h-screen max-w-screen  bg-[#1F332B]">
+      {children}
+    </main>
   );
 }

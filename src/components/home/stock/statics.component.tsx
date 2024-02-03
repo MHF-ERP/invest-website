@@ -28,7 +28,7 @@ export default function Statics() {
     },
   ];
   return (
-    <div className=" border border-divider shadow p-4 rounded-xl flex-1">
+    <div className=" border border-divider shadow p-[21px] rounded-xl flex-1 h-fit">
       <h1 className=" font-bold text-main">Statistics</h1>
       <div className=" flex flex-col gap-3 mt-3">
         {data.map((item: any, idx: number) => {

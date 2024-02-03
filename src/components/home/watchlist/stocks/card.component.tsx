@@ -9,10 +9,12 @@ export default function Card(props: { text: string; data: any }) {
   const { text, data } = props;
 
   return (
-    <div className=" flex flex-col gap-3 w-70 p-4 border border-divider rounded-lg">
+    <div className=" flex flex-col gap-3 w-[23%] p-[14px] border border-divider rounded-[8px]">
       <ProfileStock />
-      <div className=" w-full justify-between items-center flex">
-        <span style={{ color: "#45564B" }}>Change(1D)</span>
+      <div className=" w-full py-[12px] justify-between items-center flex">
+        <span className=" text-[#45564B] text-[12px]  font-[500]  ">
+          Change(1D)
+        </span>
         <span className={`${TextColor(text[0])}`}>{text}</span>
       </div>
       <div className=" -mt-10">

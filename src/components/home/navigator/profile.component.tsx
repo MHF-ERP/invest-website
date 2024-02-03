@@ -34,15 +34,18 @@ export default function Profile() {
           width={50}
           height={50}
           className=" w-10 h-10  rounded-full"
-          src={`${MEDIA}${!isLoading && data!["data"]["data"]["image"]}`}
+          src={`${MEDIA}${
+            !isLoading && data !== undefined && data!["data"]["data"]["image"]
+          }`}
         />
         {!isLoading && (
           <div className=" xl:flex lg:flex hidden  flex-col">
             <h1 className=" text-white font-semibold text-sm">
-              {data!["data"]["data"]["name"]}
+              {data !== undefined && data!["data"]["data"]["name"]}
             </h1>
             <p className=" -mt-1 text-sm" style={{ color: "#C3E8CF" }}>
-              {chexkLength(data!["data"]["data"]["email"], 19)}
+              {data !== undefined &&
+                chexkLength(data!["data"]["data"]["email"], 19)}
             </p>
           </div>
         )}

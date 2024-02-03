@@ -1,6 +1,7 @@
 import Garph from "@/components/graph.component";
 import Profile from "@/components/profile.component";
 import TextColor from "@/functions/textColor";
+import Remove from "@/icons/remove.icon";
 import React from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 
@@ -87,16 +88,20 @@ export default function Column(props: { last: boolean }) {
   const { last } = props;
   return (
     <tr className={` w-full ${!last ? "border-b-2" : ""} `}>
-      <td className={`  py-4 px-8  `}>
+      <td className={`px-[24px] py-[16px] `}>
         <Profile />
       </td>
-      <td className={`${!last ? "border-b-2" : ""}`}>
-        <div className="  flex flex-col  w-fit items-center  ">
-          <span className={`${TextColor("-")} font-bold `}>-10000.55</span>
-          <span className={`${TextColor("-")}`}>-0.2%</span>
+      <td className={` px-[24px] ${!last ? "border-b-2" : ""}`}>
+        <div className="  flex flex-col  w-fit  items-start text-start  ">
+          <span className={`${TextColor("-")} font-[600]  text-[14px]`}>
+            -10000.55
+          </span>
+          <span className={`${TextColor("-")} font-[400]  text-[14px]`}>
+            -0.2%
+          </span>
         </div>
       </td>
-      <td className="">
+      <td className="px-[24px] py-[16px]">
         <div className="-mt-10  pr-10  ">
           <Garph
             height=" h-24 "
@@ -107,13 +112,14 @@ export default function Column(props: { last: boolean }) {
           />
         </div>
       </td>
-      <td className="#171D19  font-semibold text-start">42051.94</td>
-      <td className="#171D19  font-semibold text-start">42051.94</td>
-      <td className="px-8 ">
-        <FaRegTrashCan
-          className=" cursor-pointer"
-          style={{ color: "#EAECF0" }}
-        />
+      <td className="text-[#171D19] px-[24px] py-[16px]  font-semibold text-start">
+        42051.94
+      </td>
+      <td className="text-[#171D19] px-[24px] py-[16px]  font-semibold text-start">
+        42051.94
+      </td>
+      <td className="px-[24px] py-[16px] ">
+        <Remove />
       </td>
     </tr>
   );

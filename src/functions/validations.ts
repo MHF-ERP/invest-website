@@ -127,3 +127,6 @@ export function codeVerification(code: string) {
   }
   return true;
 }
+export function textLength(text: String) {
+  return text.length;
+}

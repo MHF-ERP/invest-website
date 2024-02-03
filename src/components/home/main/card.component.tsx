@@ -24,33 +24,37 @@ export default function Card() {
   return (
     <div className=" flex flex-col min-w-60 h-fit  border-2 border-bord p-4 rounded-2xl shadow-sm">
       <div className=" w-full flex gap-2 items-center">
-        <Image
-          width={20}
-          height={20}
-          style={{ border: "2px solid #ACCDB7" }}
+        <div className=" w-[14px] h-[14px] border border-[#E7E7E7] object-contain rounded-full !bg-[url('/images/home/flag.png')]"></div>
+        {/* <Image
+          width={16}
+          height={18}
           src="/images/home/flag.png"
-          className=" w-6 h-6 rounded-3xl"
+          className="  rounded-xl"
           alt="flag image"
-        />
+        /> */}
         <span className=" text-p text-sm font-semibold">ESP35</span>
       </div>
       <div className=" flex justify-between items-center">
         <div className=" flex flex-col">
-          <p className=" text-2xl font-bold" style={{ color: "#0B0E0C" }}>
-            1017012
+          <p
+            className=" text-2xl font-bold text-[20px]"
+            style={{ color: "#0B0E0C" }}
+          >
+            10170.12
           </p>
           <div className=" flex gap-2 items-center text-xl font-bold">
-            <FaArrowTrendUp className=" text-success" />
+            <FaArrowTrendUp className=" text-success w-[16px] h-[16px]" />
 
-            <span className=" font-bold text-success">0.18%</span>
+            <span className=" font-bold text-success text-[12px]">0.18%</span>
           </div>
         </div>
         <Garph
           data={data}
-          height="h-20"
+          height="h-10"
           height2={100}
           color1="#2E644E"
           color2="#9AFF9A"
+          margin="70"
         />
       </div>
     </div>

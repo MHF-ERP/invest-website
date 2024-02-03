@@ -2,6 +2,10 @@ import { SERVERIP } from "@/../secrets";
 
 //**************** SERVER *******************/
 export const SERVER = `${SERVERIP}/api/v1`;
+
+//**************** WatchList *******************/
+export const WATCHLIST = `${SERVERIP}/api/v1/watch-list`;
+
 //**************** AUTHENTICATION *******************/
 export const AUTH = `${SERVER}/authentication`;
 export const LOGIN = `${AUTH}/login`;
