@@ -8,6 +8,7 @@ import { getCookie } from "cookies-next";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
+import Head from "next/head";
 const IconButton = dynamic(
   () => import("@/components/default/iconButton.component")
 );
