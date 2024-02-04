@@ -20,7 +20,7 @@ export default function Page() {
   const { updateData, data } = WatchStore();
   const [overlay, setOverlay] = useState(0);
   const { isLoading } = useQuery({
-    queryKey: ["Watchlists"],
+    queryKey: ["Watchlists2"],
     queryFn: () => GetWatchLists(getCookie("AccessToken")!, updateData),
     enabled: true,
   });

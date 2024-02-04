@@ -5,22 +5,36 @@ import Header from "@/components/watchlist/popup/header.component";
 import XIcon from "@/icons/x.icon";
 import Add from "./cards.component.tsx/add.component";
 import WatchStore from "@/store/watchlist";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddStock } from "@/services/watchlist/addStock.service";
 import { toast } from "react-toastify";
 import { getCookie } from "cookies-next";
+import { GetWatchLists } from "@/services/watchlist/getWatchLists.service";
 
 export default function AddList() {
-  const { updateOverlay, data } = WatchStore();
+  const { updateOverlay, data, updateData } = WatchStore();
   const [list, setLists] = useState<Array<string>>([]);
   const notify = async (error: string) => toast.error(error);
   const queryClient = useQueryClient();
+  const { isLoading } = useQuery({
+    queryKey: ["Watchlists"],
+    queryFn: () => GetWatchLists(getCookie("AccessToken")!, updateData),
+    enabled: true,
+  });
   const mutation = useMutation({
     mutationFn: (e) => {
-      return AddStock(notify, getCookie("AccessToken"), list, updateOverlay);
+      return AddStock(
+        e,
+        notify,
+        getCookie("AccessToken"),
+        list,
+        updateOverlay,
+        data
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Watchlists"] });
+      // GetWatchLists(getCookie("AccessToken")!, updateData);
     },
   });
   return (
@@ -53,7 +67,10 @@ export default function AddList() {
           }
         )}
       </div>
-      <div className=" mt-[20px] flex justify-between items-center gap-[6px]">
+      <form
+        onSubmit={(e: any) => mutation.mutate(e)}
+        className=" mt-[20px] flex justify-between items-center gap-[6px]"
+      >
         <button
           onClick={() => updateOverlay(0)}
           className=" bg-white border border-[#D0D5DD] rounded-[8px] shad py-[10px] px-[16px] flex-1 "
@@ -61,12 +78,13 @@ export default function AddList() {
           Cancel
         </button>
         <button
-          onClick={() => mutation.mutate()}
+          type="submit"
+          disabled={mutation.isPending}
           className=" bg-[#2E644E] text-white border border-[#D0D5DD] rounded-[8px] shad py-[10px] px-[16px] flex-1 "
         >
           {mutation.isPending ? "Loading" : "Add"}
         </button>
-      </div>
+      </form>
     </PopLayout>
   );
 }

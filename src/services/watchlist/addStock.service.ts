@@ -1,26 +1,33 @@
-import { test } from "@/functions/validations";
-import { PERSONAL, WATCHLIST } from "@/static/links";
+import WatchList from "@/components/home/watchlist/index.component";
+import { WATCHLIST } from "@/static/links";
 import requestService from "@/static/requests";
 
 export async function AddStock(
+  e: any,
   notify: any,
   token: string | undefined,
   stocks: string[],
-  setOverlay: any
+  setOverlay: any,
+  data: any
 ) {
-  // **************Test******************
+  e.preventDefault();
+
   if (stocks.length === 0) {
     return notify("please choose any watchlist");
   }
-  // **************Handel Request******************
+  console.log("lets");
   const requestJson = JSON.stringify({
-    ...stocks,
+    watch_list_ids: [...stocks],
   });
-  // **************Send Request******************
-  for (let i = 0; i < stocks.length; i++) {
-    await request(requestJson, token!, stocks[i], setOverlay);
-  }
+  console.log(requestJson);
+
+  const randomNum = Math.random();
+
+  // Convert the random number to a string and remove the decimal point
+  const randomString = String(randomNum).substring(2);
+  await request(requestJson, token!, randomString, setOverlay);
 }
+
 async function request(
   requestJson: string,
   token: string,
@@ -36,4 +43,8 @@ async function request(
   if (response["status"] === 200) {
     setOverlay(0);
   }
+
+  console.log(`Response for id=${id}:`, response);
+
+  return response;
 }

@@ -40,11 +40,7 @@ class RequestService {
         ...config,
         headers,
       });
-      console.log("hih");
-      console.log(response.status);
-      if (response.status === 401) {
-        window.location.href = "/";
-      }
+      console.log(response);
       return response;
     } catch (error) {
       console.error("Error during HTTP request:", error);

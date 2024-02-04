@@ -7,9 +7,7 @@ export async function DeleteWatchLists(
   id: string
 ) {
   const res = await requestService.delete(WATCHLIST + "/" + id, token);
-  console.log(res);
-  console.log(id);
-  console.log(data.filter((e) => e.id !== id));
+
   updateData(data.filter((e) => e.id !== id));
   // router.replace("/");
 }

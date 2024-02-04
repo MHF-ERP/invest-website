@@ -31,7 +31,7 @@ export default function DeleteList(props: { setOverlay: any }) {
               key={idx}
               without
               title={item.name}
-              length={item.stocks ? item.stocks.length : 0}
+              length={item.Stocks ? item.Stocks.length : 0}
             />
           );
         })}
