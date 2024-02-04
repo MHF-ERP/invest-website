@@ -6,6 +6,7 @@ class RequestService {
   private axiosInstance;
 
   constructor() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     // Customize the axios instance (base URL, headers, etc.)
     this.axiosInstance = axios.create({
       baseURL: SERVER,
@@ -34,11 +35,21 @@ class RequestService {
         ...config?.headers,
       };
     }
-    const response = await this.axiosInstance.get<T>(url, {
-      ...config,
-      headers,
-    });
-    return response;
+    try {
+      const response = await this.axiosInstance.get<T>(url, {
+        ...config,
+        headers,
+      });
+      console.log("hih");
+      console.log(response.status);
+      if (response.status === 401) {
+        window.location.href = "/";
+      }
+      return response;
+    } catch (error) {
+      console.error("Error during HTTP request:", error);
+      throw error;
+    }
   }
 
   async post<T>(
@@ -100,8 +111,26 @@ class RequestService {
     return response;
   }
 
-  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<any> {
-    const response = await this.axiosInstance.delete<T>(url, config);
+  async delete<T>(
+    url: string,
+    token?: string,
+    config?: AxiosRequestConfig
+  ): Promise<any> {
+    let headers;
+    if (token) {
+      headers = {
+        ...config?.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    } else {
+      headers = {
+        ...config?.headers,
+      };
+    }
+    const response = await this.axiosInstance.delete<T>(url, {
+      ...config,
+      headers,
+    });
     return response;
   }
 }

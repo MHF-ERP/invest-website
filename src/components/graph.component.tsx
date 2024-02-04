@@ -29,6 +29,12 @@ export default function Garph(props: {
         width: 2,
       },
       chart: {
+        events: {
+          enabled: false,
+        },
+        menu: {
+          show: false, // Hide context menu
+        },
         id: "area-datetime",
         type: "line",
         height: 100,
@@ -117,7 +123,7 @@ export default function Garph(props: {
     selection: "one_year",
   });
   return (
-    <div className={` w-full ${height} -mt-[${margin}px]`}>
+    <div className={` w-full  ${height} ${margin}`}>
       <Chart
         options={chartData.options as any}
         series={chartData.series}

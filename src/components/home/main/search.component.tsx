@@ -1,10 +1,17 @@
 import SearchIcon from "@/icons/search.component";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
+import { cn } from "@/lib/cn";
 
-export default function Search() {
+export default function Search(props: { HomeClassName?: string }) {
+  const { HomeClassName } = props;
   return (
-    <div className="   w-full border  border-[#D0D5DD]  px-2 py-2 text-sm flex gap-2 items-center rounded-md ">
+    <div
+      className={cn(
+        "   w-full border  border-[#D0D5DD]  px-2 py-2 text-sm flex gap-2 items-center rounded-md ",
+        HomeClassName
+      )}
+    >
       <SearchIcon color="#667085" />
       <input
         placeholder="Search"

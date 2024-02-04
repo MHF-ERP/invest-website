@@ -1,5 +1,6 @@
 import { chexkLength } from "@/functions/textLength";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Card(props: {
@@ -11,9 +12,13 @@ export default function Card(props: {
     change: string;
   };
 }) {
+  const router = useRouter();
   const { item } = props;
   return (
-    <div className=" w-full flex justify-between items-center">
+    <div
+      onClick={() => router.push("/stock/1")}
+      className=" cursor-pointer hover:opacity-80 w-full flex justify-between items-center"
+    >
       <div className=" flex gap-2">
         <Image
           src={item["img"]}

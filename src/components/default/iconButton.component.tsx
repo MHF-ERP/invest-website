@@ -6,13 +6,13 @@ export default function IconButton(props: {
   icon: any;
   left: boolean;
   hide?: boolean | undefined;
-  onClick?: any;
+  click?: any;
 }) {
-  const { text, color, bgColor, left, icon, hide, onClick } = props;
+  const { text, color, bgColor, left, icon, hide, click } = props;
   return (
     <>
       <button
-        onClick={() => onClick()}
+        onClick={() => click()}
         disabled={hide === true && hide !== undefined}
         style={{ backgroundColor: bgColor, color: color }}
         className={`${
@@ -23,6 +23,7 @@ export default function IconButton(props: {
         {text}
         {!left && icon}
       </button>
+      {/*  */}
       <button
         style={{ backgroundColor: bgColor, color: color }}
         className=" py-[10px] px-[14px] rounded-lg  items-center gap-2 border border-divider xl:hidden lg:hidden md:hidden flex"

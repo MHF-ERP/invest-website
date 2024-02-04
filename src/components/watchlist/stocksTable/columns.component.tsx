@@ -101,7 +101,7 @@ export default function Column(props: { last: boolean }) {
           </span>
         </div>
       </td>
-      <td className="px-[24px] py-[16px]">
+      <td className="px-[24px] w-[30%] py-[16px]">
         <div className="-mt-10  pr-10  ">
           <Garph
             height=" h-24 "

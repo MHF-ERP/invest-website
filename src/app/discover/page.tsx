@@ -8,7 +8,7 @@ export default function page() {
     <AllPageLayout>
       <Navigator current={3} />
       <HomeLayout>
-        <h1>Loading</h1>
+        <h1>Comming Soon</h1>
       </HomeLayout>
     </AllPageLayout>
   );

@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import Garph from "@/components/graph.component";
+import { useRouter } from "next/navigation";
+import Graph2 from "@/components/graph2.component";
 
 export default function Card() {
+  const router = useRouter();
   const data = [
     [1327359600000, 30.95],
     [1327446000000, 31.34],
@@ -22,7 +25,10 @@ export default function Card() {
     [1329174000000, 32.44],
   ];
   return (
-    <div className=" flex flex-col min-w-60 h-fit  border-2 border-bord p-4 rounded-2xl shadow-sm">
+    <div
+      onClick={() => router.push("/stock/1")}
+      className=" cursor-pointer hover:opacity-70 flex flex-col min-w-60 h-fit  border-2 border-bord p-4 rounded-2xl shadow-sm"
+    >
       <div className=" w-full flex gap-2 items-center">
         <div className=" w-[14px] h-[14px] border border-[#E7E7E7] object-contain rounded-full !bg-[url('/images/home/flag.png')]"></div>
         {/* <Image
@@ -50,12 +56,13 @@ export default function Card() {
         </div>
         <Garph
           data={data}
-          height="h-10"
+          height="h-[30px]"
           height2={100}
           color1="#2E644E"
           color2="#9AFF9A"
-          margin="70"
+          margin="-mt-[80px]"
         />
+        {/* <Graph2 /> */}
       </div>
     </div>
   );

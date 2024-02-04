@@ -1,7 +1,9 @@
 import React from "react";
 import Column from "./columns.component";
+import WatchStore from "@/store/watchlist";
 
 export default function StockTable() {
+  const { data, tap } = WatchStore();
   return (
     <div
       className=" w-full  rounded-2xl border border-divider mt-4 "
@@ -29,10 +31,13 @@ export default function StockTable() {
           </tr>
         </thead>
         <tbody className=" w-full ">
-          <Column last={false} />
+          {data[tap].Stocks.map((e, idx: number) => {
+            return <Column key={idx} last={false} />;
+          })}
+
           {/* <hr className=" border-p w-screen" /> */}
 
-          <Column last={true} />
+          {/* <Column last={true} /> */}
 
           {/* Add more rows as needed */}
         </tbody>

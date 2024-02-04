@@ -5,7 +5,7 @@ import XIcon from "@/icons/x.icon";
 import Inputs from "@/components/default/inputs";
 import Search from "@/components/home/main/search.component";
 import StockPop from "./cards.component.tsx/stock.component";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateWatchList } from "@/services/watchlist/createWatchList.service";
 import { toast, ToastContainer } from "react-toastify";
 import { getCookie } from "cookies-next";
@@ -19,7 +19,12 @@ export default function CreateList(props: { setOverlay: any }) {
     mutationFn: (e) => {
       return CreateWatchList(e, notify, getCookie("AccessToken"), setOverlay);
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Watchlists"] });
+    },
   });
+  const queryClient = useQueryClient();
+
   return (
     <form onSubmit={(e: any) => mutation.mutate(e)}>
       <ToastContainer />

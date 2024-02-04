@@ -49,7 +49,7 @@ export default function DefHome() {
       <WelcomeBox />
       <Indices />
 
-      <div className=" flex gap-4 overflow-x-scroll w-full cat  cursor-grab overflow-y-hidden ">
+      <div className="  flex gap-4 overflow-x-scroll w-full cat  cursor-grab overflow-y-hidden h-[110px] ">
         <Card />
         <Card />
         <Card />

@@ -1,8 +1,9 @@
 import React from "react";
 import Card from "./card.component";
+import WatchStore from "@/store/watchlist";
 
 export default function Stocks() {
-  const data = [
+  const graphData = [
     [1327359600000, 30.95],
     [1327446000000, 31.34],
     [1327532400000, 31.18],
@@ -38,53 +39,15 @@ export default function Stocks() {
     [1329087600000, 30.35],
     [1329174000000, 30.44],
   ];
-  const cards = [
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data2,
-      text: "-1.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data2,
-      text: "-1.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-    {
-      data: data,
-      text: "+2.33%",
-    },
-  ];
+
+  const { data, tap } = WatchStore();
   return (
     <div className=" flex gap-7 mt-4 flex-wrap items-start">
-      {cards.map((item: any, idx: number) => {
-        return <Card key={idx} text={item["text"]} data={item["data"]} />;
-      })}
+      {data[tap].Stocks.length > 0
+        ? data[tap].Stocks.map((item: any, idx: number) => {
+            return <Card key={idx} text={"+2.33"} data={graphData} />;
+          })
+        : "there is not stocks"}
     </div>
   );
 }

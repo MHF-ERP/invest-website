@@ -5,8 +5,10 @@ import React from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 import { FaArrowTrendDown } from "react-icons/fa6";
+import WatchStore from "@/store/watchlist";
 
 export default function StockCard() {
+  const { updateOverlay } = WatchStore();
   return (
     <div className=" flex w-full justify-between items-start mt-6 text-sm">
       <div className=" flex gap-2">
@@ -50,6 +52,7 @@ export default function StockCard() {
           bgColor="#FFFFFF"
           left={true}
           icon={<MdFormatListBulletedAdd className=" text-[#323232]" />}
+          click={() => updateOverlay(1)}
         />
         <Button text="Trade" color="#FFFFFF" bgColor="#2E644E" />
       </div>

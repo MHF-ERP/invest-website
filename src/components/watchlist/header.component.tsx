@@ -88,9 +88,7 @@ export default function Header(props: { empty: boolean; setOverlay?: any }) {
           }
           left={true}
           hide={empty}
-          onClick={() => {
-            setOverlay(2);
-          }}
+          click={() => setOverlay(2)}
         />
         <IconButton
           text="Create Watchlist"
@@ -98,7 +96,7 @@ export default function Header(props: { empty: boolean; setOverlay?: any }) {
           bgColor="#2E644E"
           icon={<IoMdAdd className=" text-white text-[20px]" />}
           left={true}
-          onClick={() => setOverlay(1)}
+          click={() => setOverlay(1)}
         />
       </div>
     </div>

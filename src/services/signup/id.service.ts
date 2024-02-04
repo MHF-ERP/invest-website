@@ -5,6 +5,7 @@ import { signUpObj } from "@/store/signUpObj";
 import { process } from "@/store/process";
 
 import { toast } from "react-toastify";
+import { GetWatchLists } from "../watchlist/getWatchLists.service";
 
 export async function idServises(
   e: any,

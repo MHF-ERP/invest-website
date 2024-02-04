@@ -54,7 +54,7 @@ export default function Page() {
       <RightSection
         idx={count}
         key={count}
-        back={count >= 1}
+        back={count >= 1 && count !== 2}
         body={page[count]["layout"]}
         header={page[count]["header"]}
         brief={page[count]["brief"]}
