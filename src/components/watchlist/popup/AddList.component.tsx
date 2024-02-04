@@ -47,7 +47,7 @@ export default function AddList() {
         <XIcon color="#98A2B3" setOverlay={updateOverlay} />
       </div>
 
-      <div className="w-full h-fit mt-20px flex flex-col gap-[12px]  mt-[20px] overflow-y-auto">
+      <div className="w-full h-[400px] mt-20px flex flex-col gap-[12px]  mt-[20px] overflow-y-auto">
         {data.map(
           (
             item: { id: string; name: string; userId: string; Stocks: any[] },

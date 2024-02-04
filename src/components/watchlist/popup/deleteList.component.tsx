@@ -23,7 +23,7 @@ export default function DeleteList(props: { setOverlay: any }) {
         />
         <XIcon color="#98A2B3" setOverlay={setOverlay} />
       </div>
-      <div className="w-full h-fit mt-20px flex flex-col gap-[12px]  mt-[20px] overflow-y-auto">
+      <div className="w-full h-[400px] mt-20px flex flex-col gap-[12px]   mt-[20px] overflow-y-auto ">
         {data.map((item: any, idx: number) => {
           return (
             <Add

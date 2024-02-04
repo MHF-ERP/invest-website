@@ -1,13 +1,6 @@
 "use client";
-import IconButton from "@/components/default/iconButton.component";
-import Navigator from "@/components/home/navigator/navigator.component";
-import HomeLayout from "@/components/layouts/home.layout";
-import Changes from "@/components/watchlist/changes.component";
-import Header from "@/components/watchlist/header.component";
-import CreateList from "@/components/watchlist/popup/createList.component";
-import DeleteList from "@/components/watchlist/popup/deleteList.component";
-import Actions from "@/components/watchlist/taps/actions.component";
-import Taps from "@/components/watchlist/taps/taps.component";
+import dynamic from "next/dynamic";
+
 import { GetWatchLists } from "@/services/watchlist/getWatchLists.service";
 import WatchStore from "@/store/watchlist";
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +8,29 @@ import { getCookie } from "cookies-next";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
+const IconButton = dynamic(
+  () => import("@/components/default/iconButton.component")
+);
+const Navigator = dynamic(
+  () => import("@/components/home/navigator/navigator.component")
+);
+const HomeLayout = dynamic(() => import("@/components/layouts/home.layout"));
+const Changes = dynamic(
+  () => import("@/components/watchlist/changes.component")
+);
+const Header = dynamic(() => import("@/components/watchlist/header.component"));
+const CreateList = dynamic(
+  () => import("@/components/watchlist/popup/createList.component")
+);
+const DeleteList = dynamic(
+  () => import("@/components/watchlist/popup/deleteList.component")
+);
+const Actions = dynamic(
+  () => import("@/components/watchlist/taps/actions.component")
+);
+const Taps = dynamic(
+  () => import("@/components/watchlist/taps/taps.component")
+);
 
 export default function Page() {
   const { updateData, data } = WatchStore();
@@ -25,12 +41,12 @@ export default function Page() {
     enabled: true,
   });
 
-  if (isLoading)
-    return (
-      <div className=" w-screen h-screen flex items-center justify-center text-main2">
-        Loading...
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className=" w-screen h-screen flex items-center justify-center text-main2">
+  //       Loading...
+  //     </div>
+  //   );
   const popup = [
     <CreateList setOverlay={setOverlay} key={0} />,
     <DeleteList key={1} setOverlay={setOverlay} />,
