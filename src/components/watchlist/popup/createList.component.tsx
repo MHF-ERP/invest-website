@@ -21,6 +21,7 @@ export default function CreateList(props: { setOverlay: any }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Watchlists"] });
+      queryClient.invalidateQueries({ queryKey: ["Watchlists2"] });
     },
   });
   const queryClient = useQueryClient();
