@@ -10,12 +10,10 @@ export async function CreateWatchList(
 ) {
   e.preventDefault();
   const listName = e.target.listName.value;
-  console.log("hi");
-  console.log(token);
+
   // **************Test******************
   if (listName.length === 0) {
-    console.log("error");
-    return notify("name must be greater than 0 characters");
+    return notify("The name field must not be left empty");
   }
   // **************Handel Request******************
   const requestJson = JSON.stringify({
@@ -23,9 +21,14 @@ export async function CreateWatchList(
     symbols: [],
   });
   // **************Send Request******************
-  await request(requestJson, token!, setOverlay);
+  await request(requestJson, token!, setOverlay, notify);
 }
-async function request(requestJson: string, token: string, setOverlay: any) {
+async function request(
+  requestJson: string,
+  token: string,
+  setOverlay: any,
+  notify: any
+) {
   const response = await requestService.post(
     WATCHLIST,
     token,
@@ -34,5 +37,7 @@ async function request(requestJson: string, token: string, setOverlay: any) {
   );
   if (response["status"] === 200) {
     setOverlay(0);
+  } else if (response["status"] === 409) {
+    return notify("A watchlist with this name already exists");
   }
 }

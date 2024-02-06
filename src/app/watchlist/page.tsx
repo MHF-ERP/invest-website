@@ -9,6 +9,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import Head from "next/head";
+import { ToastContainer } from "react-toastify";
 const IconButton = dynamic(
   () => import("@/components/default/iconButton.component")
 );
@@ -54,6 +55,8 @@ export default function Page() {
   ];
   return (
     <>
+      <ToastContainer />
+
       {overlay !== 0 && popup[overlay - 1]}
       <main
         className={`  flex  h-screen max-w-screen  bg-[#1F332B] ${

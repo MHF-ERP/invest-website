@@ -7,7 +7,7 @@ import Search from "@/components/home/main/search.component";
 import StockPop from "./cards.component.tsx/stock.component";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateWatchList } from "@/services/watchlist/createWatchList.service";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { getCookie } from "cookies-next";
 import { textLength } from "@/functions/validations";
 
@@ -28,7 +28,6 @@ export default function CreateList(props: { setOverlay: any }) {
 
   return (
     <form onSubmit={(e: any) => mutation.mutate(e)}>
-      <ToastContainer />
       <PopLayout>
         <div className=" flex justify-between items-start h-fit">
           <Header
@@ -45,7 +44,7 @@ export default function CreateList(props: { setOverlay: any }) {
             value={name}
             onChange={(e: any) => setName(e.target.value)}
             spanClassName=" text-[#475467] font-[500]"
-            inputClassName="border-[#D0D5DD]"
+            inputClassName="border-[#D0D5DD] placeholder:text-[16px] placeholder:font-[400] w-full outline-none py-[10px]"
           />
           <span className=" text-[#475467] text-[14px] font-[400] mt-[4px]">
             {textLength(name)} Characters
