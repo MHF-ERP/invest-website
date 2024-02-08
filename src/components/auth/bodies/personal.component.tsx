@@ -5,7 +5,6 @@ import { signUpObj } from "@/store/signUpObj";
 import { useMutation } from "@tanstack/react-query";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { ToastContainer } from "react-toastify";
 
 import { personalSerives } from "@/services/signup/personal.service";
 
@@ -81,7 +80,6 @@ export default function Personal() {
       >
         {mutation.isPending ? "Loading" : "Continue"}
       </button>
-      <ToastContainer />
     </form>
   );
 }

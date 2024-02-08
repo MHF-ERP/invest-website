@@ -4,7 +4,7 @@ import { FORGET } from "@/static/links";
 import requestService from "@/static/requests";
 import forgetStore from "@/store/forget";
 import { useMutation } from "@tanstack/react-query";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function Forget() {
   const notify = async (error: string) => toast.error(error);
@@ -25,6 +25,8 @@ export default function Forget() {
         name="forgetEmail"
         value={email}
         onChange={(e: any) => updateEmail(e.target.value)}
+        sectionClassName="gap-[6px]"
+        spanClassName="font-medium"
       />{" "}
       <button
         type="submit"
@@ -32,7 +34,6 @@ export default function Forget() {
       >
         {mutation.isPending ? "Loading" : "Continue"}
       </button>
-      <ToastContainer />
     </form>
   );
   async function handel(e: any) {
@@ -61,6 +62,9 @@ export default function Forget() {
     // **************conflict Email******************
     if (status === 422) {
       return notify("Email Not Found");
+    }
+    if (status === 400) {
+      return notify("Too many attempts, please try again later");
     }
     // **************valid Data******************
     else if (status === 200) {

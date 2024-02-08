@@ -1,12 +1,11 @@
 import Inputs from "@/components/default/inputs";
-import { signUpObj } from "@/store/signUpObj";
 import { process } from "@/store/process";
+import { signUpObj } from "@/store/signUpObj";
 
-import { ToastContainer, toast } from "react-toastify";
+import { idServises } from "@/services/signup/id.service";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import ImageUpload from "../imageUpload.component";
-import { useMutation } from "@tanstack/react-query";
-import { idServises } from "@/services/signup/id.service";
 
 export default function ID() {
   const mutation = useMutation({
@@ -50,7 +49,6 @@ export default function ID() {
       >
         {mutation.isPending ? "Loading" : "Continue"}
       </button>
-      <ToastContainer />
     </form>
   );
 }

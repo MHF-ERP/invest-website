@@ -1,15 +1,15 @@
-import PopLayout from "@/components/layouts/pop.layout";
-import React, { useState } from "react";
-import Header from "@/components/watchlist/popup/header.component";
-import XIcon from "@/icons/x.icon";
 import Inputs from "@/components/default/inputs";
 import Search from "@/components/home/main/search.component";
-import StockPop from "./cards.component.tsx/stock.component";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CreateWatchList } from "@/services/watchlist/createWatchList.service";
-import { toast } from "react-toastify";
-import { getCookie } from "cookies-next";
+import PopLayout from "@/components/layouts/pop.layout";
+import Header from "@/components/watchlist/popup/header.component";
 import { textLength } from "@/functions/validations";
+import XIcon from "@/icons/x.icon";
+import { CreateWatchList } from "@/services/watchlist/createWatchList.service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import StockPop from "./cards.component.tsx/stock.component";
 
 export default function CreateList(props: { setOverlay: any }) {
   const { setOverlay } = props;
@@ -33,17 +33,19 @@ export default function CreateList(props: { setOverlay: any }) {
           <Header
             title="Create Watchlist"
             brief="Create a watchlist and add the stocks you want to follow."
+            headerClassName="text-xl font-semibold !leading-[28px]"
+            briefClassName="text-[14px] font-[400] !leading-[20px]"
           />
           <XIcon color="#98A2B3" setOverlay={setOverlay} />
         </div>
-        <div className=" w-full flex flex-col mt-[20px]">
+        <div className="w-full flex flex-col mt-[20px]">
           <Inputs
             text="Name"
             name="listName"
             holder="List name"
             value={name}
             onChange={(e: any) => setName(e.target.value)}
-            spanClassName=" text-[#475467] font-[500]"
+            spanClassName="text-[#344054] font-[500] leading-[20px]"
             inputClassName="border-[#D0D5DD] placeholder:text-[16px] placeholder:font-[400] w-full outline-none py-[10px]"
           />
           <span className=" text-[#475467] text-[14px] font-[400] mt-[4px]">

@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import VerificationInput from "react-verification-input";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { pinService } from "@/services/signup/pin.service";
 import { signUpObj } from "@/store/signUpObj";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import VerificationInput from "react-verification-input";
 export default function Pin() {
   const [code, setCode] = useState("");
 
@@ -64,7 +63,6 @@ export default function Pin() {
       >
         {mutation.isPending ? "Loading" : "Finish"}
       </button>
-      <ToastContainer />
     </form>
   );
 }

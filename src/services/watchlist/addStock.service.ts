@@ -1,4 +1,3 @@
-import WatchList from "@/components/home/watchlist/index.component";
 import { WATCHLIST } from "@/static/links";
 import requestService from "@/static/requests";
 
@@ -15,11 +14,9 @@ export async function AddStock(
   if (stocks.length === 0) {
     return notify("please choose any watchlist");
   }
-  console.log("lets");
   const requestJson = JSON.stringify({
     watch_list_ids: [...stocks],
   });
-  console.log(requestJson);
 
   const randomNum = Math.random();
 
@@ -43,8 +40,6 @@ async function request(
   if (response["status"] === 200) {
     setOverlay(0);
   }
-
-  console.log(`Response for id=${id}:`, response);
 
   return response;
 }

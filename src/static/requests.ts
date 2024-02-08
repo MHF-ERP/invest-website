@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { SERVER } from "./links";
+import axios, { AxiosRequestConfig } from "axios";
 import { RESPONSE } from "./interface";
+import { SERVER } from "./links";
 
 class RequestService {
   private axiosInstance;
@@ -40,7 +40,6 @@ class RequestService {
         ...config,
         headers,
       });
-      console.log(response);
       return response;
     } catch (error) {
       console.error("Error during HTTP request:", error);

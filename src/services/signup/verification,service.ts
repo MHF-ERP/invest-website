@@ -44,6 +44,9 @@ export const handleResponse = (status: number, data: any, increment: any) => {
   if (status === 409) {
     return notify("Email Already Exist");
   }
+  if (status === 400) {
+    return notify("Too many attempts, please try again later");
+  }
   if (status === 401) {
     return notify("Invalid OTP");
   }

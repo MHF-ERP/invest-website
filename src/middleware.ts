@@ -1,9 +1,7 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import requestService from "./static/requests";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { SERVER } from "./static/links";
-import axios from "axios";
 export async function middleware(request: NextRequest) {
   const cookieStore = cookies();
   const exist = cookieStore.get("AccessToken");
@@ -39,7 +37,6 @@ export async function middleware(request: NextRequest) {
           request.nextUrl.pathname === "/forget-password" ||
           request.nextUrl.pathname === "/signup")
       ) {
-        console.log("auth");
         return NextResponse.redirect(new URL("/home", request.url));
       }
       console.error("Error:", response.statusText);
@@ -50,18 +47,13 @@ export async function middleware(request: NextRequest) {
           request.nextUrl.pathname === "/forget-password" ||
           request.nextUrl.pathname === "/signup")
       ) {
-        console.log("auth");
         return NextResponse.redirect(new URL("/home", request.url));
       }
       const data = await response.json();
-      console.log("Response:", data);
     }
   } catch (error) {
     console.error("Error:", error);
   }
-
-  // const response = await requestService.get(SERVER, exist!["name"]);
-  // console.log(response);
 }
 
 export const config = {

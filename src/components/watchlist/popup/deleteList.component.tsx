@@ -1,25 +1,22 @@
 import PopLayout from "@/components/layouts/pop.layout";
-import React, { useEffect } from "react";
 import Header from "@/components/watchlist/popup/header.component";
 import XIcon from "@/icons/x.icon";
-import Add from "./cards.component.tsx/add.component";
-import { useQuery } from "@tanstack/react-query";
-import { GetWatchLists } from "@/services/watchlist/getWatchLists.service";
-import { getCookie } from "cookies-next";
-import ContentLoader, { Facebook } from "react-content-loader";
-import DeleteStockLoader from "@/components/loader/deleteStock.loader";
 import WatchStore from "@/store/watchlist";
+import { useRef } from "react";
+import Add from "./cards.component.tsx/add.component";
 
 export default function DeleteList(props: { setOverlay: any }) {
   const { setOverlay } = props;
   const { data } = WatchStore();
-
+  const ref = useRef<any>();
   return (
     <PopLayout>
       <div className=" flex justify-between items-start">
         <Header
           title="My Watchlists"
           brief="Organize and edit your watchlists."
+          headerClassName="text-xl font-semibold !leading-[28px]"
+          briefClassName="text-[14px] font-[400] !leading-[20px]"
         />
         <XIcon color="#98A2B3" setOverlay={setOverlay} />
       </div>
@@ -32,6 +29,7 @@ export default function DeleteList(props: { setOverlay: any }) {
               without
               title={item.name}
               length={item.Stocks ? item.Stocks.length : 0}
+              setOverlay={setOverlay}
             />
           );
         })}

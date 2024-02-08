@@ -1,9 +1,10 @@
 import Delete from "@/icons/delete.icon";
+import { cn } from "@/lib/cn";
 import { DeleteWatchLists } from "@/services/watchlist/deleteWatchList.service";
 import WatchStore from "@/store/watchlist";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Add(props: {
   id: string;
@@ -13,8 +14,11 @@ export default function Add(props: {
   without?: boolean;
   setList?: React.Dispatch<React.SetStateAction<any>> | undefined;
   list?: any;
+  setOverlay?: any;
 }) {
-  const { id, title, length, current, without, setList, list } = props;
+  const [show, setShow] = useState(false);
+  const { id, title, length, current, without, setList, list, setOverlay } =
+    props;
   const { updateData, data } = WatchStore();
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -25,13 +29,44 @@ export default function Add(props: {
       queryClient.invalidateQueries({ queryKey: ["Watchlists"] });
     },
   });
-  return (
+  const Confirm = () => {
+    return (
+      <div
+        className={cn(
+          "rounded-[12px] flex flex-col gap-[12px] items-center border-[2px] p-[12px] w-full border-[#EAECF0]",
+          { "cursor-pointer hover:border-[#2E644E]": !without },
+          { "border-[#2E644E]": current },
+          { "justify-between": without }
+        )}
+      >
+        <span className="text-red-600 font-semibold !leading-8">
+          You are about to delete <strong>{title}</strong> watchlist
+        </span>
+        <div className="flex justify-between w-full px-5 items-center">
+          <button
+            className="bg-red-600 rounded-xl p-2"
+            onClick={() => {
+              mutation.mutate();
+              setShow(false);
+            }}
+          >
+            <Delete color="white" />
+          </button>
+          <button
+            className="rounded-md p-2 font-semibold"
+            onClick={() => setShow(false)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
+  };
+  return show ? (
+    <Confirm />
+  ) : (
     <div
-      onClick={() =>
-        !list.includes(id)
-          ? setList!([...list, id])
-          : setList!(list.filter((item: string) => item !== id))
-      }
+      onClick={() => {}}
       className={` ${
         !without ? " cursor-pointer hover:border-[#2E644E] " : ""
       } ${
@@ -63,7 +98,9 @@ export default function Add(props: {
       </div>
       {without && (
         <div
-          onClick={() => mutation.mutate()}
+          onClick={() => {
+            setShow(true);
+          }}
           className=" hover:opacity-50 cursor-pointer flex items-center justify-center p-[8px] border border-[#EAECF0] rounded-[8px]"
         >
           <Delete color="#344054" />

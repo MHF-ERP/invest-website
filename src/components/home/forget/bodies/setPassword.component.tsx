@@ -6,7 +6,7 @@ import requestService from "@/static/requests";
 import forgetStore from "@/store/forget";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function SetPassword() {
   const [error, setError] = useState<string>("");
@@ -47,7 +47,6 @@ export default function SetPassword() {
       >
         {mutation.isPending ? "Loading" : "Reset password"}
       </button>
-      <ToastContainer />
     </form>
   );
   async function handel(e: any) {

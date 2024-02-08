@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
 import "./globals.css";
 import { Provider } from "./provider";
 
@@ -18,7 +19,8 @@ export default function RootLayout({
         <link rel="icon" href="/images/smallLogo.png" />
       </head>
       <body>
-        <Provider>{children}</Provider>{" "}
+        <Provider>{children}</Provider>
+        <ToastContainer />
       </body>
     </html>
   );

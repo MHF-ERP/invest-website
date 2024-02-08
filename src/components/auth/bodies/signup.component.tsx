@@ -5,7 +5,6 @@ import { process } from "@/store/process";
 import { signUpObj } from "@/store/signUpObj";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Constrains from "../constrains.component";
 
@@ -54,7 +53,6 @@ export default function Signup() {
           className=" bg-main2 px-[10px] py-4 hover:shadow-md text-white rounded-md w-full font-semibold"
         >
           {mutation.isPending ? "Loading" : "Continue"}
-          <ToastContainer />
         </button>
       </form>
     </>

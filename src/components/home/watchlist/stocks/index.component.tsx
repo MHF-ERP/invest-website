@@ -1,6 +1,5 @@
-import React from "react";
-import Card from "./card.component";
 import WatchStore from "@/store/watchlist";
+import Card from "./card.component";
 
 export default function Stocks() {
   const graphData = [
@@ -47,7 +46,7 @@ export default function Stocks() {
         ? data[tap].Stocks.map((item: any, idx: number) => {
             return <Card key={idx} text={"+2.33"} data={graphData} />;
           })
-        : "there is not stocks"}
+        : "There is no stocks"}
     </div>
   );
 }

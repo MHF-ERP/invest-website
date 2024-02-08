@@ -1,7 +1,5 @@
-import React from "react";
-import IconButton from "../default/iconButton.component";
 import { IoMdAdd } from "react-icons/io";
-import { IoFilter } from "react-icons/io5";
+import IconButton from "../default/iconButton.component";
 
 export default function Header(props: { empty: boolean; setOverlay?: any }) {
   const { empty, setOverlay } = props;
@@ -9,7 +7,7 @@ export default function Header(props: { empty: boolean; setOverlay?: any }) {
     <div className=" w-full flex items-center justify-between">
       <div className=" flex flex-col">
         <h1 className=" text-headerWatch  text-[32px] font-bold">
-          My Watchlist
+          My Watchlists
         </h1>
         <p className=" text-[#45564B] text-[16px]">
           Manage your watchlist and stay updated on the stocks you need to

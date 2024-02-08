@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ToastContainer } from "react-toastify";
 import Header from "../../../auth/header.component";
 import Body from "./body.component";
 
@@ -26,7 +25,6 @@ export default function LoginBox() {
           </Link>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 }
