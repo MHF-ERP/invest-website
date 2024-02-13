@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Remember from "./remember.component";
 import { setCookie } from "cookies-next";
+import resendVerificationServices from "@/services/signup/resend.service";
 
 export default function Body() {
   const { setCount: setCountProcess } = process();
@@ -118,6 +119,9 @@ export default function Body() {
     else if (status === 200) {
       if (data["data"]["status"] !== "ACTIVE") {
         setCountProcess(processStatus(data["data"]["status"])!);
+
+        if (processStatus(data["data"]["status"]) === 1)
+          resendVerificationServices(data["data"]["email"]);
         updateEmail(data["data"]["email"]);
         updateToken(data["token"]);
         updateFirstName(data["data"]["name"]?.split(" ")?.at(0));

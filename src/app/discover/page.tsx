@@ -6,7 +6,7 @@ import React from "react";
 export default function page() {
   return (
     <AllPageLayout>
-      <Navigator current={3} />
+      <Navigator current={4} />
       <HomeLayout>
         <h1>Comming Soon</h1>
       </HomeLayout>

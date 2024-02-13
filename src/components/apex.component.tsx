@@ -1,30 +1,14 @@
-"use client";
-import React, { useState } from "react";
-import dynamic from "next/dynamic";
-// import ReactApexChart from "react-apexcharts";
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-export default function Garph(props: {
-  height: string;
-  height2: number;
-  color1: string;
-  color2: string;
-  data: any;
-  margin?: string;
-}) {
-  const { height, height2, color1, color2, data, margin } = props;
-  const [chartData, setChartData] = useState({
-    series: [
-      {
-        color: color1,
+import React, { useEffect, useRef } from "react";
+import ApexCharts from "apexcharts";
+import type { NextPage } from "next";
 
-        data: data,
-      },
-    ],
+const Apex: NextPage = () => {
+  const chartRef = useRef<ApexCharts>();
 
-    options: {
+  useEffect(() => {
+    const options: ApexCharts.ApexOptions = {
       chart: {
         height: "100%",
-        maxWidth: "100%",
         type: "area",
         fontFamily: "Inter, sans-serif",
         dropShadow: {
@@ -53,7 +37,7 @@ export default function Garph(props: {
         enabled: false,
       },
       stroke: {
-        width: 2,
+        width: 6,
       },
       grid: {
         show: false,
@@ -94,19 +78,27 @@ export default function Garph(props: {
       yaxis: {
         show: false,
       },
-    },
+    };
+    if (
+      document.getElementById("area-chart") &&
+      typeof ApexCharts !== "undefined"
+    ) {
+      chartRef.current = new ApexCharts(
+        document.getElementById("area-chart"),
+        options
+      );
+      chartRef.current.render();
+    }
 
-    selection: "one_year",
-  });
-  return (
-    <div className={` w-full  ${height} ${margin}`}>
-      <Chart
-        options={chartData.options as any}
-        series={chartData.series}
-        type="area"
-        height={height2}
-        width={"100%"}
-      />
-    </div>
-  );
-}
+    return () => {
+      // Clean up function to destroy the chart instance when the component unmounts
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
+  }, []);
+
+  return <div id="area-chart" />;
+};
+
+export default Apex;

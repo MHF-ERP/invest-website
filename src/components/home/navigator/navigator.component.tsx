@@ -6,6 +6,7 @@ import { HiOutlineClipboardDocumentCheck } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import Link from "next/link";
+import PortfolioIcon from "@/icons/portfolio.icon";
 
 export default function Navigator(props: { current: number }) {
   const { current } = props;
@@ -30,8 +31,15 @@ export default function Navigator(props: { current: number }) {
     },
     {
       icon: (
+        <PortfolioIcon color={`${current === 3 ? "#FFFFFF" : "#ACCDB7"} `} />
+      ),
+      name: "Portfolio",
+      link: "/portfolio",
+    },
+    {
+      icon: (
         <HiOutlineClipboardDocumentCheck
-          className={` text-xl ${current === 3 ? "text-white" : ""} `}
+          className={` text-xl ${current === 4 ? "text-white" : ""} `}
         />
       ),
       name: "Discover",

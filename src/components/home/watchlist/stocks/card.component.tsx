@@ -22,8 +22,8 @@ export default function Card(props: { text: string; data: any }) {
           data={data}
           height="h-40"
           height2={180}
-          color1={text[0] === "+" ? "#2E644E" : "#F04438"}
-          color2={text[0] === "+" ? "#9AFF9A" : "#F04438"}
+          color1={text[0] === "+" ? "#17B26A" : "#F04438"}
+          color2={text[0] === "+" ? "#17B26A" : "#F04438"}
         />
       </div>
       <div className=" w-full flex gap-2">

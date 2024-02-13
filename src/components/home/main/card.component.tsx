@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import Garph from "@/components/graph.component";
 import { useRouter } from "next/navigation";
-import Graph2 from "@/components/graph2.component";
 
 export default function Card() {
   const router = useRouter();
@@ -54,12 +52,13 @@ export default function Card() {
             <span className=" font-bold text-success text-[12px]">0.18%</span>
           </div>
         </div>
+
         <Garph
           data={data}
           height="h-[30px]"
           height2={100}
-          color1="#2E644E"
-          color2="#9AFF9A"
+          color1="#17B26A"
+          color2="#17B26A"
           margin="-mt-[80px]"
         />
         {/* <Graph2 /> */}

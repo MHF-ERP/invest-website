@@ -96,6 +96,8 @@ export function test(type: string, text: string, brief: string) {
     if (text.length === 0 || !isEmail(text)) return notify(brief);
   } else if (type === "Password") {
     if (text.length === 0) return notify(brief);
+  } else if (type === "name") {
+    if (text.includes(" ")) return notify(brief);
   } else if (type === "Phone") {
     if (text.length === 0 || !isPhone(text)) return notify(brief);
   } else if (type === "Country") {

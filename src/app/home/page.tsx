@@ -2,7 +2,7 @@
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-
+import Apex from "../../components/apex.component";
 const AllPageLayout = dynamic(
   () => import("@/components/layouts/allPage.layout")
 );

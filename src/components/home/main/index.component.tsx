@@ -5,6 +5,7 @@ import Daily from "@/components/home/daily";
 import GraphBox from "./graphBox.component";
 import WelcomeBox from "./welcomeBox.component";
 import HomeLayout from "@/components/layouts/home.layout";
+import Apex from "@/components/apex.component";
 
 export default function DefHome() {
   const stocksData = [
@@ -64,6 +65,7 @@ export default function DefHome() {
         <Card />
         <Card />
       </div>
+
       <GraphBox title={"Sales Report"} stock={false} />
       <div className=" flex gap-4  w-full  xl:flex-row lg:flex-row md:flex-row flex-col">
         <Daily />

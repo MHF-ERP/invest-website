@@ -13,7 +13,7 @@ import VerificationInput from "react-verification-input";
 export default function Verification(props: { inc: any; isNew?: boolean }) {
   const path = usePathname();
   const [code, setCode] = useState<string>("");
-  const [seconds, setSeconds] = useState(30);
+  const [seconds, setSeconds] = useState(180);
   const { token } = signUpObj();
   const { email: forgotEmail } = forgetStore();
   const { email: signUpEmail } = signUpObj();

@@ -21,6 +21,8 @@ export async function personalSerives(
   if (
     test("any", firstName, "The first name provided is invalid") ||
     test("any", lastName, "The last name provided is invalid") ||
+    test("name", firstName, "The first name provided is invalid") ||
+    test("name", lastName, "The last name provided is invalid") ||
     test("Phone", phone, "The phone number provided is invalid") ||
     test("Country", country, "Please select your country") ||
     test("any", city, "The city provided is invalid")
