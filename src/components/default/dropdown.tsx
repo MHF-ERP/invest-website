@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { COUNTRIES } from "../../static/countries";
+import { useQuery } from "@tanstack/react-query";
+import { getCountries } from "@/services/signup/cites.service";
+import { COUNTRIESWCITES } from "@/static/countries+states";
+import { signUpObj } from "@/store/signUpObj";
 
 export default function DropDown(props: {
   text: string;
@@ -8,7 +12,7 @@ export default function DropDown(props: {
 }) {
   const { text, selectedValue, setSelectedValue } = props;
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
+  const { country } = signUpObj();
   const handleSelectChange = (event: any) => {
     setSelectedValue(event.target.value);
   };
@@ -17,6 +21,10 @@ export default function DropDown(props: {
     setDropdownOpen(!isDropdownOpen);
   };
 
+  // console.log(selectedValue);
+  // console.log(
+  //   COUNTRIESWCITES.filter((item) => item.name === selectedValue)[0]!.states
+  // );
   return (
     <div className="flex flex-col gap-1">
       <span className="text-textInput text-sm">{text}</span>
@@ -39,22 +47,44 @@ export default function DropDown(props: {
             </svg>
           </div>
         </div>
-        {isDropdownOpen && (
-          <div className="absolute h-36 overflow-y-scroll mt-1 w-full rounded-md bg-white shadow-lg">
-            {COUNTRIES.map((item: any) => (
-              <div
-                key={item.code}
-                className="py-1 px-4 cursor-pointer hover:bg-gray-100"
-                onClick={() => {
-                  setSelectedValue(item.name);
-                  setDropdownOpen(false);
-                }}
-              >
-                {item.name}
-              </div>
-            ))}
+        {isDropdownOpen && text !== "City" && (
+          <div className="absolute h-36 overflow-y-scroll mt-1 w-full rounded-md bg-white shadow-lg z-20">
+            {COUNTRIESWCITES.filter((item) => item.states.length > 0).map(
+              (item: any) => (
+                <div
+                  key={item.code}
+                  className="py-1 px-4 cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
+                    setSelectedValue(item.name);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  {item.name}
+                </div>
+              )
+            )}
           </div>
         )}
+        {isDropdownOpen &&
+          text === "City" &&
+          country !== "Select a Country" && (
+            <div className="absolute h-36 overflow-y-scroll mt-1 w-full rounded-md bg-white shadow-lg z-20">
+              {COUNTRIESWCITES.filter(
+                (item) => item.name === country
+              )[0]?.states.map((item: any) => (
+                <div
+                  key={item.code}
+                  className="py-1 px-4 cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
+                    setSelectedValue(item.name);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  {item.name}
+                </div>
+              ))}
+            </div>
+          )}
       </div>
     </div>
   );

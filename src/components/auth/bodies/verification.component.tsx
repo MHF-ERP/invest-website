@@ -71,9 +71,11 @@ export default function Verification(props: { inc: any; isNew?: boolean }) {
       />
 
       <button
-        disabled={verify.isPending}
+        disabled={verify.isPending || code.length < 4}
         type="submit"
-        className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "
+        className={` ${
+          code.length < 4 ? " opacity-55" : ""
+        } bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4  `}
       >
         {verify.isPending ? "Loading" : "Verify"}
       </button>
@@ -86,7 +88,7 @@ export default function Verification(props: { inc: any; isNew?: boolean }) {
             onClick={() => {
               resend.mutate(), setSeconds(120);
             }}
-            className=" text-headerWatch font-bold hover:underline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:no-underline"
+            className={` text-headerWatch font-bold hover:underline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:no-underline`}
           >
             {!disabled ? "Click to resend" : formatTime(seconds)}
           </button>

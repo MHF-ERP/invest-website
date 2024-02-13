@@ -127,8 +127,8 @@ export default function Body() {
         updateFirstName(data["data"]["name"]?.split(" ")?.at(0));
         updateLastName(data["data"]["name"]?.split(" ")?.pop());
         updatePhone(data["data"]["phone"]);
-        updateCountry(data["data"]["country"]);
-        updateCity(data["data"]["city"]);
+        updateCountry(data["data"]["country"]===null ? "Select a Country":data["data"]["country"]);
+        updateCity(data["data"]["city"]=== null    ? "Select a City":data["data"]["city"]);
         updateImg(
           data["data"]["idImage"] ? MEDIA + data["data"]["idImage"] : ""
         );

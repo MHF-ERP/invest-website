@@ -1,13 +1,24 @@
 import requestService from "@/static/requests";
-import { SIGNUP } from "@/static/links";
+import { MEDIA, SIGNUP } from "@/static/links";
 import { test, testPasswwordWithNotify } from "@/functions/validations";
 import { toast } from "react-toastify";
+import { processStatus } from "@/functions/processStatus";
+import resendVerificationServices from "./resend.service";
 
 export default async function signupService(
   e: any,
   updateEmail: any,
   updateToken: any,
-  increment: any
+  increment: any,
+  setCount: any,
+  updateFirstName: any,
+  updateLastName: any,
+  updatePhone: any,
+  updateCountry: any,
+  updateCity: any,
+  updateImg: any,
+  updateNationalId: any,
+  router: any
 ) {
   e.preventDefault();
   const email = e.target.SignupEmail.value;
@@ -37,7 +48,16 @@ export default async function signupService(
       response.data,
       updateEmail,
       updateToken,
-      increment
+      increment,
+      setCount,
+      updateFirstName,
+      updateLastName,
+      updatePhone,
+      updateCountry,
+      updateCity,
+      updateImg,
+      updateNationalId,
+      router
     );
   } catch (error) {
     console.error("Error handling request:", error);
@@ -49,7 +69,16 @@ export const handleResponse = (
   data: any,
   updateEmail: any,
   updateToken: any,
-  increment: any
+  increment: any,
+  setCount: any,
+  updateFirstName: any,
+  updateLastName: any,
+  updatePhone: any,
+  updateCountry: any,
+  updateCity: any,
+  updateImg: any,
+  updateNationalId: any,
+  router: any
 ) => {
   const notify = async (error: string) => toast.error(error);
 
@@ -59,8 +88,31 @@ export const handleResponse = (
   }
   // **************valid Data******************
   else if (status === 200) {
-    updateEmail(data["data"]["email"]);
-    updateToken(data["token"]);
-    increment();
+    if (data["data"]["status"] !== "ACTIVE") {
+      setCount(processStatus(data["data"]["status"])!);
+
+      if (processStatus(data["data"]["status"]) === 1)
+        resendVerificationServices(data["data"]["email"]);
+      updateEmail(data["data"]["email"]);
+      updateToken(data["token"]);
+      updateFirstName(data["data"]["name"]?.split(" ")?.at(0));
+      updateLastName(data["data"]["name"]?.split(" ")?.pop());
+      updatePhone(data["data"]["phone"]);
+      updateCountry(
+        data["data"]["country"] === null
+          ? "Select a Country"
+          : data["data"]["country"]
+      );
+      updateCity(
+        data["data"]["city"] === null ? "Select a City" : data["data"]["city"]
+      );
+      updateImg(data["data"]["idImage"] ? MEDIA + data["data"]["idImage"] : "");
+      updateNationalId(data["data"]["nationalId"]);
+      router.replace("/signup");
+    } else {
+      updateEmail(data["data"]["email"]);
+      updateToken(data["token"]);
+      increment();
+    }
   }
 };

@@ -7,14 +7,40 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import Constrains from "../constrains.component";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
-  const { updateEmail, updateToken } = signUpObj();
-  const { increment } = process();
+  const router = useRouter();
 
+  const {
+    updateEmail,
+    updateToken,
+    updateFirstName,
+    updateLastName,
+    updatePhone,
+    updateCountry,
+    updateCity,
+    updateImg,
+    updateNationalId,
+  } = signUpObj();
+  const { increment, setCount } = process();
   const mutation = useMutation({
     mutationFn: (e) => {
-      return signupService(e, updateEmail, updateToken, increment);
+      return signupService(
+        e,
+        updateEmail,
+        updateToken,
+        increment,
+        setCount,
+        updateFirstName,
+        updateLastName,
+        updatePhone,
+        updateCountry,
+        updateCity,
+        updateImg,
+        updateNationalId,
+        router
+      );
     },
   });
   const [error, setError] = useState<string>("");

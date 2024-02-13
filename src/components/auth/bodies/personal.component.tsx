@@ -26,6 +26,7 @@ export default function Personal() {
         e,
         phone,
         country,
+        city,
         token,
         updateFirstName,
         updateLastName,
@@ -73,7 +74,11 @@ export default function Personal() {
         selectedValue={country}
         setSelectedValue={updateCountry}
       />
-      <Inputs text="City" holder="Enter your city" name="city" value={city} />
+      <DropDown
+        text="City"
+        selectedValue={city}
+        setSelectedValue={updateCity}
+      />
       <button
         type="submit"
         className=" bg-main2 py-2  hover:shadow-md text-white rounded-md w-full mt-4 "

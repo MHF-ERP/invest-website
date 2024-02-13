@@ -29,7 +29,7 @@ export const signUpObj = create<StoreState>((set) => ({
   lastName: "",
   phone: "",
   country: "Select a Country",
-  city: "",
+  city: "Select a City",
   img: "",
   nationalId: "",
   updateEmail: (text) => set((state) => ({ ...state, email: text })),

@@ -80,6 +80,12 @@ function isCountry(text: String) {
   }
   return true;
 }
+function isCity(text: String) {
+  if (text === "Select a City") {
+    return false;
+  }
+  return true;
+}
 function validateFileExtension(fileName: string) {
   const allowedExtensions = /\/(png|jpg|jpeg|pdf)$/i;
   return (
@@ -102,7 +108,11 @@ export function test(type: string, text: string, brief: string) {
     if (text.length === 0 || !isPhone(text)) return notify(brief);
   } else if (type === "Country") {
     if (text.length === 0 || !isCountry(text)) return notify(brief);
-  } else if (type === "Img") {
+  }
+  else if (type === "City") {
+    if (text.length === 0 || !isCity(text)) return notify(brief);
+  }  
+  else if (type === "Img") {
     if (
       text.length === 0 ||
       (!validateFileExtension(text) && !text.includes("http"))

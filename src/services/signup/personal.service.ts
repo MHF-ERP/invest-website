@@ -6,6 +6,7 @@ export async function personalSerives(
   e: any,
   phone: string,
   country: string,
+  city: string,
   token: string,
   updateFirstName: any,
   updateLastName: any,
@@ -15,17 +16,16 @@ export async function personalSerives(
   e.preventDefault();
   const firstName = e.target.firstName.value;
   const lastName = e.target.lastName.value;
-  const city = e.target.city.value;
 
   // **************Test******************
   if (
     test("any", firstName, "The first name provided is invalid") ||
     test("any", lastName, "The last name provided is invalid") ||
-    test("name", firstName, "The first name provided is invalid") ||
-    test("name", lastName, "The last name provided is invalid") ||
+    test("name", firstName, "The first name mustn't contain space") ||
+    test("name", lastName, "The last name mustn't contain space") ||
     test("Phone", phone, "The phone number provided is invalid") ||
     test("Country", country, "Please select your country") ||
-    test("any", city, "The city provided is invalid")
+    test("City", city, "Please select your city")
   ) {
     return;
   }

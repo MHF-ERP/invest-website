@@ -16,6 +16,7 @@ export default function Page() {
   const { count, decrement } = process();
 
   const page = [
+
     {
       layout: <Signup />,
       header: "Account Setup",
@@ -23,7 +24,7 @@ export default function Page() {
     },
     {
       layout: <Verification inc={increment} isNew />,
-      header: "Verification Code",
+      header: "Verification Code",  
       brief: `We sent a verification code to ${email}`,
     },
     {
