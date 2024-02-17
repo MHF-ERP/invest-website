@@ -6,7 +6,7 @@ import { stocksStore } from "@/store/stocks";
 
 export default function Daily() {
   const { stocks } = stocksStore();
-  console.log(stocks);
+  // console.log(stocks);
   const data = stocks.slice().sort((a: any, b: any) => b.changes - a.changes);
   const data2 = stocks.slice().sort((a: any, b: any) => a.changes - b.changes);
 
@@ -22,7 +22,7 @@ export default function Daily() {
             Gainers
             <FaArrowTrendUp className=" text-text2" />
           </div>
-          {data.splice(0, 5).map((item: any, idx: number) => {
+          {data.splice(0, 6).map((item: any, idx: number) => {
             return (
               <>
                 <Card item={item} key={idx} />
@@ -39,7 +39,7 @@ export default function Daily() {
             Losers
             <FaArrowTrendUp className=" text-decrease" />
           </div>
-          {data2.slice(0, 5).map((item: any, idx: number) => {
+          {data2.slice(0, 6).map((item: any, idx: number) => {
             return (
               <>
                 <Card item={item} key={idx} />

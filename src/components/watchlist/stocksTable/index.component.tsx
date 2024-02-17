@@ -32,7 +32,7 @@ export default function StockTable() {
         </thead>
         <tbody className=" w-full ">
           {data[tap].Stocks.map((e, idx: number) => {
-            return <Column key={idx} last={false} />;
+            return <Column key={idx} item={e.symbol} last={false} />;
           })}
 
           {/* <hr className=" border-p w-screen" /> */}

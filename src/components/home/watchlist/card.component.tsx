@@ -1,4 +1,5 @@
 import { chexkLength } from "@/functions/textLength";
+import { stocksStore } from "@/store/stocks";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -6,7 +7,8 @@ import React from "react";
 export default function Card(props: { item: any }) {
   const router = useRouter();
   const { item } = props;
-  console.log(item["image"]);
+  // console.log(item["image"]);
+  const { stocks, setStocks } = stocksStore();
   return (
     <div
       onClick={() => router.push("/stock/" + item["symbol"])}
@@ -14,10 +16,17 @@ export default function Card(props: { item: any }) {
     >
       <div className=" flex gap-2">
         <Image
-          src={item["image"]}
+          src={item["image"] ? item["image"] : "/images/trad.jpg"}
           alt="company image"
           width={38}
           height={38}
+          onError={() => {
+            const data = stocks.slice();
+            data.filter((stock: any) => stock.symbol === item.symbol)[0][
+              "image"
+            ] = "/images/trad.jpg";
+            setStocks(data);
+          }} // remove if the image fails to
           className="  rounded-lg"
         />
         <div className=" flex flex-col">

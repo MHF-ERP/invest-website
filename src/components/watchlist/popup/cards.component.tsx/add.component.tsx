@@ -12,13 +12,14 @@ export default function Add(props: {
   length: number;
   current?: boolean;
   without?: boolean;
-  setList?: React.Dispatch<React.SetStateAction<any>> | undefined;
+  setList?: React.Dispatch<React.SetStateAction<any>>;
   list?: any;
   setOverlay?: any;
 }) {
   const [show, setShow] = useState(false);
   const { id, title, length, current, without, setList, list, setOverlay } =
     props;
+
   const { updateData, data } = WatchStore();
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -66,7 +67,12 @@ export default function Add(props: {
     <Confirm />
   ) : (
     <div
-      onClick={() => {}}
+      id={id}
+      onClick={() => {
+        list.includes(id)
+          ? setList!(list.filter((item: any) => item !== id))
+          : setList!([...list, id]);
+      }}
       className={` ${
         !without ? " cursor-pointer hover:border-[#2E644E] " : ""
       } ${

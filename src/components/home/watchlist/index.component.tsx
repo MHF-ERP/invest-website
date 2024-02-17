@@ -1,3 +1,4 @@
+import { stocksStore } from "@/store/stocks";
 import ViewAll from "../viewAll.component";
 import Card from "./card.component";
 import Card2 from "./card2.component";
@@ -8,7 +9,8 @@ export default function WatchList(props: {
   title: string;
   brief: string;
 }) {
-  const { data, title, brief } = props;
+  const { title, brief } = props;
+  const { stocks } = stocksStore();
   return (
     <div
       className=" mt-4 flex flex-col gap-[18px] p-4 border border-divider shadow rounded-xl "
@@ -17,12 +19,11 @@ export default function WatchList(props: {
       <ViewAll title={title} brief={brief} />
 
       <div className=" flex flex-col gap-3">
-        {data.splice(0, 5).map((item: any, idx: number) => {
-          console.log(item);
+        {stocks.slice(0, 5).map((item: any, idx: number) => {
           return (
             <>
               <Card2 key={idx} item={item} />
-              {idx + 1 < data.length && <hr className=" border-graph" />}
+              {idx + 1 < stocks.length && <hr className=" border-graph" />}
             </>
           );
         })}

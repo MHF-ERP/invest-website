@@ -10,6 +10,7 @@ import { AddStock } from "@/services/watchlist/addStock.service";
 import { toast } from "react-toastify";
 import { getCookie } from "cookies-next";
 import { GetWatchLists } from "@/services/watchlist/getWatchLists.service";
+import { usePathname } from "next/navigation";
 
 export default function AddList() {
   const { updateOverlay, data, updateData } = WatchStore();
@@ -21,6 +22,7 @@ export default function AddList() {
     queryFn: () => GetWatchLists(getCookie("AccessToken")!, updateData),
     enabled: true,
   });
+  const pathName = usePathname();
   const mutation = useMutation({
     mutationFn: (e) => {
       return AddStock(
@@ -29,7 +31,7 @@ export default function AddList() {
         getCookie("AccessToken"),
         list,
         updateOverlay,
-        data
+        pathName.split("/").pop()!
       );
     },
     onSuccess: () => {

@@ -2,6 +2,7 @@
 import Stock from "@/components/home/stock/index.component";
 import AddList from "@/components/watchlist/popup/AddList.component";
 import CreateList from "@/components/watchlist/popup/createList.component";
+import { stocksStore } from "@/store/stocks";
 import WatchStore from "@/store/watchlist";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -19,7 +20,8 @@ const DefHome = dynamic(() => import("@/components/home/main/index.component"));
 const StockPage: NextPage = (req, res) => {
   const { overlay, updateOverlay } = WatchStore();
   const pathName = usePathname();
-  console.log(pathName.split("/").pop());
+  // console.log(pathName.split("/").pop());
+
   return (
     <>
       {overlay !== 0 && <AddList />}

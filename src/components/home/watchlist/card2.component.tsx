@@ -1,4 +1,5 @@
 import { chexkLength } from "@/functions/textLength";
+import { stocksStore } from "@/store/stocks";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -6,6 +7,8 @@ import React from "react";
 export default function Card2(props: { item: any }) {
   const router = useRouter();
   const { item } = props;
+  const { stocks, setStocks } = stocksStore();
+  console.log("ssssss " + item.symbol);
   return (
     <div
       onClick={() => router.push("/stock/1")}
@@ -13,14 +16,27 @@ export default function Card2(props: { item: any }) {
     >
       <div className=" flex gap-2">
         <Image
-          src={item["image"]}
+          src={item["image"] ? item["image"] : "/images/trad.jpg"}
           alt="company image"
-          width={20}
-          height={20}
+          width={35}
+          height={35}
+          onError={() => {
+            console.log("//////////////");
+
+            const data = stocks.slice();
+
+            console.log(item.symbol);
+            console.log("//////////////");
+            console.log(stocks);
+            data.filter((stock: any) => stock === item)[0]["image"] =
+              "/images/trad.jpg";
+            console.log(data);
+            setStocks(data);
+          }} // remove if the image fails to
           className="  rounded-lg"
         />
         <div className=" flex flex-col">
-          <span className=" font-semibold text-[10px]">
+          <span className=" font-semibold text-[12px]">
             {item["companyName"]}
           </span>
           {item["description"] && (

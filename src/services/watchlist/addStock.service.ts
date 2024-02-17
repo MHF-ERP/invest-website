@@ -7,7 +7,7 @@ export async function AddStock(
   token: string | undefined,
   stocks: string[],
   setOverlay: any,
-  data: any
+  id: string
 ) {
   e.preventDefault();
 
@@ -21,8 +21,7 @@ export async function AddStock(
   const randomNum = Math.random();
 
   // Convert the random number to a string and remove the decimal point
-  const randomString = String(randomNum).substring(2);
-  await request(requestJson, token!, randomString, setOverlay);
+  await request(requestJson, token!, id, setOverlay);
 }
 
 async function request(

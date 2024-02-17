@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import { changeDate, formatDate2 } from "@/functions/formatDate";
 // import ReactApexChart from "react-apexcharts";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 export default function Garph(props: {
@@ -72,15 +73,9 @@ export default function Garph(props: {
         },
       ],
       xaxis: {
-        categories: [
-          "01 February",
-          "02 February",
-          "03 February",
-          "04 February",
-          "05 February",
-          "06 February",
-          "07 February",
-        ],
+        type: "datetime",
+        min: new Date(formatDate2(changeDate(new Date(), 2))).getTime(),
+        tickAmount: 1,
         labels: {
           show: false,
         },

@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function About() {
-  const data = [
+export default function About(props: { data: any }) {
+  const { data } = props;
+  const boxes = [
     {
       title: "CEO",
-      value: "Jensen Huang",
+      value: data["ceo"],
     },
     {
       title: "Employees",
@@ -16,25 +17,18 @@ export default function About() {
     },
     {
       title: "HQ",
-      value: "Santa Clara, CA, USA",
+      value: data["address"],
     },
   ];
   return (
     <div className=" border border-divider shadow p-[21px] rounded-xl flex-1 flex flex-col gap-3">
       <h1 className=" font-bold text-[#0B0E0C] text-[16px] ">About</h1>
       <p className=" text-[16px] text-[#26312A] font-[400] ">
-        Nvidia is a leading developer of graphics processing units.
-        Traditionally, GPUs were used to enhance the experience on computing
-        platforms, most notably in gaming applications on PCs. GPU use cases
-        have since emerged as important semiconductors used in artificial
-        intelligence. Nvidia not only offers AI GPUs, but also a software
-        platform, Cuda, used for AI model development and training. Nvidia is
-        also expanding its data center networking solutions, helping to tie GPUs
-        together to handle complex workloads.
+        {data["description"]}
       </p>
       <hr className=" border-divider border" />
       <div className=" flex justify-between items-center w-full">
-        {data.map((item: any, idx: number) => {
+        {boxes.map((item: any, idx: number) => {
           return (
             <div key={idx} className=" flex flex-col">
               <span

@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { RESPONSE } from "./interface";
 import { SERVER } from "./links";
+import { useRouter } from "next/navigation";
 
 class RequestService {
   private axiosInstance;
@@ -40,6 +41,9 @@ class RequestService {
         ...config,
         headers,
       });
+      if (response.status === 401) {
+        document.location.href = "/";
+      }
       return response;
     } catch (error) {
       console.error("Error during HTTP request:", error);
@@ -72,6 +76,9 @@ class RequestService {
         ...config,
         headers,
       });
+      if (axiosResponse.status === 401) {
+        document.location.href = "/";
+      }
       return axiosResponse;
     } catch (err: any) {
       return err.response as RESPONSE;
@@ -92,6 +99,9 @@ class RequestService {
         ...config,
         headers,
       });
+      if (axiosResponse.status === 401) {
+        document.location.href = "/";
+      }
       return axiosResponse;
     } catch (err: any) {
       return err.response as RESPONSE;
