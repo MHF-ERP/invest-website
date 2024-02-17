@@ -5,6 +5,7 @@ import CreateList from "@/components/watchlist/popup/createList.component";
 import WatchStore from "@/store/watchlist";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const AllPageLayout = dynamic(
   () => import("@/components/layouts/allPage.layout")
@@ -17,6 +18,8 @@ const DefHome = dynamic(() => import("@/components/home/main/index.component"));
 
 const StockPage: NextPage = (req, res) => {
   const { overlay, updateOverlay } = WatchStore();
+  const pathName = usePathname();
+  console.log(pathName.split("/").pop());
   return (
     <>
       {overlay !== 0 && <AddList />}

@@ -26,3 +26,8 @@ export const USER = `${SERVER}/user`;
 export const PROFILE = `${USER}/profile`;
 //**************** MEDIA *******************/
 export const MEDIA = `${SERVER}/media?media=`;
+//*****************STOCKS********************** */
+export const historicalUrl = `https://financialmodelingprep.com/api/v3/historical-price-full`;
+export const profileUrl = `https://financialmodelingprep.com/api/v3/profile`;
+export const priceUrl = `https://financialmodelingprep.com/api/v3/quote`;
+export const stockImage = "https://s3-symbol-logo.tradingview.com";

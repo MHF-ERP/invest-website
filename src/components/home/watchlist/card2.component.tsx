@@ -3,40 +3,39 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function Card(props: { item: any }) {
+export default function Card2(props: { item: any }) {
   const router = useRouter();
   const { item } = props;
-  console.log(item["image"]);
   return (
     <div
-      onClick={() => router.push("/stock/" + item["symbol"])}
+      onClick={() => router.push("/stock/1")}
       className=" cursor-pointer hover:opacity-80 w-full flex justify-between items-center"
     >
       <div className=" flex gap-2">
         <Image
           src={item["image"]}
           alt="company image"
-          width={38}
-          height={38}
+          width={20}
+          height={20}
           className="  rounded-lg"
         />
         <div className=" flex flex-col">
-          <span className=" font-semibold text-[14px]">
+          <span className=" font-semibold text-[10px]">
             {item["companyName"]}
           </span>
           {item["description"] && (
-            <span className=" w-full  text-sm text-p text-[14px] xl:flex lg:flex  hidden">
+            <span className=" w-full  text-sm text-p text-[8px] xl:flex lg:flex  hidden">
               {chexkLength(item["description"], 24)}{" "}
             </span>
           )}
           {item["description"] && (
-            <span className=" w-full  text-sm text-p xl:hidden text-[14px] lg:hidden  md:flex hidden ">
+            <span className=" w-full  text-sm text-p xl:hidden text-[8px] lg:hidden  md:flex hidden ">
               {chexkLength(item["description"], 10)}{" "}
             </span>
           )}
 
           {item["description"] && (
-            <span className=" w-full  text-sm text-p xl:hidden lg:hidden  text-[14px] md:hidden flex ">
+            <span className=" w-full  text-sm text-p xl:hidden lg:hidden  text-[8px] md:hidden flex ">
               {chexkLength(item["description"], 20)}{" "}
             </span>
           )}
