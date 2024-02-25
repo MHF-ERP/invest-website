@@ -5,7 +5,7 @@ export default function About(props: { data: any }) {
   const boxes = [
     {
       title: "CEO",
-      value: data["ceo"],
+      value: data?.ceo,
     },
     {
       title: "Employees",
@@ -17,14 +17,14 @@ export default function About(props: { data: any }) {
     },
     {
       title: "HQ",
-      value: data["address"],
+      value: data?.address,
     },
   ];
   return (
     <div className=" border border-divider shadow p-[21px] rounded-xl flex-1 flex flex-col gap-3">
       <h1 className=" font-bold text-[#0B0E0C] text-[16px] ">About</h1>
       <p className=" text-[16px] text-[#26312A] font-[400] ">
-        {data["description"]}
+        {data?.description}
       </p>
       <hr className=" border-divider border" />
       <div className=" flex justify-between items-center w-full">

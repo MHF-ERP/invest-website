@@ -63,6 +63,7 @@ export default function CreateList(props: { setOverlay: any }) {
         </div>
         <div className=" mt-[20px] flex justify-between items-center gap-[6px]">
           <button
+            type="button"
             className=" bg-white border border-[#D0D5DD] rounded-[8px] shad py-[10px] px-[16px] flex-1 "
             onClick={() => setOverlay(0)}
           >

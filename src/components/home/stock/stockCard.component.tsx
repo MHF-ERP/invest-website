@@ -8,12 +8,11 @@ import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 import WatchStore from "@/store/watchlist";
 import { usePathname } from "next/navigation";
 import { stocksStore } from "@/store/stocks";
+import MyImage from "@/components/image";
 
 export default function StockCard(props: { data: any }) {
   const { updateOverlay } = WatchStore();
   const { data } = props;
-  const pathName = usePathname();
-  const { stocks, setStocks } = stocksStore();
 
   const getCurrentTimeEST = (): string => {
     const options: Intl.DateTimeFormatOptions = {
@@ -37,19 +36,13 @@ export default function StockCard(props: { data: any }) {
   return (
     <div className=" flex w-full justify-between items-start mt-6 text-sm">
       <div className=" flex gap-2">
-        <Image
+        <MyImage
           alt="stockImage"
-          src={data["image"]}
+          src={data?.image}
           width={66}
           height={66}
           className=" rounded-[6px]"
-          onError={() => {
-            const data = stocks.slice();
-            data.filter((stock: any) => stock.symbol === data.symbol)[0][
-              "image"
-            ] = "/images/trad.jpg";
-            setStocks(data);
-          }}
+          defaultImage="/images/trad.jpg"
         />
 
         <div className=" flex-col flex justify-center">
@@ -57,31 +50,31 @@ export default function StockCard(props: { data: any }) {
             className="  font-semibold text-[16px] text-[#171D19]"
             style={{ color: "#0B0E0C" }}
           >
-            {data["companyName"]}
+            {data?.companyName}
             <span className=" font-light" style={{ color: "#45564B" }}>
               {" "}
-              | {data["exchange"]} ({data["exchangeShortName"]})
+              | {data?.exchange} ({data?.exchangeShortName})
             </span>{" "}
           </span>
           <span
             className=" xl:flex-row lg:flex-row md:flex-row flex-col  font-bold flex  text-[32px] gap-1 "
             style={{ color: "#0B0E0C" }}
           >
-            ${data["price"]}
+            ${data?.price}
             <span
               className={` ${
-                data.changes && data["changes"].toString()[0] !== "-"
+                data?.changes && data?.changes.toString()[0] !== "-"
                   ? "text-success"
                   : "text-decrease"
               } font-semibold  text-[12px] flex flex-row items-end text-xs gap-2`}
             >
-              {data.changes && data["changes"].toString()[0] === "-" && (
+              {data?.changes && data?.changes.toString()[0] === "-" && (
                 <FaArrowTrendDown className=" text-decrease" />
               )}
-              {data.changes && data["changes"].toString()[0] !== "-" && (
+              {data?.changes && data?.changes.toString()[0] !== "-" && (
                 <FaArrowTrendUp className=" text-success" />
               )}
-              {data.changes && data["changes"]}
+              {data?.changes && data?.changes}
               <span className=" text-xs font-normal flex items-end text-p">
                 {getCurrentTimeEST()}
               </span>{" "}

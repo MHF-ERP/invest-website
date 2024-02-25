@@ -6,7 +6,6 @@ import { stocksStore } from "@/store/stocks";
 
 export default function Daily() {
   const { stocks } = stocksStore();
-  // console.log(stocks);
   const data = stocks.slice().sort((a: any, b: any) => b.changes - a.changes);
   const data2 = stocks.slice().sort((a: any, b: any) => a.changes - b.changes);
 

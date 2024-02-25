@@ -21,10 +21,6 @@ export default function DropDown(props: {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  // console.log(selectedValue);
-  // console.log(
-  //   COUNTRIESWCITES.filter((item) => item.name === selectedValue)[0]!.states
-  // );
   return (
     <div className="flex flex-col gap-1">
       <span className="text-textInput text-sm">{text}</span>

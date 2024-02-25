@@ -209,7 +209,6 @@ export default function DateTimeChart(props: { title: string }) {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  // console.log(chartData);
   return (
     <div
       id="chart"

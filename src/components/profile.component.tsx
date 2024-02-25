@@ -1,15 +1,15 @@
-import Image from "next/image";
-import React from "react";
+import MyImage from "./image";
 
 export default function Profile(props: { data: any }) {
   return (
     <div className=" flex gap-2 items-center">
-      <Image
+      <MyImage
         src={props.data.image}
         alt="company Image"
         width={40}
         height={40}
         className=" rounded-lg"
+        defaultImage="/images/trad.jpg"
       />
       <div className=" flex flex-col">
         <span

@@ -18,7 +18,6 @@ export async function GetHistorical(
     const timestamp = new Date(item.date).getTime(); // Convert date to timestamp in milliseconds
     return [timestamp, item.open]; // Return an array with timestamp and open value
   });
-  console.log(formatDate2(to));
   if (transformedArray && chartData) {
     setChartData({
       ...chartData,

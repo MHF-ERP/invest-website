@@ -8,7 +8,6 @@ export default function Card2(props: { item: any }) {
   const router = useRouter();
   const { item } = props;
   const { stocks, setStocks } = stocksStore();
-  console.log("ssssss " + item.symbol);
   return (
     <div
       onClick={() => router.push("/stock/1")}
@@ -21,16 +20,10 @@ export default function Card2(props: { item: any }) {
           width={35}
           height={35}
           onError={() => {
-            console.log("//////////////");
-
             const data = stocks.slice();
 
-            console.log(item.symbol);
-            console.log("//////////////");
-            console.log(stocks);
             data.filter((stock: any) => stock === item)[0]["image"] =
               "/images/trad.jpg";
-            console.log(data);
             setStocks(data);
           }} // remove if the image fails to
           className="  rounded-lg"

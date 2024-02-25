@@ -20,7 +20,6 @@ const DefHome = dynamic(() => import("@/components/home/main/index.component"));
 const StockPage: NextPage = (req, res) => {
   const { overlay, updateOverlay } = WatchStore();
   const pathName = usePathname();
-  // console.log(pathName.split("/").pop());
 
   return (
     <>

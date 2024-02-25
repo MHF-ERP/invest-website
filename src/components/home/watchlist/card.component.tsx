@@ -7,7 +7,6 @@ import React from "react";
 export default function Card(props: { item: any }) {
   const router = useRouter();
   const { item } = props;
-  // console.log(item["image"]);
   const { stocks, setStocks } = stocksStore();
   return (
     <div
