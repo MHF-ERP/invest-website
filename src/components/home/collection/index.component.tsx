@@ -48,16 +48,20 @@ export default function Collection(props: { data: any }) {
         } `}
       >
         {props.data.map((item: any, idx: number) => {
-          const it = stocks.filter((it: any) => item["id"] === it["symbol"])[0];
-          return (
-            <Card
-              key={idx}
-              item={it}
-              id={item["id"]}
-              pred={item["probability"]}
-              up={item["prediction"] === "Up"}
-            />
-          );
+          if (stocks) {
+            const it = stocks.filter(
+              (it: any) => item["id"] === it["symbol"]
+            )[0];
+            return (
+              <Card
+                key={idx}
+                item={it}
+                id={item["id"]}
+                pred={item["probability"]}
+                up={item["prediction"] === "Up"}
+              />
+            );
+          }
         })}
       </div>
     </div>

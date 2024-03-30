@@ -45,7 +45,7 @@ export default function Search(props: { HomeClassName?: string }) {
             return (
               <Link
                 className={` px-4  hover:bg-slate-300 ${
-                  key === 0 ? "pt-4" : " mt-6"
+                  key === 0 ? "pt-4" : ""
                 } pt-2 pb-2 -mt-2  text-black`}
                 key={key}
                 href={"/stock" + item["symbol"]}
