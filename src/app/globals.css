@@ -7,6 +7,41 @@
   @apply !leading-[120%];
 }
 
+.custonScroll::-webkit-scrollbar {
+  width: 12px;
+  height: 6px;
+}
+
+.custonScroll::-webkit-scrollbar-track {
+  background: #1f332b; /* Change the background color */
+}
+
+.custonScroll::-webkit-scrollbar-thumb {
+  background: #ffffff; /* Change the thumb color */
+  border-radius: 10px;
+}
+
+.custonScroll::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change the thumb color on hover */
+}
+
+.custonScroll2::-webkit-scrollbar {
+  width: 12px;
+  height: 6px;
+}
+
+.custonScroll2::-webkit-scrollbar-track {
+  background: #ffffff; /* Change the background color */
+}
+
+.custonScroll2::-webkit-scrollbar-thumb {
+  background: #1f332b; /* Change the thumb color */
+  border-radius: 10px;
+}
+
+.custonScroll2::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change the thumb color on hover */
+}
 .form-control {
   margin-top: 0 !important;
   width: 100% !important;

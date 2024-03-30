@@ -10,7 +10,7 @@ export default function Daily() {
   const data2 = stocks.slice().sort((a: any, b: any) => a.changes - b.changes);
 
   return (
-    <div className=" flex-1 -mt-2 flex flex-col p-4 border border-divider shadow rounded-xl">
+    <div className=" flex-1  flex flex-col p-4 border border-divider shadow rounded-xl">
       <Header />
       <div className=" flex w-full gap-6 mt-2 xl:flex-row lg:flex-row md:flex-row flex-col ">
         <div className=" flex gap-2 flex-col w-full ">
@@ -21,7 +21,7 @@ export default function Daily() {
             Gainers
             <FaArrowTrendUp className=" text-text2" />
           </div>
-          {data.splice(0, 6).map((item: any, idx: number) => {
+          {data.splice(0, 5).map((item: any, idx: number) => {
             return (
               <>
                 <Card item={item} key={idx} />
@@ -38,7 +38,7 @@ export default function Daily() {
             Losers
             <FaArrowTrendUp className=" text-decrease" />
           </div>
-          {data2.slice(0, 6).map((item: any, idx: number) => {
+          {data2.slice(0, 5).map((item: any, idx: number) => {
             return (
               <>
                 <Card item={item} key={idx} />

@@ -9,12 +9,6 @@ export default function Header() {
           Today’s biggest gainers and losers.
         </p>
       </div>
-      <div
-        className=" xl:text-base lg:text-base md:text-base text-xs w-fit flex items-center justify-center rounded-2xl px-4 py-2 cursor-pointer"
-        style={{ border: "1px solid #D0D5DD", color: "#344054" }}
-      >
-        View all
-      </div>
     </div>
   );
 }

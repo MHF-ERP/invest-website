@@ -9,15 +9,16 @@ import { stocksStore } from "@/store/stocks";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetSymbolId } from "@/services/home/getSymbolId";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Stock() {
   const { stocks, setStocks } = stocksStore();
   const pathName = usePathname();
+  const [prop, setProp] = useState<string>("0");
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["symbolId"],
-    queryFn: () => GetSymbolId(pathName.split("/").pop()!),
+    queryFn: () => GetSymbolId(setProp, pathName.split("/").pop()!),
     // enabled: false,
   });
   useEffect(() => {
@@ -28,7 +29,9 @@ export default function Stock() {
     <HomeLayout>
       <HeaderNav />
       {!isLoading && <StockCard data={data} />}
-      {!isLoading && <GraphBox title="Performance" stock={true} />}{" "}
+      {!isLoading && (
+        <GraphBox title="Performance" stock={true} id={prop} />
+      )}{" "}
       <div className=" flex gap-4 mt-4  w-full xl:flex-row lg:flex-row md:flex-row flex-col ">
         <div className=" flex flex-col gap-3">
           {!isLoading && <About data={data} />} <Recommendations />

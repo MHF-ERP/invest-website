@@ -12,10 +12,7 @@ export default function WatchList(props: {
   const { title, brief } = props;
   const { stocks } = stocksStore();
   return (
-    <div
-      className=" mt-4 flex flex-col gap-[18px] p-4 border border-divider shadow rounded-xl "
-      style={{ maxWidth: "25%" }}
-    >
+    <div className="  flex flex-col h-full gap-[18px] xl:max-w-[25%] lg:max-w-[25%] w-[100%] p-4 border border-divider shadow rounded-xl ">
       <ViewAll title={title} brief={brief} />
 
       <div className=" flex flex-col gap-3">

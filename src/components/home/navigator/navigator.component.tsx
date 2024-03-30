@@ -1,3 +1,4 @@
+"use client";
 import SmallLogo from "../../default/smallLogo";
 import Profile from "./profile.component";
 import { RiHome6Line } from "react-icons/ri";
@@ -6,7 +7,12 @@ import { HiOutlineClipboardDocumentCheck } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+
 import PortfolioIcon from "@/icons/portfolio.icon";
+import { useRouter } from "next/navigation";
+import { logoutRequest } from "@/services/home/logout.service";
+import { deleteCookie, getCookie } from "cookies-next";
 
 export default function Navigator(props: { current: number }) {
   const { current } = props;
@@ -46,6 +52,12 @@ export default function Navigator(props: { current: number }) {
       link: "/discover",
     },
   ];
+  const router = useRouter();
+  const mutation = useMutation({
+    mutationFn: () => {
+      return logoutRequest(getCookie("AccessToken")!, router, deleteCookie);
+    },
+  });
 
   return (
     <div className=" h-full xl:min-w-60 lg:min-w-60 md:w-fit flex flex-col justify-between">
@@ -79,7 +91,10 @@ export default function Navigator(props: { current: number }) {
 
           <span className="xl:flex lg:flex hidden text-nav">Settings</span>
         </div>
-        <IoIosLogOut className=" xl:hidden lg:hidden flex mb-6 text-lg text-nav cursor-pointer" />
+        <IoIosLogOut
+          onClick={() => mutation.mutate()}
+          className=" xl:hidden lg:hidden flex mb-6 text-lg text-nav cursor-pointer"
+        />
 
         <hr className=" xl:flex lg:flex w-full hidden mb-4  border-nav" />
         <Profile />

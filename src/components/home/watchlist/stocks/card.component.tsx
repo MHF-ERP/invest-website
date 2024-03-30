@@ -7,12 +7,13 @@ import ProfileStock from "./profile.component";
 import { GetSymbolId } from "@/services/home/getSymbolId";
 import { useQuery } from "@tanstack/react-query";
 import GraphWatchIt from "./graphWatchIt.component";
+import { GetSymbolId2 } from "@/services/home/getSymbolId2";
 
 export default function Card(props: { item: string; text: string }) {
   const { item, text } = props;
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["symbolId"],
-    queryFn: () => GetSymbolId(item),
+    queryFn: () => GetSymbolId2(item),
     // enabled: false,
   });
 
@@ -24,7 +25,9 @@ export default function Card(props: { item: string; text: string }) {
           Change(1D)
         </span>
         {!isLoading && (
-          <span className={`${TextColor(text[0])}`}>{data["changes"]}</span>
+          <span className={`${TextColor(text[0])}`}>
+            {data & data["changes"]}
+          </span>
         )}{" "}
       </div>
       {!isLoading && <GraphWatchIt symbol={item} text={data.changes} />}

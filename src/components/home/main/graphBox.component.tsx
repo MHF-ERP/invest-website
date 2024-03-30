@@ -4,18 +4,23 @@ import Score from "../stock/score.component";
 import Statics from "../stock/statics.component";
 import BodyOfGraphBox from "../stock/bodyOfGraphbox.component";
 
-export default function GraphBox(props: { title: string; stock: boolean }) {
+export default function GraphBox(props: {
+  title: string;
+  stock: boolean;
+  id: string;
+  data?: any;
+}) {
   const { stock } = props;
   return (
-    <div className=" mt-8 flex gap-4  w-full xl:flex-row lg:flex-row md:flex-row flex-col ">
+    <div className="flex gap-4  w-full xl:flex-row lg:flex-row md:flex-row flex-col ">
       {!stock && (
         <>
-          <Collection />
-          <Ai />
+          <Collection data={props.data} />
+          {/* <Ai /> */}
         </>
       )}
 
-      {stock && <BodyOfGraphBox />}
+      {stock && <BodyOfGraphBox id={props.id} />}
     </div>
   );
 }

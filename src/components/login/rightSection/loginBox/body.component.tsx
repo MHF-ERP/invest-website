@@ -127,8 +127,14 @@ export default function Body() {
         updateFirstName(data["data"]["name"]?.split(" ")?.at(0));
         updateLastName(data["data"]["name"]?.split(" ")?.pop());
         updatePhone(data["data"]["phone"]);
-        updateCountry(data["data"]["country"]===null ? "Select a Country":data["data"]["country"]);
-        updateCity(data["data"]["city"]=== null    ? "Select a City":data["data"]["city"]);
+        updateCountry(
+          data["data"]["country"] === null
+            ? "Select a Country"
+            : data["data"]["country"]
+        );
+        updateCity(
+          data["data"]["city"] === null ? "Select a City" : data["data"]["city"]
+        );
         updateImg(
           data["data"]["idImage"] ? MEDIA + data["data"]["idImage"] : ""
         );
@@ -138,7 +144,9 @@ export default function Body() {
       // **************Valid Credintial and User Active******************
       else {
         setName(data["data"]["name"]);
-        setCookie("AccessToken", data["token"]);
+        const farFutureDate = new Date(2030, 11, 31); // Month is 0-based, so 11 represents December
+        // console.log(farFutureDate);
+        setCookie("AccessToken", data["token"], { expires: farFutureDate });
 
         // document.cookie = `AccessToken=${data["token"]}; path=/`;
         router.replace("/home");

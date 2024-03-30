@@ -11,45 +11,9 @@ import { GetSymbol } from "@/services/home/indices.service";
 import { STOCKS_DATA } from "@/static/stocks";
 import { useEffect, useState } from "react";
 import { stocksStore } from "@/store/stocks";
+import { PREDECT } from "@/static/links";
 
 export default function DefHome() {
-  const stocksData = [
-    {
-      img: "/images/companies/orange.png",
-      title: "AMD",
-      brief: "Advanced Microsoft Development",
-      value: "139.99",
-      change: "+2.89%",
-    },
-    {
-      img: "/images/companies/orange.png",
-      title: "AMD",
-      brief: "Advanced Microsoft Development",
-      value: "139.99",
-      change: "+2.89%",
-    },
-    {
-      img: "/images/companies/orange.png",
-      title: "AMD",
-      brief: "Advanced Microsoft Development",
-      value: "139.99",
-      change: "+2.89%",
-    },
-    {
-      img: "/images/companies/orange.png",
-      title: "AMD",
-      brief: "Advanced Microsoft Development",
-      value: "139.99",
-      change: "+2.89%",
-    },
-    {
-      img: "/images/companies/orange.png",
-      title: "AMD",
-      brief: "Advanced Microsoft Development",
-      value: "139.99",
-      change: "+2.89%",
-    },
-  ];
   const { stocks, setStocks } = stocksStore();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["indices"],
@@ -57,24 +21,65 @@ export default function DefHome() {
 
     enabled: false,
   });
+
+  const [DataUp, setDataUp] = useState<any>();
+  const [DataDown, setDataDown] = useState<any>();
+
+  async function getData() {
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+
+    await fetch(proxyUrl + PREDECT)
+      .then((response) => {
+        // Check if the request was successful (status code 200)
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        // Parse the response body as JSON
+        return response.json();
+      })
+      .then((data) => {
+        const dataArray = Object.keys(data["predictions"]).map((key) => ({
+          id: key,
+          prediction: data["predictions"][key].prediction,
+          probability: (data["predictions"][key].probability * 100).toFixed(),
+        }));
+        // Do something with the JSON data
+        const Up = dataArray.filter((item) => item.prediction === "Up");
+        const Down = dataArray.filter((item) => item.prediction === "Down");
+
+        Up.sort(
+          (a, b) => parseFloat(b.probability) - parseFloat(a.probability)
+        );
+        Down.sort(
+          (a, b) => parseFloat(a.probability) - parseFloat(b.probability)
+        );
+        setDataUp(Up);
+        setDataDown(Down);
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the fetch
+        console.error("Fetch error:", error);
+      });
+  }
   useEffect(() => {
     refetch();
   }, [refetch]);
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <HomeLayout>
       <WelcomeBox />
-      <Indices />
-      {!isLoading && (
-        <div className="  flex gap-4 overflow-x-scroll w-full cat  cursor-grab overflow-y-hidden h-[110px] ">
-          {stocksData.map((item: any, idx: number) => {
-            return <Card key={idx} />;
-          })}
-        </div>
+      {DataUp && DataUp.length > 0 && (
+        <GraphBox title={"Sales Report"} stock={false} id="" data={DataUp} />
       )}
 
-      <GraphBox title={"Sales Report"} stock={false} />
-      <div className=" flex gap-4  w-full  xl:flex-row lg:flex-row md:flex-row flex-col">
+      {DataDown && DataDown.length > 0 && (
+        <GraphBox title={"Sales Report"} stock={false} id="" data={DataDown} />
+      )}
+      <div className=" flex gap-4  w-full  xl:flex-row lg:flex-row flex-col">
         {!isLoading && stocks && <Daily />}
         {!isLoading && stocks && (
           <WatchList

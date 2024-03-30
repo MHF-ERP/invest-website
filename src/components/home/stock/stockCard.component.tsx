@@ -27,7 +27,7 @@ export default function StockCard(props: { data: any }) {
 
     // Add 2 hours to the current time
     const futureTime: Date = new Date(
-      currentTime.getTime() + 2 * 60 * 60 * 1000
+      currentTime.getTime() + 1 * 60 * 60 * 1000
     );
     const futureEgyptTime: string = futureTime.toLocaleString("en-US", options);
     return `${futureEgyptTime} EST`;
@@ -91,7 +91,7 @@ export default function StockCard(props: { data: any }) {
           icon={<MdFormatListBulletedAdd className=" text-[#323232]" />}
           click={() => updateOverlay(1)}
         />
-        <Button text="Trade" color="#FFFFFF" bgColor="#2E644E" />
+        {/* <Button text="Trade" color="#FFFFFF" bgColor="#2E644E" /> */}
       </div>
     </div>
   );
