@@ -73,7 +73,7 @@ export default function Page() {
                 <Actions />
               </div>
             </div>
-            <Changes />
+            {/* <Changes /> */}
           </HomeLayout>
         )}
       </main>
