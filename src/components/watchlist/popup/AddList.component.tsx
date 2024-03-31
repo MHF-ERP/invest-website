@@ -36,7 +36,7 @@ export default function AddList() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Watchlists"] });
-      // GetWatchLists(getCookie("AccessToken")!, updateData);
+      GetWatchLists(getCookie("AccessToken")!, updateData);
     },
   });
   return (

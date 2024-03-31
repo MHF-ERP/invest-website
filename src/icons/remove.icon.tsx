@@ -1,11 +1,25 @@
 import React from "react";
 
-export default function Remove() {
+export default function Remove(props: {
+  watchId?: string;
+  setWatchlistId?: any;
+  setSymbol?: any;
+  symbol?: string;
+  setOverlay?: any;
+}) {
+  const { setOverlay, setSymbol, symbol, setWatchlistId, watchId } = props;
+
   return (
     <svg
+      onClick={() => {
+        setSymbol(symbol);
+        setOverlay(-2);
+        setWatchlistId(watchId);
+      }}
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="20"
+      className=" cursor-pointer"
       viewBox="0 0 20 20"
       fill="none"
     >

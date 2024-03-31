@@ -12,6 +12,8 @@ import { STOCKS_DATA } from "@/static/stocks";
 import { useEffect, useState } from "react";
 import { stocksStore } from "@/store/stocks";
 import { PREDECT } from "@/static/links";
+import ContentLoader from "react-content-loader";
+import LoadingAi from "../collection/loadingAi";
 
 export default function DefHome() {
   const { stocks, setStocks } = stocksStore();
@@ -75,6 +77,8 @@ export default function DefHome() {
       {DataUp && DataUp.length > 0 && (
         <GraphBox title={"Sales Report"} stock={false} id="" data={DataUp} />
       )}
+      {!DataUp && <LoadingAi up={true} />}
+      {!DataUp && <LoadingAi up={false} />}
 
       {DataDown && DataDown.length > 0 && (
         <GraphBox title={"Sales Report"} stock={false} id="" data={DataDown} />

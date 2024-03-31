@@ -8,12 +8,12 @@ export default function About(props: { data: any }) {
       value: data?.ceo,
     },
     {
-      title: "Employees",
-      value: "26.1 K",
+      title: "Phone",
+      value: data?.phone,
     },
     {
-      title: "Founded",
-      value: "1996",
+      title: "City",
+      value: data?.city,
     },
     {
       title: "HQ",

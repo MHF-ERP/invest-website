@@ -35,22 +35,22 @@ export default function Navigator(props: { current: number }) {
       name: "Watchlist",
       link: "/watchlist",
     },
-    {
-      icon: (
-        <PortfolioIcon color={`${current === 3 ? "#FFFFFF" : "#ACCDB7"} `} />
-      ),
-      name: "Portfolio",
-      link: "/portfolio",
-    },
-    {
-      icon: (
-        <HiOutlineClipboardDocumentCheck
-          className={` text-xl ${current === 4 ? "text-white" : ""} `}
-        />
-      ),
-      name: "Discover",
-      link: "/discover",
-    },
+    // {
+    //   icon: (
+    //     <PortfolioIcon color={`${current === 3 ? "#FFFFFF" : "#ACCDB7"} `} />
+    //   ),
+    //   name: "Portfolio",
+    //   link: "/portfolio",
+    // },
+    // {
+    //   icon: (
+    //     <HiOutlineClipboardDocumentCheck
+    //       className={` text-xl ${current === 4 ? "text-white" : ""} `}
+    //     />
+    //   ),
+    //   name: "Discover",
+    //   link: "/discover",
+    // },
   ];
   const router = useRouter();
   const mutation = useMutation({

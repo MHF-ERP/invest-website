@@ -20,7 +20,7 @@ export default function GraphBox(props: {
         </>
       )}
 
-      {stock && <BodyOfGraphBox id={props.id} />}
+      {stock && <BodyOfGraphBox id={props.id} item={props.data} />}
     </div>
   );
 }

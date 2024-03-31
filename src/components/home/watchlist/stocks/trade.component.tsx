@@ -12,7 +12,7 @@ export default function Trade(props: { title: string; brief: string }) {
         style={{ color: "#6B8373" }}
         className=" px-[8px] pb-1 text-[14px] font-semibold"
       >
-        42054.99
+        {brief}
       </p>
     </div>
   );

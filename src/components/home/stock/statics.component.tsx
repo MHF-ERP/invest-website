@@ -1,30 +1,31 @@
 import React from "react";
 
-export default function Statics() {
+export default function Statics(props: { stock: any }) {
+  const { stock } = props;
   const data = [
     {
-      title1: "Market Cap",
-      title2: "1.35T",
+      title1: "Volume Average",
+      title2: stock["volAvg"],
     },
     {
-      title1: "Price/Earnings",
-      title2: "7.38x",
+      title1: "Price",
+      title2: stock["price"],
     },
     {
-      title1: "EPS",
-      title2: "11.60",
+      title1: "Changes",
+      title2: stock["changes"],
     },
     {
-      title1: "Value Today",
-      title2: "111.33m",
+      title1: "Change Percentage",
+      title2: (stock["changes"] * 100).toFixed(),
     },
     {
-      title1: "Dividend Yield",
-      title2: "8.18",
+      title1: "Symbol",
+      title2: stock["symbol"],
     },
     {
-      title1: "Avg. Traded Value",
-      title2: "74.30m",
+      title1: "Range",
+      title2: stock["range"],
     },
   ];
   return (

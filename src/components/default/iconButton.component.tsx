@@ -25,6 +25,7 @@ export default function IconButton(props: {
       </button>
       {/*  */}
       <button
+        onClick={() => click()}
         style={{ backgroundColor: bgColor, color: color }}
         className=" py-[10px] px-[14px] rounded-lg  items-center gap-2 border border-divider xl:hidden lg:hidden md:hidden flex"
       >

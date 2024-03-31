@@ -30,7 +30,7 @@ export default function Stock() {
       <HeaderNav />
       {!isLoading && <StockCard data={data} />}
       {!isLoading && (
-        <GraphBox title="Performance" stock={true} id={prop} />
+        <GraphBox title="Performance" stock={true} id={prop} data={data} />
       )}{" "}
       <div className=" flex gap-4 mt-4  w-full xl:flex-row lg:flex-row md:flex-row flex-col ">
         <div className=" flex flex-col gap-3">

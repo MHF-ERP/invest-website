@@ -6,8 +6,11 @@ import WatchStore from "@/store/watchlist";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
+import { GetSymbol } from "@/services/home/indices.service";
+import { stocksStore } from "@/store/stocks";
+import DeleteLayout from "@/components/watchlist/popup/deletelayout.component";
 const IconButton = dynamic(
   () => import("@/components/default/iconButton.component")
 );
@@ -33,9 +36,20 @@ const Taps = dynamic(
 );
 
 export default function Page() {
+  const { setStocks } = stocksStore();
+  const { refetch } = useQuery({
+    queryKey: ["ind"],
+    queryFn: () => GetSymbol(setStocks),
+
+    enabled: false,
+  });
+
   const { updateData, data } = WatchStore();
   const [overlay, setOverlay] = useState(0);
-  const { isLoading } = useQuery({
+  const [symbol, setSymbol] = useState("");
+  const [watchlistId, setWatchlistId] = useState("");
+
+  const { refetch: refetch2 } = useQuery({
     queryKey: ["Watchlists2"],
     queryFn: () => GetWatchLists(getCookie("AccessToken")!, updateData),
     enabled: true,
@@ -47,13 +61,26 @@ export default function Page() {
   //       Loading...
   //     </div>
   //   );
+  useEffect(() => {
+    refetch();
+  }, []);
+  useEffect(() => {
+    refetch2();
+  }, []);
   const popup = [
     <CreateList setOverlay={setOverlay} key={0} />,
     <DeleteList key={1} setOverlay={setOverlay} />,
   ];
   return (
     <>
-      {overlay !== 0 && popup[overlay - 1]}
+      {overlay > 0 && popup[overlay - 1]}
+      {overlay === -2 && (
+        <DeleteLayout
+          setOverlay={setOverlay}
+          symbol={symbol}
+          id={watchlistId}
+        />
+      )}
       <main
         className={`  flex  h-screen max-w-screen  bg-[#1F332B] ${
           overlay ? "over" : ""
@@ -112,7 +139,11 @@ export default function Page() {
                 <Actions />
               </div>
             </div>
-            <Changes />
+            <Changes
+              setOverlay={setOverlay}
+              setSymbol={setSymbol}
+              setWatchlistId={setWatchlistId}
+            />
           </HomeLayout>
         )}
       </main>

@@ -13,18 +13,21 @@ export default function GraphWatchIt(props: { symbol: string; text: string }) {
 
     enabled: false,
   });
+
   useEffect(() => {
     refetch();
   }, [refetch]);
   return (
     <div className=" -mt-10">
-      <Garph
-        data={data}
-        height="h-40"
-        height2={180}
-        color1={text.toString()[0] !== "-" ? "#17B26A" : "#F04438"}
-        color2={text.toString()[0] !== "-" ? "#17B26A" : "#F04438"}
-      />
+      {data && (
+        <Garph
+          data={data}
+          height="h-40"
+          height2={180}
+          color1={text.toString()[0] !== "-" ? "#17B26A" : "#F04438"}
+          color2={text.toString()[0] !== "-" ? "#17B26A" : "#F04438"}
+        />
+      )}
     </div>
   );
 }
