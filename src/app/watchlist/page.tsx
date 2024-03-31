@@ -133,7 +133,7 @@ export default function Page() {
           <HomeLayout>
             <Header empty={false} setOverlay={setOverlay} />
             <hr className="my-4" />
-            <div className=" flex justify-between items-center">
+            <div className=" flex xl:flex-row xl:items-center lg:items-center md:items-center items-start lg:flex-row md:flex-row flex-col xl:justify-between  lg:justify-between md:justify-between justify-start gap-4">
               <Taps data={data} />
               <div className=" flex gap-4">
                 <Actions />

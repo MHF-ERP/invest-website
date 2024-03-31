@@ -24,7 +24,7 @@ export default function Card(props: {
   const { stocks } = stocksStore();
   const data = stocks && stocks.filter((it: any) => it["symbol"] === item)[0];
   return (
-    <div className=" flex flex-col gap-3 w-[23%] p-[14px] border border-divider rounded-[8px]">
+    <div className=" flex flex-col gap-3 xl:w-[23%] lg:w-[23%] w-[100%]  p-[14px] border border-divider rounded-[8px]">
       {data && (
         <ProfileStock
           data={data}
