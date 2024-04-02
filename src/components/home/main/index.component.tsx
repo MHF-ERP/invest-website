@@ -30,7 +30,7 @@ export default function DefHome() {
   async function getData() {
     const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 
-    await fetch(proxyUrl + PREDECT)
+    await fetch(  PREDECT)
       .then((response) => {
         // Check if the request was successful (status code 200)
         if (!response.ok) {
