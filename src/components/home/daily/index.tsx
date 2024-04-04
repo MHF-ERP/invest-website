@@ -21,7 +21,7 @@ export default function Daily() {
             Gainers
             <FaArrowTrendUp className=" text-text2" />
           </div>
-          {data.splice(0, 5).map((item: any, idx: number) => {
+          {data.splice(0, 6).map((item: any, idx: number) => {
             return (
               <>
                 <Card item={item} key={idx} />
@@ -38,7 +38,7 @@ export default function Daily() {
             Losers
             <FaArrowTrendUp className=" text-decrease" />
           </div>
-          {data2.slice(0, 5).map((item: any, idx: number) => {
+          {data2.slice(0, 6).map((item: any, idx: number) => {
             return (
               <>
                 <Card item={item} key={idx} />

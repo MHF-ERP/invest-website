@@ -11,14 +11,14 @@ export default function Card(props: { item: any }) {
   return (
     <div
       onClick={() => router.push("/stock/" + item["symbol"])}
-      className=" cursor-pointer hover:opacity-80 w-full flex justify-between items-center"
+      className="xl:flex-row lg:flex-row md:flex-row flex-col cursor-pointer hover:opacity-80 w-full flex xl:items-center lg:items-center md:items-center justify-between items-start"
     >
-      <div className=" flex gap-2">
+      <div className=" flex gap-2 ">
         <Image
           src={item["image"] ? item["image"] : "/images/trad.jpg"}
           alt="company image"
-          width={38}
-          height={38}
+          width={32}
+          height={32}
           onError={() => {
             const data = stocks.slice();
             data.filter((stock: any) => stock.symbol === item.symbol)[0][
@@ -26,32 +26,21 @@ export default function Card(props: { item: any }) {
             ] = "/images/trad.jpg";
             setStocks(data);
           }} // remove if the image fails to
-          className="  rounded-lg"
+          className=" xl:w-[32px] lg:w-[32px] md:w-[32px]  xl:h-[32px] lg:h-[32px] md:h-[32px] w-[28px] h-[28px] rounded-lg"
         />
         <div className=" flex flex-col">
-          <span className=" font-semibold text-[14px]">
+          <span className="  text-[12px] font-[600]">
             {item["companyName"]}
           </span>
-          {item["description"] && (
-            <span className=" w-full  text-sm text-p text-[14px] xl:flex lg:flex  hidden">
-              {chexkLength(item["description"], 24)}{" "}
-            </span>
-          )}
-          {item["description"] && (
-            <span className=" w-full  text-sm text-p xl:hidden text-[14px] lg:hidden  md:flex hidden ">
-              {chexkLength(item["description"], 10)}{" "}
-            </span>
-          )}
-
-          {item["description"] && (
-            <span className=" w-full  text-sm text-p xl:hidden lg:hidden  text-[14px] md:hidden flex ">
-              {chexkLength(item["description"], 20)}{" "}
+          {item["sector"] && (
+            <span className=" w-full  font-[400] text-p text-[12px]">
+              {chexkLength(item["sector"], 24)}{" "}
             </span>
           )}
         </div>
       </div>
-      <div className=" flex flex-col items-center">
-        <span className=" text-main font-bold text-[16px]">
+      <div className=" xl:flex lg:flex md:flex hidden xl:flex-col lg:flex-col md:flex-col flex-row items-center ">
+        <span className=" text-main font-[600] text-[16px]">
           ${item["price"]}
         </span>
         <span
@@ -59,10 +48,32 @@ export default function Card(props: { item: any }) {
             item["changes"] && item["changes"].toString()[0] !== "-"
               ? "text-success"
               : "text-[#B42318]"
-          } text-[14px] font-semibold`}
+          } text-[14px] font-[500]`}
         >
           {item["changes"]}%
         </span>
+      </div>
+      <div className=" xl:hidden lg:hidden md:hidden flex flex-col mt-[10px]  items-center w-full ">
+        <div className=" w-full flex justify-between items-center ">
+          <span className=" text-main font-[600] text-[12px]">price :</span>
+
+          <span className=" text-main font-[600] text-[12px]">
+            ${item["price"]}
+          </span>
+        </div>
+        <div className=" w-full flex justify-between items-center ">
+          <span className=" text-main font-[600] text-[12px]">changes :</span>
+
+          <span
+            className={` ${
+              item["changes"] && item["changes"].toString()[0] !== "-"
+                ? "text-success"
+                : "text-[#B42318]"
+            } text-[14px] font-[500]`}
+          >
+            {item["changes"]}%
+          </span>
+        </div>
       </div>
     </div>
   );

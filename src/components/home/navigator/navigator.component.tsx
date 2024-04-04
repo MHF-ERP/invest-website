@@ -32,8 +32,8 @@ export default function Navigator(props: { current: number }) {
           className={` text-xl ${current === 2 ? "text-white" : ""} `}
         />
       ),
-      name: "Watchlist",
-      link: "/watchlist",
+      name: "My Stocks",
+      link: "/myStocks",
     },
     // {
     //   icon: (

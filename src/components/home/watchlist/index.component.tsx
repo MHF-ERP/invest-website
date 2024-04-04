@@ -16,7 +16,7 @@ export default function WatchList(props: {
       <ViewAll title={title} brief={brief} />
 
       <div className=" flex flex-col gap-3">
-        {stocks.slice(0, 5).map((item: any, idx: number) => {
+        {stocks.slice(0, 6).map((item: any, idx: number) => {
           return (
             <>
               <Card2 key={idx} item={item} />

@@ -55,12 +55,6 @@ export default function Page() {
     enabled: true,
   });
 
-  // if (isLoading)
-  //   return (
-  //     <div className=" w-screen h-screen flex items-center justify-center text-main2">
-  //       Loading...
-  //     </div>
-  //   );
   useEffect(() => {
     refetch();
   }, []);
