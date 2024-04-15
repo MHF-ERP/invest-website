@@ -9,6 +9,7 @@ export default function Inputs(props: {
   inputClassName?: string;
   spanClassName?: string;
   sectionClassName?: string;
+  type?: string;
 }) {
   const {
     text,
@@ -28,7 +29,13 @@ export default function Inputs(props: {
       <input
         defaultValue={value}
         onChange={onChange}
-        type={text.includes("Password") ? "password" : "text"}
+        type={
+          props.type
+            ? props.type
+            : text.includes("Password")
+            ? "password"
+            : "text"
+        }
         name={name}
         placeholder={holder}
         className={cn(

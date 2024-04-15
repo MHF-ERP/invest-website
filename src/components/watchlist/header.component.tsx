@@ -11,7 +11,7 @@ export default function Header(props: {
     <div className=" w-full flex items-center justify-between">
       <div className=" flex flex-col">
         <h1 className=" text-headerWatch  text-[32px] font-bold">
-          {!WithoutIcon ? "My Watchlists" : "My Portfolio"}
+          {!WithoutIcon ? "My Watchlists" : "My Stocks"}
         </h1>
         <p className=" text-[#45564B] text-[16px]">
           {!WithoutIcon

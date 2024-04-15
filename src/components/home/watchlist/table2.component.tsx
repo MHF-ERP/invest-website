@@ -15,6 +15,8 @@ const Table = (props: {
   setRowsToShow: any;
   setData: any;
   allData: any;
+  setSymbol: any;
+  setOverlay: any;
   updateData: any;
 }) => {
   const { updateData, setRowsToShow, setData, allData } = props;
@@ -487,8 +489,14 @@ const Table = (props: {
                   )}
                   {
                     <td className=" text-[#101828] font-[500] text-[14px] py-[12px] px-[24px] w-[200px]">
-                      <div className=" cursor-pointer font-[600] border border-[#DBDBDB] w-[100%] text-center px-[8px] py-[12px] rounded-[8px] text-[12px] text-[#2E644E]">
-                        <span>Add to watchlist</span>
+                      <div
+                        onClick={() => {
+                          props.setOverlay(1);
+                          props.setSymbol(stock.symbol);
+                        }}
+                        className=" cursor-pointer font-[600] border border-[#DBDBDB] w-[100%] text-center px-[8px] py-[12px] rounded-[8px] text-[12px] text-[#2E644E]"
+                      >
+                        <span>Buy Stock</span>
                       </div>
                     </td>
                   }

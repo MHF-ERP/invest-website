@@ -1,5 +1,9 @@
-export default function XIcon(props: { color: string; setOverlay?: any }) {
-  const { color, setOverlay } = props;
+export default function XIcon(props: {
+  duplicate?: boolean;
+  color: string;
+  setOverlay?: any;
+}) {
+  const { color, setOverlay, duplicate } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +13,7 @@ export default function XIcon(props: { color: string; setOverlay?: any }) {
       fill="none"
       className=" cursor-pointer"
       onClick={() => {
-        if (setOverlay) setOverlay(0);
+        if (setOverlay) duplicate ? setOverlay(1) : setOverlay(0);
       }}
     >
       <path

@@ -5,17 +5,20 @@ import Statics from "./statics.component";
 import ApexChart from "@/components/home/main/graph.component";
 import SmallAi from "../smallAi.component";
 
-export default function BodyOfGraphBox(props: { id: string; item: any }) {
-  const { item } = props;
-  console.log("======================");
-  console.log(item);
+export default function BodyOfGraphBox(props: {
+  id: string;
+  item: any;
+  loading?: boolean;
+}) {
+  const { item, loading } = props;
+
   return (
     <div className="w-full flex gap-5 xl:flex-row lg:flex-row md:flex-row flex-col">
-      <ApexChart title="Performance" />
+      {<ApexChart title="Performance" />}
       <div className=" flex flex-col gap-3" style={{ minWidth: "25%" }}>
-        {props.item && <SmallAi id={props.id} />}
+        {<SmallAi id={props.id} loading={loading} />}
         {/* <Score symbol={props.id} /> */}
-        {props.item && <Statics stock={props.item} />}{" "}
+        {<Statics stock={props.item} loading={loading} />}{" "}
       </div>
     </div>
   );

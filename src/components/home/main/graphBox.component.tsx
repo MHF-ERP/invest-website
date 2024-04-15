@@ -9,6 +9,7 @@ export default function GraphBox(props: {
   stock: boolean;
   id: string;
   data?: any;
+  loading?: boolean;
 }) {
   const { stock } = props;
   return (
@@ -20,7 +21,13 @@ export default function GraphBox(props: {
         </>
       )}
 
-      {stock && <BodyOfGraphBox id={props.id} item={props.data} />}
+      {stock && (
+        <BodyOfGraphBox
+          id={props.id}
+          item={props.data}
+          loading={props.loading}
+        />
+      )}
     </div>
   );
 }

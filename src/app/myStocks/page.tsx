@@ -11,6 +11,9 @@ import { IoMdAdd } from "react-icons/io";
 import { GetSymbol } from "@/services/home/indices.service";
 import { stocksStore } from "@/store/stocks";
 import DeleteLayout from "@/components/watchlist/popup/deletelayout.component";
+import Stocks from "@/components/home/watchlist/stocks/index.component";
+import { GetStocks } from "@/services/watchlist/getStocks.service";
+import Profile from "@/components/profile.component";
 const IconButton = dynamic(
   () => import("@/components/default/iconButton.component")
 );
@@ -35,112 +38,180 @@ const Taps = dynamic(
   () => import("@/components/watchlist/taps/taps.component")
 );
 
+import "react-toastify/dist/ReactToastify.css";
+
+import { FiEdit2 } from "react-icons/fi";
+import PopLayout from "@/components/layouts/pop.layout";
+import Slider from "@/components/layouts/slider.layout";
+import AddList from "@/components/watchlist/popup/AddList.component";
+import { ToastContainer } from "react-toastify";
+
 export default function Page() {
-  const { setStocks } = stocksStore();
-  const { refetch } = useQuery({
-    queryKey: ["ind"],
-    queryFn: () => GetSymbol(setStocks),
-
-    enabled: false,
-  });
-
-  const { updateData, data } = WatchStore();
-  const [overlay, setOverlay] = useState(0);
+  const { stocks, setStocks } = stocksStore();
+  const { overlay, updateOverlay } = WatchStore();
   const [symbol, setSymbol] = useState("");
-  const [watchlistId, setWatchlistId] = useState("");
-
-  const { refetch: refetch2 } = useQuery({
-    queryKey: ["Watchlists2"],
-    queryFn: () => GetWatchLists(getCookie("AccessToken")!, updateData),
+  const [watchlistId, setWatchlistId] = useState<any>(null);
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["my Stocks"],
+    queryFn: () => GetStocks(getCookie("AccessToken")!),
     enabled: true,
   });
+  const {} = useQuery({
+    queryKey: ["indices"],
+    queryFn: () => GetSymbol(setStocks),
 
-  useEffect(() => {
-    refetch();
-  }, []);
-  useEffect(() => {
-    refetch2();
-  }, []);
-  const popup = [
-    <CreateList setOverlay={setOverlay} key={0} />,
-    <DeleteList key={1} setOverlay={setOverlay} />,
+    enabled: stocks === null,
+  });
+  const ReformatDate = (dateString: any) => {
+    const date = new Date(dateString);
+
+    const formattedDate = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    return formattedDate;
+  };
+  const item =
+    watchlistId !== null && overlay !== 0
+      ? data.myStocks.filter((it: any) => it.symbol === watchlistId.symbol)[0]
+      : null;
+  const details = [
+    {
+      title1: "Symbol",
+      title2: watchlistId !== null && overlay !== 0 ? watchlistId.symbol : "",
+    },
+    {
+      title1: "Changes",
+      title2: watchlistId !== null && overlay !== 0 ? watchlistId.changes : "",
+    },
+    {
+      title1: "Current Price",
+      title2: watchlistId !== null && overlay !== 0 ? watchlistId.price : "",
+    },
+    {
+      title1: "Last Price",
+      title2:
+        watchlistId !== null && overlay !== 0 ? item.price.toFixed(1) : "",
+    },
+    {
+      title1: "Total shares",
+      title2: watchlistId !== null && overlay !== 0 ? item.amount : "",
+    },
+    {
+      title1: "Prediction",
+      title2:
+        watchlistId !== null && overlay !== 0
+          ? item["prediction"]["prediction"]
+          : "",
+    },
+    {
+      title1: "Probability",
+      title2:
+        watchlistId !== null && overlay !== 0
+          ? (item["prediction"]["probability"] * 100).toFixed() + "%"
+          : "",
+    },
+    {
+      title1: "Earning",
+      title2:
+        watchlistId !== null && overlay !== 0
+          ? watchlistId["price"] * item["amount"] -
+              item["price"] * item["amount"] >
+            0
+            ? (
+                watchlistId["price"] * item["amount"] -
+                item["price"] * item["amount"]
+              ).toFixed(1)
+            : "0"
+          : "",
+    },
+    {
+      title1: "Losing",
+      title2:
+        watchlistId !== null && overlay !== 0
+          ? watchlistId["price"] * item["amount"] -
+              item["price"] * item["amount"] <
+            0
+            ? (
+                watchlistId["price"] * item["amount"] -
+                item["price"] * item["amount"]
+              ).toFixed(1)
+            : "0"
+          : "",
+    },
+    {
+      title1: "Last Updated",
+      title2:
+        watchlistId !== null && overlay !== 0
+          ? ReformatDate(item["history"][0]["createdAt"])
+          : "",
+    },
   ];
-  return (
-    <>
-      {overlay > 0 && popup[overlay - 1]}
-      {overlay === -2 && (
-        <DeleteLayout
-          setOverlay={setOverlay}
-          symbol={symbol}
-          id={watchlistId}
-        />
-      )}
-      <main
-        className={`  flex  h-screen max-w-screen  bg-[#1F332B] ${
-          overlay ? "over" : ""
-        }`}
-      >
-        {overlay !== 0 && (
-          <div
-            className=" bg-[#0C111D] w-screen
-           h-screen  opacity-60 absolute top-0 left-0 z-10"
-          ></div>
-        )}
 
+  return (
+    <main className={`  flex  h-screen max-w-screen  bg-[#1F332B]`}>
+      <ToastContainer />
+      {overlay !== 0 && (
+        <div
+          onClick={() => updateOverlay(0)}
+          className=" bg-[#0C111D] w-screen
+           h-screen   opacity-60 absolute top-0 left-0 z-10"
+        ></div>
+      )}
+
+      {overlay === 2 && (
+        <AddList duplicate={true} symbol={watchlistId.symbol} />
+      )}
+      {overlay !== 0 && (
+        <Slider overlay={overlay} setOverlay={updateOverlay}>
+          <div className=" flex items-center justify-between">
+            <h1 className=" text-[#0B0E0C] text-[30px] font-[700]">
+              Stock Details
+            </h1>
+            <FiEdit2
+              className=" cursor-pointer"
+              onClick={() => updateOverlay(2)}
+            />
+          </div>
+
+          <hr className=" mb-[20px]" />
+          <div className=" flex flex-col justify-between h-full">
+            <Profile data={watchlistId} />
+            {details.map((detail: any, idx: number) => {
+              return (
+                <div
+                  key={idx}
+                  className=" flex w-full justify-between items-center"
+                >
+                  <span style={{ color: "#6B8373" }}>{detail["title1"]}</span>
+                  <span style={{ color: "#0B1813" }}>{detail["title2"]}</span>
+                </div>
+              );
+            })}
+          </div>
+          <button className=" w-full bg-red-500 text-white cursor-pointer hover:shadow-lg py-[10px] rounded-lg mt-[10px]">
+            Delete This Stock
+          </button>
+        </Slider>
+      )}
+      <div className={`${overlay ? "over" : ""} flex w-full`}>
         <Navigator current={2} />
 
-        {data && data !== undefined && data.length === 0 ? (
-          <HomeLayout>
-            <Header empty={true} setOverlay={setOverlay} />
-            <hr className="my-4" />
-            <div
-              className=" flex items-center justify-center"
-              style={{ width: "100%", height: "75vh" }}
-            >
-              <div className=" flex items-center flex-col gap-[4px]">
-                <Image
-                  src={"/images/empty.png"}
-                  alt="empty"
-                  width={150}
-                  height={150}
-                />
-                <h1 className=" text-[20px] font-[600] text-[#0B0E0C]">
-                  No watchlists yet
-                </h1>
-                <p className=" text-[14px] text-[#45564B] font-[400]">
-                  Begin choosing the stocks you want to keep an eye on.
-                </p>
-                <div className=" flex gap-3 mt-[16px]">
-                  <IconButton
-                    text="Create Watchlist"
-                    color="#FFFFFF"
-                    bgColor="#2E644E"
-                    icon={<IoMdAdd className=" text-white text-[20px]" />}
-                    left={true}
-                    click={() => setOverlay(1)}
-                  />
-                </div>
-              </div>
-            </div>
-          </HomeLayout>
-        ) : (
-          <HomeLayout>
-            <Header empty={false} setOverlay={setOverlay} />
-            <hr className="my-4" />
-            <div className=" flex xl:flex-row xl:items-center lg:items-center md:items-center items-start lg:flex-row md:flex-row flex-col xl:justify-between  lg:justify-between md:justify-between justify-start gap-4">
-              <Taps data={data} />
-              <div className=" flex gap-4">
-                <Actions />
-              </div>
-            </div>
-            <Changes
-              setOverlay={setOverlay}
+        <HomeLayout overlay={overlay}>
+          <Header empty={false} setOverlay={updateOverlay} WithoutIcon={true} />
+          <hr className="my-4" />
+
+          {data && stocks && (
+            <Stocks
+              data={data["myStocks"]}
+              setOverlay={updateOverlay}
               setSymbol={setSymbol}
               setWatchlistId={setWatchlistId}
             />
-          </HomeLayout>
-        )}
-      </main>
-    </>
+          )}
+        </HomeLayout>
+      </div>
+    </main>
   );
 }

@@ -10,6 +10,8 @@ import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetSymbolId } from "@/services/home/getSymbolId";
 import { useEffect, useState } from "react";
+import LoadingAi from "../collection/loadingAi";
+import ContentLoader from "react-content-loader";
 
 export default function Stock() {
   const { stocks, setStocks } = stocksStore();
@@ -28,10 +30,15 @@ export default function Stock() {
   return (
     <HomeLayout>
       <HeaderNav />
-      {!isLoading && <StockCard data={data} />}
-      {!isLoading && (
-        <GraphBox title="Performance" stock={true} id={prop} data={data} />
-      )}{" "}
+      {<StockCard data={data} loading={isLoading} />}
+      <GraphBox
+        title="Performance"
+        stock={true}
+        id={prop}
+        data={data}
+        loading={isLoading}
+      />
+
       <div className=" flex gap-4 mt-4  w-full xl:flex-row lg:flex-row md:flex-row flex-col ">
         <div className=" flex flex-col gap-3">
           {!isLoading && <About data={data} />} <Recommendations />

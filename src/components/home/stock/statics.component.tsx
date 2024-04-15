@@ -1,31 +1,31 @@
 import React from "react";
 
-export default function Statics(props: { stock: any }) {
-  const { stock } = props;
+export default function Statics(props: { stock: any; loading?: boolean }) {
+  const { stock, loading } = props;
   const data = [
     {
       title1: "Volume Average",
-      title2: stock["volAvg"],
+      title2: !loading ? stock["volAvg"] : "",
     },
     {
       title1: "Price",
-      title2: stock["price"],
+      title2: !loading ? stock["price"] : "",
     },
     {
       title1: "Changes",
-      title2: stock["changes"],
+      title2: !loading ? stock["changes"] : "",
     },
     {
       title1: "Change Percentage",
-      title2: (stock["changes"] * 100).toFixed(),
+      title2: !loading ? (stock["changes"] * 100).toFixed() : "",
     },
     {
       title1: "Symbol",
-      title2: stock["symbol"],
+      title2: !loading ? stock["symbol"] : "",
     },
     {
       title1: "Range",
-      title2: stock["range"],
+      title2: !loading ? stock["range"] : "",
     },
   ];
   return (

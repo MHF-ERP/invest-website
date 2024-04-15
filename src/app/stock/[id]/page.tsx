@@ -7,6 +7,8 @@ import WatchStore from "@/store/watchlist";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AllPageLayout = dynamic(
   () => import("@/components/layouts/allPage.layout")
@@ -36,6 +38,7 @@ const StockPage: NextPage = (req, res) => {
           overlay !== 0 ? "over" : ""
         } bg-[#1F332B]`}
       >
+        <ToastContainer />
         <Navigator current={1} />
         <Stock />
       </main>

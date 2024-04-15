@@ -35,3 +35,6 @@ export const historicalUrl = `https://financialmodelingprep.com/api/v3/historica
 export const profileUrl = `https://financialmodelingprep.com/api/v3/profile`;
 export const priceUrl = `https://financialmodelingprep.com/api/v3/quote`;
 export const stockImage = "https://s3-symbol-logo.tradingview.com";
+
+//*****************WALLET********************** */
+export const WALLET = `${SERVER}/my-wallet`;

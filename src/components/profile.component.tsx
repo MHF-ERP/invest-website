@@ -1,6 +1,8 @@
+import { useRouter } from "next/navigation";
 import MyImage from "./image";
 
 export default function Profile(props: { data: any }) {
+  const router = useRouter();
   return (
     <div className=" flex gap-2 items-center">
       <MyImage
@@ -8,8 +10,9 @@ export default function Profile(props: { data: any }) {
         alt="company Image"
         width={40}
         height={40}
-        className=" rounded-lg"
+        className=" rounded-lg cursor-pointer"
         defaultImage="/images/trad.jpg"
+        onClick={() => router.replace("/stock/" + props.data.symbol)}
       />
       <div className=" flex flex-col">
         <span

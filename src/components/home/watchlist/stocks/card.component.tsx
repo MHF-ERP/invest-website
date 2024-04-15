@@ -10,25 +10,31 @@ import { useQuery } from "@tanstack/react-query";
 import GraphWatchIt from "./graphWatchIt.component";
 import { GetSymbolId2 } from "@/services/home/getSymbolId2";
 import { stocksStore } from "@/store/stocks";
+import {
+  buildStyles,
+  CircularProgressbar,
+  CircularProgressbarWithChildren,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Card(props: {
-  item: string;
+  item: any;
   text: string;
 
-  id: string;
   setWatchlistId: any;
   setOverlay: any;
   setSymbol: any;
 }) {
-  const { item, text, id, setWatchlistId, setOverlay, setSymbol } = props;
+  const { item, text, setWatchlistId, setOverlay, setSymbol } = props;
   const { stocks } = stocksStore();
-  const data = stocks && stocks.filter((it: any) => it["symbol"] === item)[0];
+  const data =
+    stocks && stocks.filter((it: any) => it["symbol"] === item.symbol)[0];
+  const earn = data["price"] * item["amount"] - item["price"] * item["amount"];
   return (
-    <div className=" flex flex-col gap-3 xl:w-[23%] lg:w-[23%] w-[100%]  p-[14px] border border-divider rounded-[8px]">
+    <div className=" flex flex-col gap-3  w-[300px]  p-[14px] border border-divider rounded-[8px]">
       {data && (
         <ProfileStock
           data={data}
-          id={id}
           setWatchlistId={setWatchlistId}
           setOverlay={setOverlay}
           setSymbol={setSymbol}
@@ -39,14 +45,68 @@ export default function Card(props: {
         <span className=" text-[#45564B] text-[12px]  font-[500]  ">
           Change(1D)
         </span>
+
         {data && (
-          <span className={`${TextColor("2.4")}`}>{data["changes"]}</span>
+          <span className={`${TextColor("2.4")}`}>{data["changes"]}%</span>
         )}
       </div>
-      {data && <GraphWatchIt symbol={data["symbol"]} text={data["changes"]} />}
+      <div className=" w-full flex items-center justify-center ">
+        <div
+          style={{
+            width: "150px",
+            height: "150px",
+          }}
+        >
+          <CircularProgressbarWithChildren
+            strokeWidth={4}
+            styles={buildStyles({
+              textSize: "16px",
+              pathColor:
+                item["prediction"]["prediction"] === "Up"
+                  ? `#17B26A`
+                  : "#F04438",
+
+              textColor:
+                item["prediction"]["prediction"] === "Up"
+                  ? `#17B26A`
+                  : "#F04438",
+              trailColor: "#d6d6d6",
+              backgroundColor:
+                item["prediction"]["prediction"] === "Up"
+                  ? `#17B26A`
+                  : "#F04438",
+            })}
+            value={66}
+          >
+            <span
+              className={`${
+                item["prediction"]["prediction"] === "Up"
+                  ? "text-[#17B26A]"
+                  : "text-[#F04438]"
+              } text-[26px] font-[700]`}
+            >
+              {item["prediction"]["prediction"].toUpperCase()}
+            </span>
+            <span
+              className={`${
+                item["prediction"]["prediction"] === "Up"
+                  ? "text-[#17B26A]"
+                  : "text-[#F04438]"
+              } text-[26px] font-[400]`}
+            >
+              {(item["prediction"]["probability"] * 100).toFixed()}%
+            </span>
+          </CircularProgressbarWithChildren>
+        </div>
+      </div>
+
+      {/* {data && <GraphWatchIt symbol={data["symbol"]} text={data["changes"]} />} */}
       <div className=" w-full flex gap-2">
-        <Trade title="Buy" brief={data && data["price"]} />
-        <Trade title="Short" brief="42054.99" />
+        <Trade
+          title="Earning"
+          brief={earn < 0 ? "-" : earn.toFixed(2) + " $"}
+        />
+        <Trade title="Losing" brief={earn > 0 ? "-" : earn.toFixed(2) + " $"} />
       </div>
     </div>
   );

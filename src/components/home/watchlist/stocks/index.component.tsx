@@ -4,23 +4,24 @@ import { GetHistorical } from "@/services/home/getHistorical";
 import Image from "next/image";
 
 export default function Stocks(props: {
+  data: any;
   setWatchlistId: any;
   setOverlay: any;
   setSymbol: any;
 }) {
-  const { data, tap } = WatchStore();
-  const { setWatchlistId, setOverlay, setSymbol } = props;
+  // const { data, tap } = WatchStore();
+  const { setWatchlistId, setOverlay, setSymbol, data } = props;
+  console.log("---------------------------------");
   return (
-    <div className=" w-full h-full flex gap-7 mt-4 flex-wrap items-start">
-      {data[tap].Stocks.length > 0 ? (
-        data[tap].Stocks.map((item: any, idx: number) => {
+    <div className=" w-full h-full flex gap-7 mt-4 flex-wrap items-start justify-center">
+      {data.length > 0 ? (
+        data.map((item: any, idx: number) => {
           return (
             <Card
-              id={data[tap]["id"]}
               setWatchlistId={setWatchlistId}
               setOverlay={setOverlay}
               setSymbol={setSymbol}
-              item={item.symbol}
+              item={item}
               key={idx}
               text={"+2.33"}
             />

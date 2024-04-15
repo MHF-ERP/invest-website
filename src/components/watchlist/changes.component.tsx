@@ -23,6 +23,7 @@ export default function Changes(props: {
       )}
       {shape && (
         <Stocks
+          data={[]}
           setOverlay={setOverlay}
           setSymbol={setSymbol}
           setWatchlistId={setWatchlistId}
