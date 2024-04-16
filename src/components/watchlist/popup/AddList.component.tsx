@@ -32,7 +32,7 @@ export default function AddList(props: {
         getCookie("AccessToken"),
         updateOverlay,
         symbol ? symbol : pathName.split("/").pop()!,
-        true
+        duplicate ? true : false
       );
     },
     onSuccess: () => {
