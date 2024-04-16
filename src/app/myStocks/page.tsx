@@ -190,9 +190,11 @@ export default function Page() {
               );
             })}
           </div>
-          <button className=" w-full bg-red-500 text-white cursor-pointer hover:shadow-lg py-[10px] rounded-lg mt-[10px]">
+          {/* <button 
+          onClick={()=>}
+          className=" w-full bg-red-500 text-white cursor-pointer hover:shadow-lg py-[10px] rounded-lg mt-[10px]">
             Delete This Stock
-          </button>
+          </button> */}
         </Slider>
       )}
       <div className={`${overlay ? "over" : ""} flex w-full`}>
