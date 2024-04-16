@@ -487,7 +487,7 @@ const Table = (props: {
                       </div>
                     </td>
                   )}
-                  {
+                  {stock && (
                     <td className=" text-[#101828] font-[500] text-[14px] py-[12px] px-[24px] w-[200px]">
                       <div
                         onClick={() => {
@@ -499,7 +499,7 @@ const Table = (props: {
                         <span>Buy Stock</span>
                       </div>
                     </td>
-                  }
+                  )}
                 </tr>
               );
             })}
