@@ -95,6 +95,12 @@ export default function AddList(props: {
             holder="Add share stock price"
             type="text"
           />
+          <Inputs
+            name="Comession"
+            text="Comession"
+            holder="Add stock comession"
+            type="text"
+          />
         </div>
         <div className=" w-full flex gap-4">
           <button

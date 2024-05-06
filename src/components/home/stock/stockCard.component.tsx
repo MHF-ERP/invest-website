@@ -62,7 +62,7 @@ export default function StockCard(props: { data: any; loading: boolean }) {
               {data?.companyName}
               <span className=" font-light" style={{ color: "#45564B" }}>
                 {" "}
-                | {data?.exchange} ({data?.exchangeShortName})
+                |  ({data?.symbol})
               </span>{" "}
             </span>
           )}
