@@ -36,10 +36,10 @@ const Taps = dynamic(
 );
 
 export default function Page() {
-  const { setStocks } = stocksStore();
+  const { setStocks, market } = stocksStore();
   const { refetch } = useQuery({
     queryKey: ["ind"],
-    queryFn: () => GetSymbol(setStocks),
+    queryFn: () => GetSymbol(setStocks, market),
 
     enabled: false,
   });
