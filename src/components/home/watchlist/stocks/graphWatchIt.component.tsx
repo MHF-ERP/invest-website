@@ -1,6 +1,7 @@
 import Garph from "@/components/graph.component";
 import { changeDate, formatDate } from "@/functions/formatDate";
 import { GetHistorical } from "@/services/home/getHistorical";
+import { historicalUrl1Year } from "@/static/links";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 
@@ -9,7 +10,12 @@ export default function GraphWatchIt(props: { symbol: string; text: string }) {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["Historical"],
     queryFn: () =>
-      GetHistorical(symbol, formatDate(new Date()), changeDate(new Date(), 1)),
+      GetHistorical(
+        symbol,
+        formatDate(new Date()),
+        changeDate(new Date(), 1),
+        historicalUrl1Year
+      ),
 
     enabled: false,
   });
