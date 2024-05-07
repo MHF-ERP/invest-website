@@ -1,11 +1,10 @@
-import { STOCKS_DATA } from "@/static/stocks";
 import { API_KEY } from "../../../secrets";
 import { AISERVER, PREDECT, PROFILE, profileUrl } from "../../static/links";
 import requestService from "../../static/requests";
 async function getData(setProp: any, id: string) {
   const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 
-  await fetch( AISERVER + "/predict_stock?symbol=" + id)
+  await fetch(AISERVER + "/predict_stock?symbol=" + id)
     .then((response) => {
       // Check if the request was successful (status code 200)
       if (!response.ok) {
