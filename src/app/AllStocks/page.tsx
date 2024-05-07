@@ -26,10 +26,10 @@ export default function Page() {
   const [data2, setData] = useState<any>([]);
   const [origiData, setOrigiData] = useState<any>([]);
 
-  const { stocks, setStocks } = stocksStore();
+  const { stocks, setStocks, market } = stocksStore();
   const { isLoading, refetch } = useQuery({
     queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks),
+    queryFn: () => GetSymbol(setStocks, market),
 
     enabled: false,
   });

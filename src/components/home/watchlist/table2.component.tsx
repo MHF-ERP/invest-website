@@ -340,7 +340,7 @@ const Table = (props: {
                         {stock && (
                           <span className=" text-[#475467] text-[12px] lg:text-[10px]  font-[400]">
                             {" "}
-                            {stock && stock.sector}
+                            {stock && stock.symbol}
                           </span>
                         )}
                         {!stock && (

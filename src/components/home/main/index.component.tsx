@@ -1,3 +1,4 @@
+"use client";
 import WatchList from "@/components/home/watchlist/index.component";
 import Daily from "@/components/home/daily";
 import WelcomeBox from "./welcomeBox.component";
@@ -12,10 +13,10 @@ import Table from "../watchlist/table.component";
 import Link from "next/link";
 
 export default function DefHome() {
-  const { stocks, setStocks } = stocksStore();
+  const { stocks, setStocks, market } = stocksStore();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks),
+    queryFn: () => GetSymbol(setStocks, market),
 
     enabled: false,
   });

@@ -37,6 +37,7 @@ export default function AddList(props: {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["my Stocks"] });
+      queryClient.invalidateQueries({ queryKey: ["wallet"] });
     },
   });
   return (
@@ -79,7 +80,11 @@ export default function AddList(props: {
       </div> */}
 
       <form
-        onSubmit={(e: any) => mutation.mutate(e)}
+        onSubmit={(e: any) => {
+          console.log("99999999999999999999999");
+          mutation.mutate(e);
+          console.log("0000000000000000000000000");
+        }}
         className="  flex w-full flex-col justify-between items-center gap-[6px]"
       >
         <div className=" my-[20px] w-full flex flex-col gap-2">
@@ -95,12 +100,14 @@ export default function AddList(props: {
             holder="Add share stock price"
             type="text"
           />
-          <Inputs
-            name="Comession"
-            text="Comession"
-            holder="Add stock comession"
-            type="text"
-          />
+          {duplicate && (
+            <Inputs
+              name="Comession"
+              text="Comession"
+              holder="Add stock comession"
+              type="text"
+            />
+          )}
         </div>
         <div className=" w-full flex gap-4">
           <button

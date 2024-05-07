@@ -15,6 +15,9 @@ import { logoutRequest } from "@/services/home/logout.service";
 import { deleteCookie, getCookie } from "cookies-next";
 import { useState } from "react";
 import Image from "next/image";
+import { stocksStore } from "@/store/stocks";
+import { SlWallet } from "react-icons/sl";
+import { GetSymbol } from "@/services/home/indices.service";
 
 export default function Navigator(props: { current: number }) {
   const { current } = props;
@@ -36,6 +39,15 @@ export default function Navigator(props: { current: number }) {
       ),
       name: "My Stocks",
       link: "/myStocks",
+    },
+    {
+      icon: (
+        <SlWallet
+          className={` text-xl ${current === 3 ? "text-white" : ""} `}
+        />
+      ),
+      name: "Wallet",
+      link: "/wallet",
     },
     // {
     //   icon: (
@@ -60,8 +72,14 @@ export default function Navigator(props: { current: number }) {
       return logoutRequest(getCookie("AccessToken")!, router, deleteCookie);
     },
   });
+  const { market, setMarket, setStocks } = stocksStore();
+
+  const mutation2 = useMutation({
+    mutationFn: () => {
+      return GetSymbol(setStocks, market);
+    },
+  });
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [market, setMarket] = useState<string>("SAU");
 
   // Function to toggle the visibility of dropdown menus
   const toggleDropdown = () => {
@@ -98,72 +116,111 @@ export default function Navigator(props: { current: number }) {
           className={`hover:bg-main2 py-2 px-2 hover:text-white duration-75 text-nav cursor-pointer mb-6   flex items-center justify-between   gap-3   w-full  rounded-lg `}
         >
           <span className="xl:flex lg:flex text-[18px] hidden ">Markets</span>
-         {!dropdownVisible && <IoIosArrowUp className=" text-[12px] " />}
-         {dropdownVisible && <IoIosArrowDown className=" text-[12px] " />}
-        
+          {!dropdownVisible && <IoIosArrowUp className=" text-[12px] " />}
+          {dropdownVisible && <IoIosArrowDown className=" text-[12px] " />}
         </div>
         {dropdownVisible && (
-          <ul className="mb-6 w-full px-[18px] flex flex-col gap-4">
+          <ul className="mb-6 w-full xl:px-[18px] lg:px-[18px] md:px-[18px] flex flex-col gap-4">
             <li
-            onClick={()=>setMarket("SAU")}
-            className={` hover:px-2 cursor-pointer ${market === "SAU" && "px-2"} w-full flex items-center justify-between text-white`}>
+              onClick={() => {
+                if (market !== "SAU") {
+                  setMarket("SAU");
+                  mutation2.mutate();
+                }
+              }}
+              className={` hover:px-2 cursor-pointer ${
+                market === "SAU" && " text-green-500"
+              } w-full flex items-center justify-between text-white`}
+            >
               SAU
               <Image
+                className=" xl:flex lg:flex md:flex hidden"
                 src="https://flagcdn.com/16x12/sa.png"
                 width="16"
                 height="12"
                 alt="USA"
               />
             </li>
-            <li 
-            onClick={()=>setMarket("USA")}
-            
-            className={` w-full ${market === "USA" && "px-2"} hover:px-2 cursor-pointer flex items-center justify-between text-white`}>
+            <li
+              onClick={() => {
+                if (market !== "USA") {
+                  setMarket("USA");
+                  mutation2.mutate();
+                }
+              }}
+              className={` w-full ${
+                market === "USA" && "text-green-500"
+              } hover:px-2 cursor-pointer flex items-center justify-between text-white`}
+            >
               USA
               <Image
+                className=" xl:flex lg:flex md:flex hidden"
                 src="https://flagcdn.com/16x12/us.png"
                 width="16"
                 height="12"
                 alt="USA"
               />
             </li>
-            <li 
-            onClick={()=>setMarket("UK")}
-            
-            className={` w-full ${market === "UK" && "px-2"} hover:px-2 cursor-pointer flex items-center justify-between text-white`}>
+            <li
+              onClick={() => {
+                if (market !== "UK") {
+                  setMarket("UK");
+                  mutation2.mutate();
+                }
+              }}
+              className={` w-full ${
+                market === "UK" && "text-green-500"
+              } hover:px-2 cursor-pointer flex items-center justify-between text-white`}
+            >
               UK
               <Image
+                className=" xl:flex lg:flex md:flex hidden"
                 src="https://flagcdn.com/16x12/gb.png"
                 width="16"
                 height="12"
                 alt="UK"
               />
             </li>
-            <li 
-            onClick={()=>setMarket("AUS")}
-            
-            className={` ${market === "AUS" && "px-2"} w-full hover:px-2 cursor-pointer flex items-center justify-between text-white`}>
+            <li
+              onClick={() => {
+                if (market !== "AUS") {
+                  setMarket("AUS");
+                  mutation2.mutate();
+                }
+              }}
+              className={` ${
+                market === "AUS" && "text-green-500"
+              } w-full hover:px-2 cursor-pointer flex items-center justify-between text-white`}
+            >
               AUS
               <Image
+                className=" xl:flex lg:flex md:flex hidden"
                 src="https://flagcdn.com/16x12/au.png"
                 width="16"
                 height="12"
                 alt="aus"
               />
             </li>
-            <li 
-            onClick={()=>setMarket("JAP")}
-            
-            className={` ${market === "JAP" && "px-2"} w-full hover:px-2 cursor-pointer   flex items-center justify-between text-white`}>
+            <li
+              onClick={() => {
+                if (market !== "JAP") {
+                  setMarket("JAP");
+                  mutation2.mutate();
+                }
+              }}
+              className={` ${
+                market === "JAP" && "text-green-500"
+              } w-full hover:px-2 cursor-pointer   flex items-center justify-between text-white`}
+            >
               JAP
               <Image
+                className=" xl:flex lg:flex md:flex hidden"
                 src="https://flagcdn.com/16x12/jp.png"
                 width="16"
                 height="12"
                 alt="aus"
               />
             </li>
-  
           </ul>
         )}
         <IoIosLogOut

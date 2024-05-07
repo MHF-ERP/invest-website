@@ -43,7 +43,7 @@ export default function Stock() {
         <div className=" flex flex-col gap-3">
           {!isLoading && <About data={data} />} <Recommendations />
         </div>
-        <News />
+        <News symbolId={pathName.split("/").pop()!} />
       </div>
     </HomeLayout>
   );

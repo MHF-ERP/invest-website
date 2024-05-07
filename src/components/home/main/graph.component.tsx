@@ -4,6 +4,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { GetHistorical } from "@/services/home/getHistorical";
 import { usePathname } from "next/navigation";
 import { changeDate, formatDate } from "@/functions/formatDate";
+import {
+  historicalUrl1Month,
+  historicalUrl1Year,
+  historicalUrl5Days,
+  historicalUrl5Year,
+} from "@/static/links";
 
 export default function DateTimeChart(props: { title: string }) {
   const { title } = props;
@@ -178,16 +184,33 @@ export default function DateTimeChart(props: { title: string }) {
       default:
     }
   }
+
   const [from, setFrom] = useState<string>(formatDate(new Date()));
   const [to, setTo] = useState<string>(changeDate(new Date(), 5));
 
   const pathName = usePathname();
+  const today = new Date();
+
+  today.setDate(today.getDate() - 5);
+
+  // Format as "YYYY-MM-DD"
+  let formattedDate = today.toISOString().split("T")[0];
+  let toformattedDate = new Date().toISOString().split("T")[0];
+
   const mutation = useMutation({
     mutationFn: (e) => {
       return GetHistorical(
         pathName.split("/").pop()!,
-        from,
         to,
+        from,
+        chartData.selection === "five_days"
+          ? historicalUrl5Days
+          : chartData.selection === "one_month"
+          ? historicalUrl1Month
+          : chartData.selection === "three_months" ||
+            chartData.selection === "one_year"
+          ? historicalUrl1Year
+          : historicalUrl5Year,
         setChartData,
         chartData
       );
@@ -198,8 +221,16 @@ export default function DateTimeChart(props: { title: string }) {
     queryFn: () =>
       GetHistorical(
         pathName.split("/").pop()!,
-        from,
-        to,
+        formattedDate,
+        toformattedDate,
+        chartData.selection === "five_days"
+          ? historicalUrl5Days
+          : chartData.selection === "one_month"
+          ? historicalUrl1Month
+          : chartData.selection === "three_months" ||
+            chartData.selection === "one_year"
+          ? historicalUrl1Year
+          : historicalUrl5Year,
         setChartData,
         chartData
       ),

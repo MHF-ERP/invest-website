@@ -47,7 +47,7 @@ import AddList from "@/components/watchlist/popup/AddList.component";
 import { ToastContainer } from "react-toastify";
 
 export default function Page() {
-  const { stocks, setStocks } = stocksStore();
+  const { stocks, setStocks, market } = stocksStore();
   const { overlay, updateOverlay } = WatchStore();
   const [symbol, setSymbol] = useState("");
   const [watchlistId, setWatchlistId] = useState<any>(null);
@@ -58,7 +58,7 @@ export default function Page() {
   });
   const {} = useQuery({
     queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks),
+    queryFn: () => GetSymbol(setStocks, market),
 
     enabled: stocks === null,
   });
@@ -89,11 +89,7 @@ export default function Page() {
       title1: "Current Price",
       title2: watchlistId !== null && overlay !== 0 ? watchlistId.price : "",
     },
-    {
-      title1: "Last Price",
-      title2:
-        watchlistId !== null && overlay !== 0 ? item.price.toFixed(1) : "",
-    },
+
     {
       title1: "Total shares",
       title2: watchlistId !== null && overlay !== 0 ? item.amount : "",

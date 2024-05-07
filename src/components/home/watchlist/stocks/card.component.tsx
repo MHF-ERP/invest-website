@@ -29,7 +29,11 @@ export default function Card(props: {
   const { stocks } = stocksStore();
   const data =
     stocks && stocks.filter((it: any) => it["symbol"] === item.symbol)[0];
-  const earn = data["price"] * item["amount"] - item["price"] * item["amount"];
+  const earn =
+    data && data["price"] * item["amount"] - item["price"] * item["amount"];
+  if (!data) {
+    return <div></div>;
+  }
   return (
     <div className=" flex flex-col gap-3  w-[300px]  p-[14px] border border-divider rounded-[8px]">
       {data && (

@@ -9,10 +9,10 @@ import Image from "next/image";
 import React from "react";
 
 export default function Recommendations() {
-  const { stocks, setStocks } = stocksStore();
+  const { stocks, setStocks, market } = stocksStore();
   const { data } = useQuery({
     queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks),
+    queryFn: () => GetSymbol(setStocks, market),
 
     enabled: stocks === null,
   });
