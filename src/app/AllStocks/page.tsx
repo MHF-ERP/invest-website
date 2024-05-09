@@ -48,7 +48,7 @@ export default function Page() {
         setData
       ),
 
-    enabled: stocks === null,
+    enabled: stocks === null || data2 === null,
   });
 
   const [rowsToShow, setRowsToShow] = useState(0);
