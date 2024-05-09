@@ -241,13 +241,14 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
                         </span>
                         <span
                           className={`${
-                            up ? "text-[#067647]" : "text-[#F04438]"
+                            stock.changes.toString()[0] !== "-"
+                              ? "text-[#067647]"
+                              : "text-[#F04438]"
                           }  text-[14px] font-[400] `}
                         >
-                          {up ? "+" : "-"}
-                          {stock && stock.changes[0] === "-"
-                            ? stock.changes.slice(1)
-                            : stock.changes}
+                          {stock.changes.toString()[0] !== "-" ? "+" : ""}
+
+                          {stock.changes}
                         </span>
                       </div>
                     </td>

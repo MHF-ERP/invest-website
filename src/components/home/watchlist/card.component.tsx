@@ -50,7 +50,7 @@ export default function Card(props: { item: any }) {
               : "text-[#B42318]"
           } text-[14px] font-[500]`}
         >
-          {item["changes"]}%
+          {item["changes"]}
         </span>
       </div>
       <div className=" xl:hidden lg:hidden md:hidden flex flex-col mt-[10px]  items-center w-full ">
@@ -71,7 +71,7 @@ export default function Card(props: { item: any }) {
                 : "text-[#B42318]"
             } text-[14px] font-[500]`}
           >
-            {item["changes"]}%
+            {item["changes"]}
           </span>
         </div>
       </div>
