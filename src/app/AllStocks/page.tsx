@@ -23,41 +23,34 @@ const Navigator = dynamic(
   () => import("@/components/home/navigator/navigator.component")
 );
 export default function Page() {
-  const [data2, setData] = useState<any>([]);
-  const [origiData, setOrigiData] = useState<any>([]);
-
-  const { stocks, setStocks, market } = stocksStore();
-  const { isLoading, refetch } = useQuery({
-    queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks, market),
+  const {
+    stocks,
+    setStocks,
+    market,
+    setDataUp,
+    setDataDown,
+    setOriginData,
+    setData,
+    originData,
+    data2,
+  } = stocksStore();
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["indices2"],
+    queryFn: () =>
+      GetSymbol(
+        setStocks,
+        market,
+        true,
+        setDataUp,
+        setDataDown,
+        true,
+        setOriginData,
+        setData
+      ),
 
     enabled: false,
   });
-  async function getData() {
-    await fetch(PREDECT)
-      .then((response) => {
-        // Check if the request was successful (status code 200)
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        // Parse the response body as JSON
-        return response.json();
-      })
-      .then((data) => {
-        const dataArray = Object.keys(data["predictions"]).map((key) => ({
-          id: key,
-          prediction: data["predictions"][key].prediction,
-          probability: (data["predictions"][key].probability * 100).toFixed(),
-        }));
-        // Do something with the JSON data
-        setOrigiData(dataArray);
-        setData(dataArray);
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during the fetch
-        console.error("Fetch error:", error);
-      });
-  }
+
   const [rowsToShow, setRowsToShow] = useState(0);
   const [page, setPage] = useState(1);
   const updateData2 = (newData: any) => {
@@ -65,14 +58,10 @@ export default function Page() {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
-  useEffect(() => {
     refetch();
   }, []);
   const { overlay, updateOverlay } = WatchStore();
   const [symbol, setSymbol] = useState("");
-
   return (
     <AllPageLayout>
       <Head>
@@ -101,13 +90,13 @@ export default function Page() {
             <Search
               HomeClassName=" xl:w-[25%] lg:w-[25%] md:w-[50%] w-full xl:mt-[0px] lg:mt-[0px] md:mt-[0px] mt-[5px]"
               change={true}
-              allData={origiData && origiData}
+              allData={originData && originData}
               setData2={setData}
             />
           </div>
           <div className=" flex flex-col justify-between h-full ">
             <div>
-              {data2.length !== 0 && (
+              {data2 && data2.length !== 0 && (
                 <Table2
                   allData={data2}
                   setData={setData}
@@ -121,7 +110,7 @@ export default function Page() {
                   setRowsToShow={setRowsToShow}
                 />
               )}
-              {data2.length === 0 && (
+              {!data2 && (
                 <Table2
                   setOverlay={updateOverlay}
                   setSymbol={setSymbol}
@@ -171,7 +160,8 @@ export default function Page() {
                   </span>
                 </div>
                 <div className=" xl:flex lg:flex md:flex hidden">
-                  {data2.length > 0 &&
+                  {data2 &&
+                    data2.length > 0 &&
                     Array.from({ length: Math.ceil(data2.length / rowsToShow) })
                       .length < 6 &&
                     Array.from({
@@ -188,7 +178,8 @@ export default function Page() {
                         </span>
                       );
                     })}
-                  {data2.length > 0 &&
+                  {data2 &&
+                    data2.length > 0 &&
                     Array.from({ length: Math.ceil(data2.length / rowsToShow) })
                       .length > 6 &&
                     ["", "", "", "", "", "", ""].map(

@@ -7,7 +7,7 @@ import { HiOutlineClipboardDocumentCheck } from "react-icons/hi2";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import Link from "next/link";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { FaChevronRight } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
@@ -72,11 +72,35 @@ export default function Navigator(props: { current: number }) {
       return logoutRequest(getCookie("AccessToken")!, router, deleteCookie);
     },
   });
-  const { market, setMarket, setStocks } = stocksStore();
+  const {
+    market,
+    setMarket,
+    setStocks,
+    DataUp,
+    DataDown,
+    setDataUp,
+    setDataDown,
+    setOriginData,
+    setData,
+  } = stocksStore();
+  const queryClient = useQueryClient();
 
   const mutation2 = useMutation({
     mutationFn: () => {
-      return GetSymbol(setStocks, market);
+      return GetSymbol(
+        setStocks,
+        market,
+        true,
+        setDataUp,
+        setDataDown,
+        true,
+        setOriginData,
+        setData
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["AiStocks"] });
+      queryClient.invalidateQueries({ queryKey: ["indices2"] });
     },
   });
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -123,10 +147,8 @@ export default function Navigator(props: { current: number }) {
           <ul className="mb-6 w-full xl:px-[18px] lg:px-[18px] md:px-[18px] flex flex-col gap-4">
             <li
               onClick={() => {
-                if (market !== "SAU") {
-                  setMarket("SAU");
-                  mutation2.mutate();
-                }
+                setMarket("SAU");
+                mutation2.mutate();
               }}
               className={` hover:px-2 cursor-pointer ${
                 market === "SAU" && " text-green-500"
@@ -143,10 +165,8 @@ export default function Navigator(props: { current: number }) {
             </li>
             <li
               onClick={() => {
-                if (market !== "USA") {
-                  setMarket("USA");
-                  mutation2.mutate();
-                }
+                setMarket("USA");
+                mutation2.mutate();
               }}
               className={` w-full ${
                 market === "USA" && "text-green-500"
@@ -163,10 +183,8 @@ export default function Navigator(props: { current: number }) {
             </li>
             <li
               onClick={() => {
-                if (market !== "UK") {
-                  setMarket("UK");
-                  mutation2.mutate();
-                }
+                setMarket("UK");
+                mutation2.mutate();
               }}
               className={` w-full ${
                 market === "UK" && "text-green-500"
@@ -183,10 +201,8 @@ export default function Navigator(props: { current: number }) {
             </li>
             <li
               onClick={() => {
-                if (market !== "AUS") {
-                  setMarket("AUS");
-                  mutation2.mutate();
-                }
+                setMarket("AUS");
+                mutation2.mutate();
               }}
               className={` ${
                 market === "AUS" && "text-green-500"
@@ -203,10 +219,8 @@ export default function Navigator(props: { current: number }) {
             </li>
             <li
               onClick={() => {
-                if (market !== "JAP") {
-                  setMarket("JAP");
-                  mutation2.mutate();
-                }
+                setMarket("JAP");
+                mutation2.mutate();
               }}
               className={` ${
                 market === "JAP" && "text-green-500"

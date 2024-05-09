@@ -260,7 +260,9 @@ const Table = (props: {
           <tbody>
             {data.map((item: any, idx: number) => {
               const stock =
-                stocks && stocks.find((it: any) => it["symbol"] === item["id"]);
+                stocks &&
+                stocks.length > 0 &&
+                stocks.find((it: any) => it["symbol"] === item["id"]);
 
               return (
                 <tr
@@ -368,11 +370,7 @@ const Table = (props: {
 
                   {stock && (
                     <td
-                      className={` ${
-                        stock.changes[0] !== "-"
-                          ? "text-[#067647]"
-                          : "text-[#F04438]"
-                      } t font-[500] text-[14px] py-[12px] px-[24px] `}
+                      className={` } t font-[500] text-[14px] py-[12px] px-[24px] `}
                     >
                       {stock.changes}
                     </td>

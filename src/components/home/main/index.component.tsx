@@ -11,60 +11,31 @@ import { PREDECT } from "@/static/links";
 
 import Table from "../watchlist/table.component";
 import Link from "next/link";
+import { GetAllAi } from "@/services/home/getAllAI";
 
 export default function DefHome() {
-  const { stocks, setStocks, market } = stocksStore();
+  const {
+    stocks,
+    setStocks,
+    market,
+    DataUp,
+    DataDown,
+    setDataUp,
+    setDataDown,
+  } = stocksStore();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks, market),
+    queryFn: () => {
+      GetSymbol(setStocks, market, true, setDataUp, setDataDown);
+    },
 
     enabled: false,
   });
 
-  const [DataUp, setDataUp] = useState<any>();
-  const [DataDown, setDataDown] = useState<any>();
-
-  async function getData() {
-    await fetch(PREDECT + market.toLowerCase())
-      .then((response) => {
-        // Check if the request was successful (status code 200)
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        // Parse the response body as JSON
-        return response.json();
-      })
-      .then((data) => {
-        const dataArray = Object.keys(data["predictions"]).map((key) => ({
-          id: key,
-          prediction: data["predictions"][key].prediction,
-          probability: (data["predictions"][key].probability * 100).toFixed(),
-        }));
-        // Do something with the JSON data
-        const Up = dataArray.filter((item) => item.prediction === "Up");
-        const Down = dataArray.filter((item) => item.prediction === "Down");
-
-        Up.sort(
-          (a, b) => parseFloat(b.probability) - parseFloat(a.probability)
-        );
-        Down.sort(
-          (a, b) => parseFloat(a.probability) - parseFloat(b.probability)
-        );
-        setDataUp(Up);
-        setDataDown(Down);
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during the fetch
-        console.error("Fetch error:", error);
-      });
-  }
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  useEffect(() => {
-    getData();
-  }, []);
   const updateDataUp = (newData: any) => {
     setDataUp(newData);
   };
