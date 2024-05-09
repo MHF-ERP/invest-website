@@ -48,7 +48,7 @@ export default function Page() {
         setData
       ),
 
-    enabled: false,
+    enabled: stocks === null,
   });
 
   const [rowsToShow, setRowsToShow] = useState(0);
@@ -57,9 +57,6 @@ export default function Page() {
     setData(newData);
   };
 
-  useEffect(() => {
-    refetch();
-  }, []);
   const { overlay, updateOverlay } = WatchStore();
   const [symbol, setSymbol] = useState("");
   return (
@@ -162,8 +159,7 @@ export default function Page() {
                 <div className=" xl:flex lg:flex md:flex hidden">
                   {data2 &&
                     data2.length > 0 &&
-                    Array.from({ length: Math.ceil(data2.length / rowsToShow) })
-                      .length < 6 &&
+                    Math.ceil(data2.length / rowsToShow) < 6 &&
                     Array.from({
                       length: Math.ceil(data2.length / rowsToShow),
                     }).map((item: any, idx: number) => {
@@ -180,8 +176,7 @@ export default function Page() {
                     })}
                   {data2 &&
                     data2.length > 0 &&
-                    Array.from({ length: Math.ceil(data2.length / rowsToShow) })
-                      .length > 6 &&
+                    Math.ceil(data2.length / rowsToShow) > 6 &&
                     ["", "", "", "", "", "", ""].map(
                       (item: any, idx: number) => {
                         if (idx < 3) {
@@ -216,9 +211,7 @@ export default function Page() {
                               }
                               key={idx + 1}
                               className={` cursor-pointer flex items-center justify-center w-[40px] h-[40px] ${
-                                Array.from({
-                                  length: Math.ceil(data2.length / rowsToShow),
-                                }).length -
+                                Math.ceil(data2.length / rowsToShow) -
                                   2 +
                                   idx -
                                   5 !==
@@ -227,9 +220,7 @@ export default function Page() {
                                   : "bg-[#F9FAFB]"
                               }   rounded-[6px] text-[#182230] `}
                             >
-                              {Array.from({
-                                length: Math.ceil(data2.length / rowsToShow),
-                              }).length -
+                              {Math.ceil(data2.length / rowsToShow) -
                                 2 +
                                 idx -
                                 5}
@@ -251,9 +242,7 @@ export default function Page() {
                 </div>
                 <div
                   onClick={() => {
-                    const all = Array.from({
-                      length: Math.ceil(data2.length / rowsToShow),
-                    }).length;
+                    const all = Math.ceil(data2.length / rowsToShow);
                     if (page < all) {
                       setPage(page + 1);
                     }

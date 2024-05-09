@@ -29,12 +29,8 @@ export default function DefHome() {
       GetSymbol(setStocks, market, true, setDataUp, setDataDown);
     },
 
-    enabled: false,
+    enabled: stocks === null,
   });
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   const updateDataUp = (newData: any) => {
     setDataUp(newData);
