@@ -25,7 +25,7 @@ export default function DefHome() {
   const [DataDown, setDataDown] = useState<any>();
 
   async function getData() {
-    await fetch(PREDECT)
+    await fetch(PREDECT + market.toLowerCase())
       .then((response) => {
         // Check if the request was successful (status code 200)
         if (!response.ok) {

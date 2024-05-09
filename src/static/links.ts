@@ -5,7 +5,7 @@ export const SERVER = `${SERVERIP}/api/v1`;
 
 //**************** AISERVER *******************/
 export const AISERVER = `https://ai.naqiconcepts.com`;
-export const PREDECT = `${AISERVER}/predict_all`;
+export const PREDECT = `${AISERVER}/predict?category=`;
 
 //**************** WatchList *******************/
 export const WATCHLIST = `${SERVERIP}/api/v1/watch-list`;
