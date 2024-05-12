@@ -13,19 +13,23 @@ export async function AddStock(
 
   const price = e.target.priceOfSahre.value;
   const amount = e.target.numOfShare.value;
+  const provider = e.target.provider.value;
+
   let commission;
   if (sell) {
     commission = e.target.Comession.value;
   }
-  console.log("=======================");
-  console.log(commission);
 
   if (!commission) {
     commission = 0;
   }
   console.log(commission);
+  console.log(provider);
   if (!price || !amount) {
     return notify("Please Fill All Fields", "error");
+  }
+  if (!provider) {
+    return notify("Please Put valid Provider");
   }
   if (price <= 0 && amount <= 0) {
     return notify("Please Put valid Price");
@@ -39,7 +43,9 @@ export async function AddStock(
     amount,
     price,
     commission: commission,
+    provider: provider,
   });
+  console.log(requestJson);
 
   // Convert the random number to a string and remove the decimal point
   await request(requestJson, token!, id, setOverlay, notify, sell);

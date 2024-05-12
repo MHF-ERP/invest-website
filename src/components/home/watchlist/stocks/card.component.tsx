@@ -26,11 +26,11 @@ export default function Card(props: {
   setSymbol: any;
 }) {
   const { item, text, setWatchlistId, setOverlay, setSymbol } = props;
-  const { stocks } = stocksStore();
+  const { allStocks } = stocksStore();
   const data =
-    stocks && stocks.filter((it: any) => it["symbol"] === item.symbol)[0];
-  const earn =
-    data && data["price"] * item["amount"] - item["price"] * item["amount"];
+    allStocks && allStocks.filter((it: any) => it["symbol"] === item.symbol)[0];
+  console.log("/*/*/**/*/");
+  console.log(item);
   if (!data) {
     return <div></div>;
   }
@@ -51,7 +51,9 @@ export default function Card(props: {
         </span>
 
         {data && (
-          <span className={`${TextColor("2.4")}`}>{data["changes"]}%</span>
+          <span className={`${TextColor(data["changes"].toString())}`}>
+            {data["changes"]}
+          </span>
         )}
       </div>
       <div className=" w-full flex items-center justify-center ">
@@ -108,9 +110,20 @@ export default function Card(props: {
       <div className=" w-full flex gap-2">
         <Trade
           title="Earning"
-          brief={earn < 0 ? "-" : earn.toFixed(2) + " $"}
+          brief={
+            item["price"] !== null && item["price"] > 0
+              ? item["price"].toFixed(2) + " " + data["currency"]
+              : "0"
+          }
         />
-        <Trade title="Losing" brief={earn > 0 ? "-" : earn.toFixed(2) + " $"} />
+        <Trade
+          title="Losing"
+          brief={
+            item["price"] !== null && item["price"] < 0
+              ? item["price"].toFixed(2) + " " + data["currency"]
+              : "0"
+          }
+        />
       </div>
     </div>
   );

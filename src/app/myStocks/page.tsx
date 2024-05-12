@@ -45,9 +45,10 @@ import PopLayout from "@/components/layouts/pop.layout";
 import Slider from "@/components/layouts/slider.layout";
 import AddList from "@/components/watchlist/popup/AddList.component";
 import { ToastContainer } from "react-toastify";
+import { GetAllStocks } from "@/services/wallet/getAllStocks";
 
 export default function Page() {
-  const { stocks, setStocks, market } = stocksStore();
+  const { allStocks, setAllStocks, market } = stocksStore();
   const { overlay, updateOverlay } = WatchStore();
   const [symbol, setSymbol] = useState("");
   const [watchlistId, setWatchlistId] = useState<any>(null);
@@ -56,11 +57,12 @@ export default function Page() {
     queryFn: () => GetStocks(getCookie("AccessToken")!),
     enabled: true,
   });
-  const {} = useQuery({
-    queryKey: ["indices"],
-    queryFn: () => GetSymbol(setStocks, market),
 
-    enabled: stocks === null,
+  const {} = useQuery({
+    queryKey: ["allStocks"],
+    queryFn: () => GetAllStocks(setAllStocks),
+
+    enabled: allStocks === null,
   });
   const ReformatDate = (dateString: any) => {
     const date = new Date(dateString);
@@ -72,10 +74,14 @@ export default function Page() {
     });
     return formattedDate;
   };
+
   const item =
     watchlistId !== null && overlay !== 0
-      ? data.myStocks.filter((it: any) => it.symbol === watchlistId.symbol)[0]
+      ? data.myStocks.filter(
+          (it: any) => it.symbol === watchlistId.symbol && it["amount"] !== 0
+        )[0]
       : null;
+
   const details = [
     {
       title1: "Symbol",
@@ -87,7 +93,10 @@ export default function Page() {
     },
     {
       title1: "Current Price",
-      title2: watchlistId !== null && overlay !== 0 ? watchlistId.price : "",
+      title2:
+        watchlistId !== null && overlay !== 0
+          ? watchlistId.price + " " + watchlistId.currency
+          : "",
     },
 
     {
@@ -112,13 +121,8 @@ export default function Page() {
       title1: "Earning",
       title2:
         watchlistId !== null && overlay !== 0
-          ? watchlistId["price"] * item["amount"] -
-              item["price"] * item["amount"] >
-            0
-            ? (
-                watchlistId["price"] * item["amount"] -
-                item["price"] * item["amount"]
-              ).toFixed(1)
+          ? item.price > 0
+            ? item.price.toFixed(2) + " " + watchlistId["currency"]
             : "0"
           : "",
     },
@@ -126,13 +130,8 @@ export default function Page() {
       title1: "Losing",
       title2:
         watchlistId !== null && overlay !== 0
-          ? watchlistId["price"] * item["amount"] -
-              item["price"] * item["amount"] <
-            0
-            ? (
-                watchlistId["price"] * item["amount"] -
-                item["price"] * item["amount"]
-              ).toFixed(1)
+          ? item.price < 0
+            ? item.price.toFixed(2) + " " + watchlistId["currency"]
             : "0"
           : "",
     },
@@ -200,7 +199,7 @@ export default function Page() {
           <Header empty={false} setOverlay={updateOverlay} WithoutIcon={true} />
           <hr className="my-4" />
 
-          {data && stocks && (
+          {data && allStocks && (
             <Stocks
               data={data["myStocks"]}
               setOverlay={updateOverlay}

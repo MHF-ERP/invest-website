@@ -81,9 +81,7 @@ export default function AddList(props: {
 
       <form
         onSubmit={(e: any) => {
-          console.log("99999999999999999999999");
           mutation.mutate(e);
-          console.log("0000000000000000000000000");
         }}
         className="  flex w-full flex-col justify-between items-center gap-[6px]"
       >
@@ -98,6 +96,12 @@ export default function AddList(props: {
             name="priceOfSahre"
             text="Price per Share Stock"
             holder="Add share stock price"
+            type="text"
+          />
+          <Inputs
+            name="provider"
+            text="Provider"
+            holder="Provider Of Share Stock"
             type="text"
           />
           {duplicate && (

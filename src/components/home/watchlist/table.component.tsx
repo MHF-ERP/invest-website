@@ -236,8 +236,9 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
                   {stock && (
                     <td className="    py-[12px] px-[24px] w-[5%]  ">
                       <div className=" flex flex-col">
-                        <span className=" text-[#101828] font-[500] text-[14px]">
-                          {stock && stock.price}$
+                        <span className=" text-[#101828] font-[500] text-[14px] flex items-end gap-1">
+                          {stock && stock.price}{" "}
+                          <span className=" text-[8px]">{stock.currency}</span>
                         </span>
                         <span
                           className={`${

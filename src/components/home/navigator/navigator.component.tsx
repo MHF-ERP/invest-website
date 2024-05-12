@@ -46,8 +46,8 @@ export default function Navigator(props: { current: number }) {
           className={` text-xl ${current === 3 ? "text-white" : ""} `}
         />
       ),
-      name: "Wallet",
-      link: "/wallet",
+      name: "Order History",
+      link: "/order_history",
     },
     // {
     //   icon: (
@@ -151,8 +151,8 @@ export default function Navigator(props: { current: number }) {
                 mutation2.mutate();
               }}
               className={` hover:px-2 cursor-pointer ${
-                market === "SAU" && " text-green-500"
-              } w-full flex items-center justify-between text-white`}
+                market === "SAU" ? " text-green-500" : "text-white"
+              } w-full flex items-center justify-between `}
             >
               SAU
               <Image
@@ -169,8 +169,8 @@ export default function Navigator(props: { current: number }) {
                 mutation2.mutate();
               }}
               className={` w-full ${
-                market === "USA" && "text-green-500"
-              } hover:px-2 cursor-pointer flex items-center justify-between text-white`}
+                market === "USA" ? "text-green-500" : "text-white"
+              } hover:px-2 cursor-pointer flex items-center justify-between `}
             >
               USA
               <Image
@@ -187,8 +187,8 @@ export default function Navigator(props: { current: number }) {
                 mutation2.mutate();
               }}
               className={` w-full ${
-                market === "UK" && "text-green-500"
-              } hover:px-2 cursor-pointer flex items-center justify-between text-white`}
+                market === "UK" ? "text-green-500" : "text-white"
+              } hover:px-2 cursor-pointer flex items-center justify-between`}
             >
               UK
               <Image
@@ -205,8 +205,8 @@ export default function Navigator(props: { current: number }) {
                 mutation2.mutate();
               }}
               className={` ${
-                market === "AUS" && "text-green-500"
-              } w-full hover:px-2 cursor-pointer flex items-center justify-between text-white`}
+                market === "AUS" ? "text-green-500" : "text-white"
+              } w-full hover:px-2 cursor-pointer flex items-center justify-between `}
             >
               AUS
               <Image
@@ -223,8 +223,8 @@ export default function Navigator(props: { current: number }) {
                 mutation2.mutate();
               }}
               className={` ${
-                market === "JAP" && "text-green-500"
-              } w-full hover:px-2 cursor-pointer   flex items-center justify-between text-white`}
+                market === "JAP" ? "text-green-500" : "text-white"
+              } w-full hover:px-2 cursor-pointer   flex items-center justify-between`}
             >
               JAP
               <Image

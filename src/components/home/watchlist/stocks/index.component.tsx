@@ -9,6 +9,7 @@ export default function Stocks(props: {
   setOverlay: any;
   setSymbol: any;
 }) {
+  console.log("*****************************************");
   // const { data, tap } = WatchStore();
   const { setWatchlistId, setOverlay, setSymbol, data } = props;
   console.log("---------------------------------");
@@ -16,6 +17,7 @@ export default function Stocks(props: {
     <div className=" w-full h-full flex gap-7 mt-4 flex-wrap items-start justify-center">
       {data.length > 0 ? (
         data.map((item: any, idx: number) => {
+          console.log(item);
           return (
             <Card
               setWatchlistId={setWatchlistId}

@@ -81,6 +81,9 @@ export async function GetHistorical(
           ],
           xaxis: [
             {
+              tooltip: {
+                enabled: false, // disable tooltips
+              },
               borderColor: "#F2F4F7",
               yAxisIndex: 0,
               label: {
@@ -100,10 +103,10 @@ export async function GetHistorical(
         yaxis: {
           min: minVal,
           labels: {
-            show: true,
+            show: false,
           },
           tooltip: {
-            enabled: true, // disable tooltips
+            enabled: false, // disable tooltips
           },
           tickAmount: 5, // Increase this value to add more ticks and increase the distance between lines
         },

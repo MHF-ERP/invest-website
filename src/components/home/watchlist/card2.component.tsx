@@ -38,8 +38,9 @@ export default function Card2(props: { item: any }) {
         </div>
       </div>
       <div className=" xl:flex lg:flex md:flex hidden xl:flex-col lg:flex-col md:flex-col flex-row items-center ">
-        <span className=" text-main font-[600] text-[16px]">
-          ${item["price"]}
+        <span className=" text-main font-[600] text-[14px] flex gap-1 items-end">
+          {item["price"].toFixed(2)}
+          <span className=" text-[8px]"> {item["currency"]}</span>
         </span>
         <span
           className={` ${
@@ -55,8 +56,9 @@ export default function Card2(props: { item: any }) {
         <div className=" w-full flex justify-between items-center ">
           <span className=" text-main font-[600] text-[12px]">price :</span>
 
-          <span className=" text-main font-[600] text-[12px]">
-            ${item["price"]}
+          <span className=" text-main font-[600] text-[10px] flex gap-1 items-end">
+            {item["price"].toFixed(2)}
+            <span className=" text-[8px]"> {item["currency"]}</span>
           </span>
         </div>
         <div className=" w-full flex justify-between items-center ">
@@ -69,7 +71,7 @@ export default function Card2(props: { item: any }) {
                 : "text-[#B42318]"
             } text-[14px] font-[500]`}
           >
-            {item["changes"]}%
+            {item["changes"]}
           </span>
         </div>
       </div>

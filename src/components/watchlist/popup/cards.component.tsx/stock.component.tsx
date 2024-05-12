@@ -66,7 +66,7 @@ export default function StockPop(props: {
         </div>
       </div>
       <span className="text-[#171D19] font-[600] text-[16px]">
-        ${item["price"]}
+        {item["price"].toFixed(2)}
       </span>
     </div>
   );

@@ -62,7 +62,7 @@ export default function StockCard(props: { data: any; loading: boolean }) {
               {data?.companyName}
               <span className=" font-light" style={{ color: "#45564B" }}>
                 {" "}
-                |  ({data?.symbol})
+                | ({data?.symbol})
               </span>{" "}
             </span>
           )}
@@ -73,10 +73,10 @@ export default function StockCard(props: { data: any; loading: boolean }) {
           )}
           {!loading && (
             <span
-              className=" xl:flex-row lg:flex-row md:flex-row flex-col  font-bold flex  text-[32px] gap-1 "
+              className=" xl:flex-row lg:flex-row md:flex-row flex-col   font-bold flex  text-[32px] gap-1 "
               style={{ color: "#0B0E0C" }}
             >
-              ${data?.price}
+              {data?.price}{" "}
               <span
                 className={` ${
                   data?.changes && data?.changes.toString()[0] !== "-"
@@ -84,6 +84,7 @@ export default function StockCard(props: { data: any; loading: boolean }) {
                     : "text-decrease"
                 } font-semibold  text-[12px] flex flex-row items-end text-xs gap-2`}
               >
+                <span style={{ color: "#0B0E0C" }}>{data?.currency}</span>
                 {data?.changes && data?.changes.toString()[0] === "-" && (
                   <FaArrowTrendDown className=" text-decrease" />
                 )}

@@ -12,23 +12,21 @@ export default function Day(props: {
   item2: any;
   current: number;
 }) {
-  console.log("]]]]]]]]]");
   const { setOpen, item, item2 } = props;
-  const { stocks, setStocks } = stocksStore();
-  console.log(item2);
+  const { allStocks, setAllStocks } = stocksStore();
 
   return (
-    <div
-      onClick={() => {
-        if (props.current === props.idx - 1) {
-          setOpen(-1);
-        } else {
-          setOpen(props.idx - 1);
-        }
-      }}
-      className=" flex flex-col  border  rounded-md "
-    >
-      <div className=" flex gap-4   items-center cursor-pointer p-[12px] ">
+    <div className=" flex flex-col  border  rounded-md ">
+      <div
+        onClick={() => {
+          if (props.current === props.idx - 1) {
+            setOpen(-1);
+          } else {
+            setOpen(props.idx - 1);
+          }
+        }}
+        className=" flex gap-4 h-fit   items-center cursor-pointer px-[12px] py-[8px] "
+      >
         <div className=" w-full flex gap-4">
           <Image
             alt="company"
@@ -37,14 +35,14 @@ export default function Day(props: {
             height="40"
             src={item2.image}
             onError={() => {
-              const data = stocks.slice();
+              const data = allStocks.slice();
               data.filter((stock: any) => stock.symbol === item.symbol)[0][
                 "image"
               ] = "/images/trad.jpg";
-              setStocks(data);
+              setAllStocks(data);
             }}
           />
-          <div className=" gap-[4px   ] text-start  justify-center  h-[40px]  w-full flex flex-col">
+          <div className=" gap-[4px] text-start  justify-center  h-fit  w-full flex flex-col">
             {/* {stock && (
             <span className=" font-[500] text-[12px] lg:text-[10px] text-[#101828]">
               {stock && stock.companyName}
@@ -88,10 +86,12 @@ export default function Day(props: {
       <div
         className={`py-[20px] px-[20px] w-full ${
           props.open ? "flex" : "hidden"
-        } flex flex-col`}
+        } flex gap-4 xl:flex-row lg:flex-row md:flex-row flex-col items-center `}
       >
         {/* <ImageDay /> */}
-        <TextDay item={item} />
+        <TextDay item={item} item2={item2} details={false} />
+        <hr className=" h-full  border" />
+        <TextDay item={item} item2={item2} details={true} />
       </div>
     </div>
   );

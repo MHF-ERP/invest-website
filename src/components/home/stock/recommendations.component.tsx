@@ -6,6 +6,7 @@ import { stocksStore } from "@/store/stocks";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Recommendations() {
@@ -16,17 +17,18 @@ export default function Recommendations() {
 
     enabled: stocks === null,
   });
-
+  const router = useRouter();
   return (
-    <div className=" border border-divider shadow p-[21px] mt-1 rounded-xl flex-1 flex flex-col gap-3 h-fit">
+    <div className=" border border-divider shadow p-[21px] mt-1 rounded-xl mb-[5px] flex-1 flex flex-col gap-3 h-fit">
       <h1 className=" font-bold text-main">You may also like</h1>
       <div className=" xl:hidden lg:hidden md:hidden mt-3 justify-between items-center flex">
         {stocks &&
           stocks.slice(0, 6).map((item: any, index: number) => {
             return (
               <div
+                onClick={() => router.replace("/stock" + "/" + item["symbol"])}
                 key={index}
-                className={` gap-2 ${
+                className={` cursor-pointer gap-2  ${
                   index > 2 ? "hidden" : "flex"
                 }  flex-col items-center text-center`}
               >
@@ -65,8 +67,9 @@ export default function Recommendations() {
           stocks.slice(0, 6).map((item: any, index: number) => {
             return (
               <div
+                onClick={() => router.replace("/stock" + "/" + item["symbol"])}
                 key={index}
-                className={`flex flex-col items-center text-center gap-2 px-[12px]`}
+                className={` cursor-pointer flex flex-col items-center text-center gap-2 px-[12px]`}
               >
                 <MyImage
                   alt="stock image"

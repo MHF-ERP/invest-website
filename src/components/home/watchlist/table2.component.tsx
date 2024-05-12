@@ -430,8 +430,11 @@ const Table = (props: {
                   {stock && (
                     <td className="    py-[12px] px-[24px] w-[5%]  ">
                       <div className=" flex flex-col">
-                        <span className=" text-[#101828] font-[500] text-[14px]">
-                          {stock && stock.price}$
+                        <span className=" text-[#101828] font-[500] text-[14px] flex gap-1 items-end">
+                          {stock && stock.price}
+                          <span className=" text-[8px]">
+                            {stock && stock.currency}
+                          </span>
                         </span>
                         {/* <span
                           className={`${

@@ -44,7 +44,7 @@ export default function Card(props: {
             props.up ? "text-[#45564B]" : "text-[#ffffff]"
           } text-[14px] font-[500]`}
         >
-          {item["price"]} $
+          {item["price"].toFixed(2)}
         </span>
       </div>
       <div className=" p-[6px] w-fit bg-[#F1FAED] rounded-[100px] text-[#0E2805] text-[12px]">

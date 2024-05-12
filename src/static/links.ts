@@ -43,6 +43,7 @@ export const stockImage = "https://s3-symbol-logo.tradingview.com";
 
 //*****************WALLET********************** */
 export const WALLET = `${SERVER}/my-wallet`;
+export const STOCK_DETAILS = `${WALLET}/stock-details`;
 
 //*****************Markets********************** */
 export const MARKET = `${SERVER}/market`;

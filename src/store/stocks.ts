@@ -2,6 +2,7 @@
 import create from "zustand";
 interface StoreState {
   stocks: any;
+  allStocks: any;
   DataUp: any;
   DataDown: any;
   data2: any;
@@ -13,12 +14,15 @@ interface StoreState {
   market: string;
   setMarket: (data: string) => void;
   setStocks: (data: any) => void;
+  setAllStocks: (data: any) => void;
 }
 
 export const stocksStore = create<StoreState>((set) => ({
   stocks: null,
   DataUp: null,
   DataDown: null,
+  allStocks: null,
+
   data2: null,
   originData: null,
   market: "SAU",
@@ -28,4 +32,5 @@ export const stocksStore = create<StoreState>((set) => ({
   setData: (data) => set((state) => ({ ...state, data2: data })),
   setOriginData: (data) => set((state) => ({ ...state, originData: data })),
   setDataDown: (data) => set((state) => ({ ...state, DataDown: data })),
+  setAllStocks: (data) => set((state) => ({ ...state, allStocks: data })),
 }));

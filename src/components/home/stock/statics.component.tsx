@@ -9,7 +9,7 @@ export default function Statics(props: { stock: any; loading?: boolean }) {
     },
     {
       title1: "Price",
-      title2: !loading ? stock["price"] : "",
+      title2: !loading ? stock["price"] + " " + stock["currency"] : "",
     },
     {
       title1: "Changes",
