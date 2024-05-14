@@ -29,8 +29,7 @@ export default function Card(props: {
   const { allStocks } = stocksStore();
   const data =
     allStocks && allStocks.filter((it: any) => it["symbol"] === item.symbol)[0];
-  console.log("/*/*/**/*/");
-  console.log(item);
+
   if (!data) {
     return <div></div>;
   }

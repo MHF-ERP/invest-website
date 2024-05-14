@@ -20,7 +20,7 @@ const Navigator = dynamic(
 );
 
 const Page: NextPage = (req, res) => {
-  const [open, setOpen] = useState<number>(0);
+  const [open, setOpen] = useState<number>(-1);
   const { allStocks, market, setAllStocks } = stocksStore();
   const { data, isLoading } = useQuery({
     queryKey: ["wallet"],

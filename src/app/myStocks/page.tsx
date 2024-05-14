@@ -201,7 +201,7 @@ export default function Page() {
 
           {data && allStocks && (
             <Stocks
-              data={data["myStocks"]}
+              data={data["myStocks"].filter((it: any) => it.amount !== 0)}
               setOverlay={updateOverlay}
               setSymbol={setSymbol}
               setWatchlistId={setWatchlistId}

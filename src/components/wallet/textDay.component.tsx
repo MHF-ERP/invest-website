@@ -1,61 +1,60 @@
 import { formatDate2 } from "@/functions/formatDate";
 import { FormatDateWithNames } from "@/functions/formatDateWithNames";
-import { GetStockDetails } from "@/services/wallet/getStockDetails";
+import { stocksStore } from "@/store/stocks";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function TextDay(props: {
   item: any;
   item2: any;
   details: boolean;
+  data?: any;
 }) {
-  const { item, item2, details } = props;
-  const { data, isLoading } = useQuery({
-    queryKey: ["Stock Details"],
-    queryFn: () => GetStockDetails(getCookie("AccessToken")!, item.symbol),
+  const { data, item, item2, details } = props;
 
-    enabled: true,
-  });
   const details_items_box1 = [
     {
       title1: "First Bought",
-      title2: !isLoading && FormatDateWithNames(data["firstBought"]),
+      title2: FormatDateWithNames(data["firstBought"]),
     },
     {
       title1: "Last Buy Price",
-      title2: !isLoading && data["lastBuy"]["price"] + " " + item2["currency"],
+      title2: data["lastBuy"]["price"] + " " + item2["currency"],
     },
     {
       title1: "Last Buy Date",
-      title2: !isLoading && FormatDateWithNames(data["lastBuy"]["date"]),
+      title2: FormatDateWithNames(data["lastBuy"]["date"]),
     },
     {
       title1: "Last Sell Price",
-      title2: !isLoading && data["lastBuy"]["price"] + " " + item2["currency"],
+      title2: data["lastBuy"]["price"] + " " + item2["currency"],
     },
     {
       title1: "Last Sell Date",
-      title2: !isLoading && FormatDateWithNames(data["lastBuy"]["date"]),
+      title2: FormatDateWithNames(data["lastBuy"]["date"]),
     },
   ];
   const details_items_box2 = [
     {
       title1: "Last Transaction",
-      title2: !isLoading && FormatDateWithNames(data["lastTransaction"]),
+      title2:
+        data.symbol === item2["symbol"] &&
+        FormatDateWithNames(data["lastTransaction"]),
     },
     {
       title1: "Last Transaction Type",
-      title2: !isLoading && data["lastTransactionType"],
+      title2: data.symbol === item2["symbol"] && data["lastTransactionType"],
     },
     {
       title1: "Last Transaction Price",
       title2:
-        !isLoading && data["lastTransactionPrice"] + " " + item2["currency"],
+        data["lastTransactionPrice"] &&
+        data.symbol === item2["symbol"] + " " + item2["currency"],
     },
     {
       title1: "Last Transaction Amount",
-      title2: !isLoading && data["lastTransactionAmount"],
+      title2: data["lastTransactionAmount"] && data.symbol === item2["symbol"],
     },
   ];
   const details_items_box3 = [
@@ -69,27 +68,27 @@ export default function TextDay(props: {
     },
     {
       title1: "Total Share Stocks",
-      title2: !isLoading && data["bought"],
+      title2: data.symbol === item2["symbol"] && data["bought"],
     },
     {
       title1: "Total Sold Share Stocks",
-      title2: !isLoading && data["sold"],
+      title2: data.symbol === item2["symbol"] && data["sold"],
     },
     {
       title1: "Remaining Share Stocks",
-      title2: !isLoading && data["remaining"],
+      title2: data.symbol === item2["symbol"] && data["remaining"],
     },
     {
       title1: "Earning",
       title2:
-        !isLoading && item["price"] && item["price"].toString()[0] !== "-"
+        item["price"] && item["price"].toString()[0] !== "-"
           ? item["price"].toFixed(2) + " " + item2["currency"]
           : 0 + " " + item2["currency"],
     },
     {
       title1: "Losing",
       title2:
-        !isLoading && item["price"] && item["price"].toString()[0] === "-"
+        item["price"] && item["price"].toString()[0] === "-"
           ? item["price"].toFixed(2) + " " + item2["currency"]
           : 0 + " " + item2["currency"],
     },

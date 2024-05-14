@@ -3,6 +3,10 @@ import TextDay from "./textDay.component";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { stocksStore } from "@/store/stocks";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { GetStockDetails } from "@/services/wallet/getStockDetails";
+import { getCookie } from "cookies-next";
+import { useEffect } from "react";
 
 export default function Day(props: {
   setOpen: any;
@@ -14,6 +18,11 @@ export default function Day(props: {
 }) {
   const { setOpen, item, item2 } = props;
   const { allStocks, setAllStocks } = stocksStore();
+  const mutation = useMutation({
+    mutationFn: (e) => {
+      return GetStockDetails(getCookie("AccessToken")!, item.symbol);
+    },
+  });
 
   return (
     <div className=" flex flex-col  border  rounded-md ">
@@ -23,6 +32,7 @@ export default function Day(props: {
             setOpen(-1);
           } else {
             setOpen(props.idx - 1);
+            mutation.mutate();
           }
         }}
         className=" flex gap-4 h-fit   items-center cursor-pointer px-[12px] py-[8px] "
@@ -89,9 +99,23 @@ export default function Day(props: {
         } flex gap-4 xl:flex-row lg:flex-row md:flex-row flex-col items-center `}
       >
         {/* <ImageDay /> */}
-        <TextDay item={item} item2={item2} details={false} />
+        {mutation.data && (
+          <TextDay
+            item={item}
+            item2={item2}
+            details={false}
+            data={mutation.data}
+          />
+        )}{" "}
         <hr className=" h-full  border" />
-        <TextDay item={item} item2={item2} details={true} />
+        {mutation.data && (
+          <TextDay
+            item={item}
+            item2={item2}
+            details={true}
+            data={mutation.data}
+          />
+        )}
       </div>
     </div>
   );

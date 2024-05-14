@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Trade(props: { title: string; brief: string }) {
   const { title, brief } = props;
-  console.log(brief);
   return (
     <div className=" flex w-full flex-col gap-1 border text-[12px] border-divider rounded-[4px]">
       <span
