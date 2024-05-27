@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   compiler: {
-    removeConsole: true,
+    removeConsole: false,
   },
   images: {
     domains: [
       "*",
+      "cdn.benzinga.com",
       "flagcdn.com",
       "127.0.0.1",
       "api.naqiconcepts.com",

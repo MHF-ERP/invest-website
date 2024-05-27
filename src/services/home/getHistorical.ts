@@ -36,8 +36,8 @@ export async function GetHistorical(
         const timestamp = new Date(item.date).getTime(); // Convert date to timestamp in milliseconds
         return [timestamp, item.close]; // Return an array with timestamp and open value
       });
-  console.log(transformedArray);
   const date = new Date(from);
+  console.log(new Date(date).getTime());
   if (transformedArray && chartData) {
     setChartData({
       ...chartData,
@@ -56,7 +56,7 @@ export async function GetHistorical(
         chart: {
           id: "area-datetime",
           type: "area",
-          height: 350,
+          height: 2050,
           zoom: {
             autoScaleYaxis: true,
           },
@@ -67,7 +67,7 @@ export async function GetHistorical(
             {
               y: 0,
               borderColor: "#9AFF9A",
-              tickAmount: 15, // Increase this value to add more ticks and increase the distance between lines
+              tickAmount: 100, // Increase this value to add more ticks and increase the distance between lines
 
               label: {
                 show: false,
@@ -116,7 +116,9 @@ export async function GetHistorical(
         },
         xaxis: {
           type: "datetime",
-          min: date.getTime(),
+          min: new Date(
+            `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() + 2}`
+          ).getTime(),
           tickAmount: 10,
         },
         tooltip: {

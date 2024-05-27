@@ -15,6 +15,7 @@ import AddList from "@/components/watchlist/popup/AddList.component";
 import WatchStore from "@/store/watchlist";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pagination from "@mui/material/Pagination";
 
 const AllPageLayout = dynamic(
   () => import("@/components/layouts/allPage.layout")
@@ -143,117 +144,26 @@ export default function Page() {
             <div className=" pt-[20px]">
               <hr />
               <div className=" w-full pt-[20px] flex justify-between items-center  ">
-                <div
-                  onClick={() => {
-                    if (page > 1) {
-                      setPage(page - 1);
-                    }
-                  }}
-                  className=" cursor-pointer flex items-center  gap-[6px]"
-                >
-                  <GrLinkPrevious className="text-[#475467] w-[11px] h-[11px]" />
-                  <span className=" text-[#475467] font-[600] text-[14px]">
-                    Previous
-                  </span>
-                </div>
-                <div className=" xl:flex lg:flex md:flex hidden">
-                  {data2 &&
-                    data2.length > 0 &&
-                    Math.ceil(data2.length / rowsToShow) < 6 &&
-                    Array.from({
-                      length: Math.ceil(data2.length / rowsToShow),
-                    }).map((item: any, idx: number) => {
-                      return (
-                        <span
-                          key={idx}
-                          className={` flex items-center justify-center w-[40px] h-[40px] ${
-                            idx === page ? " bg-transparent" : "bg-[#F9FAFB]"
-                          }   rounded-[6px] text-[#182230] `}
-                        >
-                          {idx + 1}
-                        </span>
-                      );
-                    })}
-                  {data2 &&
-                    data2.length > 0 &&
-                    Math.ceil(data2.length / rowsToShow) > 6 &&
-                    ["", "", "", "", "", "", ""].map(
-                      (item: any, idx: number) => {
-                        if (idx < 3) {
-                          return (
-                            <span
-                              key={idx}
-                              onClick={() => setPage(idx + 1)}
-                              className={` cursor-pointer flex items-center justify-center w-[40px] h-[40px] ${
-                                idx + 1 !== page
-                                  ? " bg-transparent"
-                                  : "bg-[#F9FAFB]"
-                              }   rounded-[6px] text-[#182230] `}
-                            >
-                              {idx + 1}
-                            </span>
-                          );
-                        }
-                        if (idx > 3) {
-                          return (
-                            <span
-                              onClick={() =>
-                                setPage(
-                                  Array.from({
-                                    length: Math.ceil(
-                                      data2.length / rowsToShow
-                                    ),
-                                  }).length -
-                                    2 +
-                                    idx -
-                                    5
-                                )
-                              }
-                              key={idx + 1}
-                              className={` cursor-pointer flex items-center justify-center w-[40px] h-[40px] ${
-                                Math.ceil(data2.length / rowsToShow) -
-                                  2 +
-                                  idx -
-                                  5 !==
-                                page
-                                  ? " bg-transparent"
-                                  : "bg-[#F9FAFB]"
-                              }   rounded-[6px] text-[#182230] `}
-                            >
-                              {Math.ceil(data2.length / rowsToShow) -
-                                2 +
-                                idx -
-                                5}
-                            </span>
-                          );
-                        }
-                        if (idx === 3) {
-                          return (
-                            <span
-                              key={idx + 1}
-                              className=" flex items-center justify-center   w-[40px] h-[40px] text-[#475467]"
-                            >
-                              ...
-                            </span>
-                          );
-                        }
-                      }
-                    )}
-                </div>
-                <div
-                  onClick={() => {
-                    const all = Math.ceil(data2.length / rowsToShow);
-                    if (page < all) {
-                      setPage(page + 1);
-                    }
-                  }}
-                  className=" cursor-pointer flex gap-[6px] items-center"
-                >
-                  <span className=" text-[#475467] font-[600] text-[14px]">
-                    Next
-                  </span>
-                  <GrLinkNext className="text-[#475467] w-[11px] h-[11px]" />
-                </div>
+                {data2 &&
+                  data2.length > 0 &&
+                  Math.ceil(data2.length / rowsToShow) > 1 && (
+                    <Pagination
+                      count={Math.ceil(data2.length / rowsToShow)}
+                      variant="outlined"
+                      color="primary"
+                      sx={{
+                        width: "100%", // Make the Pagination take the full width
+                        "& .MuiPagination-ul": {
+                          justifyContent: "center", // Create space between next and back icons in numbers section
+                        },
+                        "& .MuiPaginationItem-root.Mui-selected": {
+                          backgroundColor: "#4CAF50",
+                          color: "#FFF",
+                          border: 0,
+                        },
+                      }} // Style for selected page
+                    />
+                  )}
               </div>
             </div>
           </div>

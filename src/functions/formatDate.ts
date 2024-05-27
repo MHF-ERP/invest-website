@@ -4,7 +4,15 @@ export function formatDate(date: Date) {
 }
 export function changeDate(date: Date, value: number) {
   const changedDate = new Date(date.getTime() - value * 24 * 60 * 60 * 1000);
-  const changedDateString = changedDate.toISOString().slice(0, 10); // Extract YYYY-MM-DD
+  const changed = new Date(
+    changedDate.getFullYear(),
+    changedDate.getMonth(),
+    changedDate.getDate(),
+    10,
+    0
+  );
+
+  const changedDateString = changed.toISOString().slice(0, 10); // Extract YYYY-MM-DD
   return changedDateString;
 }
 export function formatDate2(inputDate: string) {

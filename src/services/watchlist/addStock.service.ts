@@ -4,6 +4,7 @@ import requestService from "@/static/requests";
 export async function AddStock(
   e: any,
   notify: any,
+  notify2: any,
   token: string | undefined,
   setOverlay: any,
   id: string,
@@ -19,20 +20,24 @@ export async function AddStock(
   if (sell) {
     commission = e.target.Comession.value;
   }
-
+  if (commission && commission < 0) {
+    return notify("Please Put valid Commission");
+  }
   if (!commission) {
     commission = 0;
   }
-  console.log(commission);
-  console.log(provider);
+
   if (!price || !amount) {
-    return notify("Please Fill All Fields", "error");
+    return notify("Please fill in all fields", "error");
   }
   if (!provider) {
     return notify("Please Put valid Provider");
   }
-  if (price <= 0 && amount <= 0) {
+  if (price <= 0) {
     return notify("Please Put valid Price");
+  }
+  if (amount <= 0) {
+    return notify("Please Put valid Amount");
   }
   if (!/^\d*\.?\d*$/.test(price)) {
     return notify("Please Put valid Price");
@@ -45,10 +50,9 @@ export async function AddStock(
     commission: commission,
     provider: provider,
   });
-  console.log(requestJson);
 
   // Convert the random number to a string and remove the decimal point
-  await request(requestJson, token!, id, setOverlay, notify, sell);
+  await request(requestJson, token!, id, setOverlay, notify, notify2, sell);
 }
 
 async function request(
@@ -57,6 +61,8 @@ async function request(
   id: string,
   setOverlay: any,
   notify: any,
+  notify2: any,
+
   sell?: boolean
 ) {
   const response = await requestService.post(
@@ -67,9 +73,12 @@ async function request(
   );
   if (response["status"] === 200) {
     setOverlay(0);
+    if (sell) {
+      return notify2("Sell Stock Successfully");
+    } else {
+      return notify2("Buy Stock Successfully");
+    }
   } else {
     return notify(response["data"]["message"]);
   }
-
-  return response;
 }

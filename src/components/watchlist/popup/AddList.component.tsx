@@ -20,7 +20,16 @@ export default function AddList(props: {
   const { symbol, duplicate } = props;
   const { updateOverlay, data, updateData } = WatchStore();
   const [list, setLists] = useState<Array<string>>([]);
-  const notify = async (error: string) => toast.error(error);
+  const notify = async (error: string) => {
+    // Display an error toast
+    await toast.error(error);
+  };
+
+  const notify2 = async (successMessage: string) => {
+    // Display a success toast
+    await toast.success(successMessage);
+  };
+
   const queryClient = useQueryClient();
 
   const pathName = usePathname();
@@ -29,6 +38,7 @@ export default function AddList(props: {
       return AddStock(
         e,
         notify,
+        notify2,
         getCookie("AccessToken"),
         updateOverlay,
         symbol ? symbol : pathName.split("/").pop()!,
