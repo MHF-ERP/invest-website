@@ -140,9 +140,6 @@ label span:before {
 .apexcharts-xaxis-tick {
   display: none !important;
 }
-.apexcharts-tooltip {
-  display: none !important;
-}
 
 .form-shadow {
   @apply shadow-[0px_9px_19px_0px_rgba(145,145,145,0.05),0px_35px_35px_0px_rgba(145,145,145,0.04),0px_78px_47px_0px_rgba(145,145,145,0.03),0px_139px_56px_0px_rgba(145,145,145,0.01),0px_217px_61px_0px_rgba(145,145,145,0.00)];

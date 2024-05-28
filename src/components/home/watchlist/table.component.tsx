@@ -9,6 +9,12 @@ import { IoIosTrendingDown } from "react-icons/io";
 
 const Table = (props: { data: any; up: boolean; updateData: any }) => {
   const { data, up, updateData } = props;
+    const [allData, setAllData] = useState<any>();
+    useEffect(()=>{
+     setAllData(data);
+    },[data]);
+
+   
   const { stocks, setStocks } = stocksStore();
   const handleImageError = (symbol: string) => {
     const updatedStocks = [...stocks];
@@ -66,7 +72,8 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
                       : data.sort(
                           (a: any, b: any) => b.probability - a.probability
                         );
-                    updateData(sort);
+                    setAllData(data);
+                        // updateData(sort);
                     setPrice(false);
                     setAccuracy(!accuracy);
                   }}
@@ -88,8 +95,8 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
                     const filteredData1 = sortedData1.filter(
                       (item: any) => item !== undefined
                     );
-
-                    updateData(filteredData1);
+                   setAllData(filteredData1);
+                 //   updateData(filteredData1);
                     setPrice(!price);
                     setAccuracy(false);
                   }}
@@ -102,7 +109,7 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item: any, idx: number) => {
+            {allData && allData.slice(0,5).map((item: any, idx: number) => {
               const stock =
                 stocks && stocks.find((it: any) => it["symbol"] === item["id"]);
                    return (

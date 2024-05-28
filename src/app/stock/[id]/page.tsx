@@ -25,6 +25,8 @@ const StockPage: NextPage = (req, res) => {
 
   return (
     <>
+      {/* <ToastContainer /> */}
+
       {overlay !== 0 && <AddList />}
       {overlay !== 0 && (
         <div
@@ -38,7 +40,6 @@ const StockPage: NextPage = (req, res) => {
           overlay !== 0 ? "over" : ""
         } bg-[#1F332B]`}
       >
-        <ToastContainer />
         <Navigator current={1} />
         <Stock />
       </main>

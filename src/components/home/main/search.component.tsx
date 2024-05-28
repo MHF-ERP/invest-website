@@ -32,7 +32,7 @@ export default function Search(props: {
         onChange={(e) => {
           if (stocks) {
             const help = stocks.filter((item: any) =>
-              item["companyName"].startsWith(toTitleCase(e.target.value))
+              item["companyName"].includes(toTitleCase(e.target.value))
             );
             if (e.target.value === "") {
               if (change) {

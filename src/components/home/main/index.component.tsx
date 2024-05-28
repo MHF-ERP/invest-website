@@ -31,7 +31,9 @@ export default function DefHome() {
 
     enabled: stocks === null,
   });
-
+  
+   
+   console.log(data);
   const updateDataUp = (newData: any) => {
     setDataUp(newData);
   };
@@ -61,7 +63,7 @@ export default function DefHome() {
         <div className=" border-b rounded-b-xl border-l border-r  border-[#E7E7E7]  flex xl:flex-row  flex-col">
           {
             <Table
-              data={DataUp ? DataUp.slice(0, 5) : ["", "", "", "", ""]}
+              data={DataUp ? DataUp:["","","","",""] }
               updateData={updateDataUp}
               up={true}
             />
@@ -69,7 +71,7 @@ export default function DefHome() {
           <hr className=" h-full w-[1px] bg-[#E7E7E7] xl:flex  hidden " />
           {
             <Table
-              data={DataDown ? DataDown.slice(0, 5) : ["", "", "", "", ""]}
+              data={DataDown ? DataDown : ["", "", "", "", ""]}
               up={false}
               updateData={updateDataDown}
             />

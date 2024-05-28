@@ -21,8 +21,8 @@ export async function personalSerives(
   if (
     test("any", firstName, "The first name provided is invalid") ||
     test("any", lastName, "The last name provided is invalid") ||
-    test("name", firstName, "The first name mustn't contain space") ||
-    test("name", lastName, "The last name mustn't contain space") ||
+    test("name", firstName, "The first name must contain one space") ||
+    test("name", lastName, "The last name must contain one space") ||
     test("Phone", phone, "The phone number provided is invalid") ||
     test("Country", country, "Please select your country") ||
     test("City", city, "Please select your city")

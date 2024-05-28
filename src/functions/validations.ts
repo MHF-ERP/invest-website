@@ -103,7 +103,7 @@ export function test(type: string, text: string, brief: string) {
   } else if (type === "Password") {
     if (text.length === 0) return notify(brief);
   } else if (type === "name") {
-    if (text.includes(" ")) return notify(brief);
+    if (text.split(" ").length > 1) return notify(brief);
   } else if (type === "Phone") {
     if (text.length === 0 || !isPhone(text)) return notify(brief);
   } else if (type === "Country") {

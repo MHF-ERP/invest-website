@@ -18,11 +18,11 @@ export async function GetSymbol(
   const response = await requestService.get(
     profileUrl + `/${symbolString}?apikey=${API_KEY}`
   );
+
   if (all) {
     setOrigiData(response.data);
     setData(response.data);
   }
-  console.log(all);
   setStocks(response.data);
   if (ai) {
     if (all) {
