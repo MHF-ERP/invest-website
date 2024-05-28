@@ -64,7 +64,6 @@ export default function Body() {
             inputClassName="placeholder:text-base text-base"
             spanClassName="font-medium"
           />
-          <Remember />
         </div>
         <button
           disabled={mutation.isPending}
@@ -81,7 +80,6 @@ export default function Body() {
     //************* Get Data From Form*************** */
     const email = e.target.LoginEmail.value;
     const password = e.target.LoginPassword.value;
-    const Remember = e.target.Remember.checked;
     // **************Test******************
     if (
       test("Email", email, "The email entered is invalid") ||

@@ -10,8 +10,7 @@ export async function GetAllAi(
   setOriginData?: any,
   setData?: any
 ) {
-  console.log("-----------------------------");
-  console.log(market);
+
   await fetch(PREDECT + market.toLowerCase())
     .then((response) => {
       // Check if the request was successful (status code 200)

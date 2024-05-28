@@ -37,14 +37,16 @@ export default function DefHome() {
   };
 
   const updateDataDown = (newData: any) => {
-    setDataDown(newData);
+
+    const data = newData.filter((item:any)=>item.changes !== null);
+    setDataDown(data);
   };
   return (
     <HomeLayout>
       <WelcomeBox />
 
       <div className=" flex flex-col">
-        <div className=" flex justify-between items-center w-full px-[16px] py-[20px]  border-l border-r rounded-t-[6px] border-[#E7E7E7] border-t ">
+        <div className="  flex justify-between items-center w-full px-[16px] py-[20px]  border-l border-r rounded-t-xl  border-[#E7E7E7] border-t ">
           <span className=" #0B1813 font-[600] xl:text-[16px] lg:text-[16px] md:text-[16px] text-[12px]">
             AI Insights Hub
           </span>
@@ -56,7 +58,7 @@ export default function DefHome() {
             View all
           </Link>
         </div>
-        <div className=" flex xl:flex-row  flex-col">
+        <div className=" border-b rounded-b-xl border-l border-r  border-[#E7E7E7]  flex xl:flex-row  flex-col">
           {
             <Table
               data={DataUp ? DataUp.slice(0, 5) : ["", "", "", "", ""]}
@@ -64,6 +66,7 @@ export default function DefHome() {
               up={true}
             />
           }{" "}
+          <hr className=" h-full w-[1px] bg-[#E7E7E7] xl:flex  hidden " />
           {
             <Table
               data={DataDown ? DataDown.slice(0, 5) : ["", "", "", "", ""]}

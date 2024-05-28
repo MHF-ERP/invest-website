@@ -25,9 +25,9 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
   const [price, setPrice] = useState(false);
 
   return (
-    <div className=" w-full  overflow-y-hidden  flex flex-col">
+    <div className=" w-full  overflow-y-hidden  flex flex-col  ">
       <div
-        className={` w-full overflow-x-auto flex justify-between border-l border-t   border-[#EAECF0] px-[20px] py-[8px] items-center ${
+        className={` w-full overflow-x-auto flex justify-between  border-t    border-[#EAECF0] px-[20px] py-[8px] items-center ${
           up
             ? "text-[#17B26A] xl:border-r-0 border-r"
             : "text-[#F04438] border-r"
@@ -49,15 +49,13 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
           />
         )}
       </div>
-      <div className=" w-full custonScroll2 overflow-x-auto h-fit">
-        <table className="table-auto w-full overflow-x-auto border-l border-[#EAECF0]  ">
+      <div className=" w-full custonScroll2 overflow-x-auto h-fit ">
+        <table className="table-auto w-full overflow-x-auto  border-[#EAECF0]  ">
           <thead>
             <tr
-              className={` ${
-                !up ? "border-r" : "xl:border-r-0 border-r"
-              } border-b border-t border-[#EAECF0] text-[#475467]  text-left text-[12px] font-[500]    `}
+              className={` border-b border-t border-[#EAECF0] text-[#475467]  text-left text-[12px] font-[500]    `}
             >
-              <th className="py-[12px] px-[24px] w-[100%]">Markets</th>
+              <th className="py-[12px] px-[24px] w-[100%]">Stocks</th>
               <th className=" w-[20%] px-[24px] py-[12px] text-center ">
                 <span
                   onClick={() => {
@@ -107,16 +105,13 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
             {data.map((item: any, idx: number) => {
               const stock =
                 stocks && stocks.find((it: any) => it["symbol"] === item["id"]);
-
-              return (
+                   return (
                 <tr
                   onClick={() => router.push("/stock/" + stock["symbol"])}
                   key={idx}
-                  className={`border-b h-[20px] cursor-pointer   ${
+                  className={` ${idx !== data.length -1?"border-b":""}   h-[20px] cursor-pointer   ${
                     idx === data.length - 1 ? "rounded-[20px]" : ""
-                  } border-[#EAECF0] text-center ${
-                    !up ? "border-r" : "xl:border-r-0 border-r"
-                  }  `}
+                  } border-[#EAECF0] text-center  `}
                 >
                   <td className="py-[12px]  px-[24px] max-h-[20px] w-[500px]">
                     <div className="flex xl:w-[100%] lg:w-[100%] md:w-[100%] w-[300px] items-center space-x-2">
@@ -242,14 +237,15 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
                         </span>
                         <span
                           className={`${
-                            stock.changes.toString()[0] !== "-"
+                            stock && stock.changes &&
+                            stock!.changes!.toString()[0] !== "-"
                               ? "text-[#067647]"
                               : "text-[#F04438]"
                           }  text-[14px] font-[400] `}
                         >
-                          {stock.changes.toString()[0] !== "-" ? "+" : ""}
+                          { stock && stock.chages && stock!.changes!.toString()[0] !== "-" ? "+" : ""}
 
-                          {stock.changes}
+                          {stock!.changes!}
                         </span>
                       </div>
                     </td>
@@ -293,6 +289,7 @@ const Table = (props: { data: any; up: boolean; updateData: any }) => {
                   )}
                 </tr>
               );
+            
             })}
           </tbody>
         </table>

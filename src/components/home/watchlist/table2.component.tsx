@@ -66,13 +66,13 @@ const Table = (props: {
 
   return (
     <div className=" w-full  overflow-y-hidden  flex flex-col">
-      <div className=" w-full custonScroll2 overflow-x-auto h-fit">
-        <table className="table-auto w-full overflow-x-auto border-l border-[#EAECF0]  ">
+      <div className=" w-full custonScroll2 overflow-x-auto h-fit border-t  rounded-t-xl border-b rounded-b-xl border-r border-l border-[#EAECF0]">
+        <table className="table-auto w-full overflow-x-auto   border-[#EAECF0]  ">
           <thead>
             <tr
-              className={`${"border-r"}  rounded-t-[12px] border-b border-t border-[#EAECF0] text-[#475467] text-left text-[12px] font-[500]    `}
+              className={`   border-b rounded-t-xl  border-[#EAECF0] text-[#475467] text-left text-[12px] font-[500]    `}
             >
-              <th className="py-[12px] px-[24px] w-[30%]">Markets</th>
+              <th className="py-[12px] px-[24px] w-[30%]">Stocks</th>
               <th className="w-[15%] px-[24px] py-[12px] text-center ">
                 <span
                   onClick={() => {
@@ -267,9 +267,9 @@ const Table = (props: {
               return (
                 <tr
                   key={idx}
-                  className={`border-b h-[20px]    ${
+                  className={` ${data.length - 1 !== idx ? "border-b":""} h-[20px]    ${
                     idx === data.length - 1 ? "rounded-[20px]" : ""
-                  } border-[#EAECF0] text-center ${"border-r"}  `}
+                  } border-[#EAECF0] text-center   `}
                 >
                   <td className="py-[12px]  px-[24px] max-h-[20px] w-[400px]">
                     <div className="flex xl:w-[100%] lg:w-[100%]  w-[400px] items-center space-x-2">

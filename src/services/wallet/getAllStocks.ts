@@ -12,6 +12,7 @@ export async function GetAllStocks(setStocks: any) {
     const response = await requestService.get(
       profileUrl + `/${symbolString}?apikey=${API_KEY}`
     );
+    const filtred = response.data.filter((item:any)=>item.changes !== null);
     data.push(...response.data);
   }
   setStocks(data);

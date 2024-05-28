@@ -42,7 +42,7 @@ export default function StockTable(props: {
           <thead className="text-[#475467]">
             <tr>
               <th className="text-start font-semibold py-2 px-4 border-b-2">
-                Markets
+                Stocks
               </th>
               <th className="text-start font-semibold py-2 px-4 border-b-2">
                 Change1D
