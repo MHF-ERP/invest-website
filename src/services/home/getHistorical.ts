@@ -7,13 +7,14 @@ export async function GetHistorical(
   id: string,
   from: string,
   to: string,
+  to2: string,
   link: string,
 
   setChartData?: any,
   chartData?: any
 ) {
   const response = await requestService.get(
-    link + `/${id}?from=${from}&to=${to}&apikey=${API_KEY}`
+    link + `/${id}?from=${to2}&to=${to}&apikey=${API_KEY}`
   );
   const minVal = link.includes("historical-price-full")
     ? response.data.historical.reduce(
@@ -24,7 +25,7 @@ export async function GetHistorical(
         (min: any, person: any) => Math.min(min, person.close),
         Infinity
       );
-
+  console.log(response);
   const transformedArray = link.includes("historical-price-full")
     ? await response.data.historical.map((item: any) => {
         const timestamp = new Date(item.date).getTime(); // Convert date to timestamp in milliseconds

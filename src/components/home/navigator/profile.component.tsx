@@ -2,19 +2,17 @@
 import { chexkLength } from "@/functions/textLength";
 import Image from "next/image";
 import { IoIosLogOut } from "react-icons/io";
-// import { useRouter } from "next/navigation";
 import { logoutRequest } from "@/services/home/logout.service";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { idServises } from "@/services/signup/id.service";
-// import { useRouter } from "next/navigation";
 import { profileRequest } from "@/services/home/profile.service";
 import Logout from "./logout.component";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 import { MEDIA } from "@/static/links";
 import ContentLoader from "react-content-loader";
+import { useRouter } from "next/navigation";
 // import {} from "next-clie"
 export default function Profile() {
   const router = useRouter();

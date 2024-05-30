@@ -151,6 +151,7 @@ export default function Page() {
                       count={Math.ceil(data2.length / rowsToShow)}
                       variant="outlined"
                       color="primary"
+                      onChange={(e, page) => setPage(page)}
                       sx={{
                         width: "100%", // Make the Pagination take the full width
                         "& .MuiPagination-ul": {

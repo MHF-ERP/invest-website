@@ -7,6 +7,5 @@ export async function logoutRequest(
 ) {
   await requestService.get(LOGOOUT, token);
   deleteCookie("AccessToken");
-  router.push("/");
-  router.forward();
+  router.replace("/", undefined, { shallow: true });
 }

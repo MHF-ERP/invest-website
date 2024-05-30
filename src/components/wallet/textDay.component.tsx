@@ -112,7 +112,7 @@ export default function TextDay(props: {
               key={idx}
               className=" w-fit h-full bg-center relative  items-center flex justify-center"
             >
-              <div className=" flex mb-[10px] flex-col items-center h-full ">
+              <div className=" flex  flex-col items-center h-full ">
                 <div className=" flex ">
                   <div className=" relative w-[25px] h-[25px] rounded-full border border-red-600 flex"></div>
                   <span className=" w-[400px] absolute left-[38px] text-slate-400">
@@ -160,7 +160,7 @@ export default function TextDay(props: {
               key={idx}
               className=" w-fit h-full bg-center relative  items-center flex justify-center"
             >
-              <div className=" flex my-[20px] flex-col items-center h-full">
+              <div className=" flex  flex-col items-center h-full">
                 <div className=" flex">
                   <div className=" relative w-[25px] h-[25px] rounded-full border border-green-600 flex"></div>
                   <span className=" w-[400px] absolute left-[38px] text-slate-400">
@@ -174,7 +174,7 @@ export default function TextDay(props: {
                   </div>
                 </div>
               </div>
-              <div className=" flex flex-col gap-[5px] mb-[10px] mt-[25px] xl:py-[0px] lg:py-[0px] md:py-[0px] py-[30px]">
+              <div className=" flex flex-col gap-[5px] my-[20px] xl:py-[0px] lg:py-[0px] md:py-[0px] py-[30px]">
                 <span className=" text-headerWatch font-[500]">
                   {" "}
                   Amount:{" "}

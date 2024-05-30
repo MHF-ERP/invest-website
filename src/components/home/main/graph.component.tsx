@@ -187,6 +187,7 @@ export default function DateTimeChart(props: { title: string }) {
 
   const [from, setFrom] = useState<string>(formatDate(new Date()));
   const [to, setTo] = useState<string>(changeDate(new Date(), 5));
+  const [to2, setTo2] = useState<string>(changeDate(new Date(), 10));
 
   const pathName = usePathname();
   const today = new Date();
@@ -196,6 +197,7 @@ export default function DateTimeChart(props: { title: string }) {
   // Format as "YYYY-MM-DD"
   let formattedDate = today.toISOString().split("T")[0];
   let toformattedDate = new Date().toISOString().split("T")[0];
+  let toformattedDate2 = changeDate(today, 10);
 
   const mutation = useMutation({
     mutationFn: (e) => {
@@ -203,6 +205,7 @@ export default function DateTimeChart(props: { title: string }) {
         pathName.split("/").pop()!,
         to,
         from,
+        to2,
         chartData.selection === "five_days"
           ? historicalUrl5Days
           : chartData.selection === "one_month"
@@ -223,6 +226,7 @@ export default function DateTimeChart(props: { title: string }) {
         pathName.split("/").pop()!,
         formattedDate,
         toformattedDate,
+        toformattedDate2,
         chartData.selection === "five_days"
           ? historicalUrl5Days
           : chartData.selection === "one_month"
@@ -253,6 +257,7 @@ export default function DateTimeChart(props: { title: string }) {
             const date = new Date();
             setFrom(formatDate(date));
             setTo(changeDate(date, 5));
+            setTo2(changeDate(date, 10));
             mutation.mutate();
             updateData("five_days");
           }}
@@ -270,6 +275,8 @@ export default function DateTimeChart(props: { title: string }) {
             const date = new Date();
             setFrom(formatDate(date));
             setTo(changeDate(date, 30));
+            setTo2(changeDate(date, 30));
+
             mutation.mutate();
 
             updateData("one_month");
@@ -289,6 +296,8 @@ export default function DateTimeChart(props: { title: string }) {
             const date = new Date();
             setFrom(formatDate(date));
             setTo(changeDate(date, 3 * 30));
+            setTo2(changeDate(date, 3 * 30));
+
             mutation.mutate();
             updateData("three_months");
           }}
@@ -307,6 +316,8 @@ export default function DateTimeChart(props: { title: string }) {
             const date = new Date();
             setFrom(formatDate(date));
             setTo(changeDate(date, 12 * 30));
+            setTo2(changeDate(date, 12 * 30));
+
             mutation.mutate();
 
             updateData("one_year");
@@ -325,6 +336,8 @@ export default function DateTimeChart(props: { title: string }) {
             const date = new Date();
             setFrom(formatDate(date));
             setTo(changeDate(date, 3 * 12 * 30));
+            setTo2(changeDate(date, 3 * 12 * 30));
+
             mutation.mutate();
             updateData("three_year");
           }}
@@ -342,6 +355,8 @@ export default function DateTimeChart(props: { title: string }) {
             const date = new Date();
             setFrom(formatDate(date));
             setTo(changeDate(date, 5 * 12 * 30));
+            setTo2(changeDate(date, 5 * 12 * 30));
+
             mutation.mutate();
             updateData("five_year");
           }}

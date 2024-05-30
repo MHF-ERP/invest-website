@@ -118,6 +118,7 @@ export default function Navigator(props: { current: number }) {
           (item: { icon: any; name: string; link: string }, idx: number) => {
             return (
               <Link
+                replace
                 href={item["link"]}
                 key={idx}
                 className={` hover:bg-main2 hover:text-white duration-75 text-nav cursor-pointer flex items-center xl:justify-start lg:justify-start justify-center gap-3 py-2 px-2 w-full ${

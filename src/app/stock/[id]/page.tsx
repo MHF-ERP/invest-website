@@ -19,13 +19,13 @@ const Navigator = dynamic(
 const DefHome = dynamic(() => import("@/components/home/main/index.component"));
 // const AllPageLayout = dynamic(() => import('@/components/layouts/allPage.layout'))
 
-const StockPage: NextPage = (req, res) => {
+const Page: NextPage = (req, res) => {
   const { overlay, updateOverlay } = WatchStore();
   const pathName = usePathname();
 
   return (
     <>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
 
       {overlay !== 0 && <AddList />}
       {overlay !== 0 && (
@@ -47,4 +47,4 @@ const StockPage: NextPage = (req, res) => {
   );
 };
 
-export default StockPage;
+export default Page;

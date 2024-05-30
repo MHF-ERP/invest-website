@@ -10,7 +10,7 @@ export default function Card2(props: { item: any }) {
   const { stocks, setStocks } = stocksStore();
   return (
     <div
-      onClick={() => router.push("/stock/" + item["symbol"])}
+      onClick={() => router.replace("/stock/" + item["symbol"])}
       className="xl:flex-row lg:flex-row md:flex-row flex-col cursor-pointer hover:opacity-80 w-full flex justify-between items-center min-h-[40px] "
     >
       <div className=" flex gap-2 ">
@@ -39,7 +39,7 @@ export default function Card2(props: { item: any }) {
       </div>
       <div className=" xl:flex lg:flex md:flex hidden xl:flex-col lg:flex-col md:flex-col flex-row items-center ">
         <span className=" text-main font-[600] text-[14px] flex gap-1 items-end">
-          { item["price"] && item["price"].toFixed(2)}
+          {item["price"] && item["price"].toFixed(2)}
           <span className=" text-[8px]"> {item["currency"]}</span>
         </span>
         <span
@@ -57,7 +57,7 @@ export default function Card2(props: { item: any }) {
           <span className=" text-main font-[600] text-[12px]">price :</span>
 
           <span className=" text-main font-[600] text-[10px] flex gap-1 items-end">
-            {item["price"] &&  item["price"].toFixed(2)}
+            {item["price"] && item["price"].toFixed(2)}
             <span className=" text-[8px]"> {item["currency"]}</span>
           </span>
         </div>

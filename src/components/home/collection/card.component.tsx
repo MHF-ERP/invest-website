@@ -14,7 +14,7 @@ export default function Card(props: {
   const { stocks, setStocks } = stocksStore();
   return (
     <div
-      onClick={() => router.push("/stock/" + item["symbol"])}
+      onClick={() => router.replace("/stock/" + item["symbol"])}
       className=" min-w-[150px] items-center cursor-pointer hover:opacity-80 flex flex-col gap-2 flex-1 text-center py-2 rounded-[6px]    "
     >
       <Image

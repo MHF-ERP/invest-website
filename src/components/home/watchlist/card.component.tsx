@@ -10,7 +10,7 @@ export default function Card(props: { item: any }) {
   const { stocks, setStocks } = stocksStore();
   return (
     <div
-      onClick={() => router.push("/stock/" + item["symbol"])}
+      onClick={() => router.replace("/stock/" + item["symbol"])}
       className="xl:flex-row lg:flex-row md:flex-row flex-col cursor-pointer hover:opacity-80 w-full flex xl:items-center lg:items-center md:items-center justify-between items-start"
     >
       <div className=" flex gap-2 ">
