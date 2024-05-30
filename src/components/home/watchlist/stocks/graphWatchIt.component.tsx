@@ -14,6 +14,8 @@ export default function GraphWatchIt(props: { symbol: string; text: string }) {
         symbol,
         formatDate(new Date()),
         changeDate(new Date(), 1),
+        changeDate(new Date(), 2),
+
         historicalUrl1Year
       ),
 
