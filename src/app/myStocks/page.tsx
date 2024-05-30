@@ -121,8 +121,13 @@ export default function Page() {
       title1: "Earning",
       title2:
         watchlistId !== null && overlay !== 0
-          ? item.price > 0
-            ? item.price.toFixed(2) + " " + watchlistId["currency"]
+          ? watchlistId.price * item.amount - item.price * item.amount > 0
+            ? (
+                watchlistId.price * item.amount -
+                item.price * item.amount
+              ).toFixed(2) +
+              " " +
+              watchlistId["currency"]
             : "0"
           : "",
     },
@@ -130,8 +135,13 @@ export default function Page() {
       title1: "Losing",
       title2:
         watchlistId !== null && overlay !== 0
-          ? item.price < 0
-            ? item.price.toFixed(2) + " " + watchlistId["currency"]
+          ? watchlistId.price * item.amount - item.price * item.amount < 0
+            ? (
+                watchlistId.price * item.amount -
+                item.price * item.amount
+              ).toFixed(2) +
+              " " +
+              watchlistId["currency"]
             : "0"
           : "",
     },

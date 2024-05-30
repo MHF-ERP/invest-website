@@ -110,16 +110,26 @@ export default function Card(props: {
         <Trade
           title="Earning"
           brief={
-            item["price"] !== null && item["price"] > 0
-              ? item["price"].toFixed(2) + " " + data["currency"]
+            data.price * item.amount - item.price * item.amount !== null &&
+            data.price * item.amount - item.price * item.amount > 0
+              ? (data.price * item.amount - item.price * item.amount).toFixed(
+                  2
+                ) +
+                " " +
+                data["currency"]
               : "0"
           }
         />
         <Trade
           title="Losing"
           brief={
-            item["price"] !== null && item["price"] < 0
-              ? item["price"].toFixed(2) + " " + data["currency"]
+            data.price * item.amount - item.price * item.amount !== null &&
+            data.price * item.amount - item.price * item.amount < 0
+              ? (data.price * item.amount - item.price * item.amount).toFixed(
+                  2
+                ) +
+                " " +
+                data["currency"]
               : "0"
           }
         />

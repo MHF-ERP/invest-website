@@ -81,15 +81,25 @@ export default function TextDay(props: {
     {
       title1: "Earning",
       title2:
-        item["price"] && item["price"].toString()[0] !== "-"
-          ? item["price"].toFixed(2) + " " + item2["currency"]
+        item2["price"] * item["amount"] - item["price"] * item["amount"] > 0
+          ? (
+              item2["price"] * item["amount"] -
+              item["price"] * item["amount"]
+            ).toFixed(2) +
+            " " +
+            item2["currency"]
           : 0 + " " + item2["currency"],
     },
     {
       title1: "Losing",
       title2:
-        item["price"] && item["price"].toString()[0] === "-"
-          ? item["price"].toFixed(2) + " " + item2["currency"]
+        item2["price"] * item["amount"] - item["price"] * item["amount"] < 0
+          ? (
+              item2["price"] * item["amount"] -
+              item["price"] * item["amount"]
+            ).toFixed(2) +
+            " " +
+            item2["currency"]
           : 0 + " " + item2["currency"],
     },
   ];

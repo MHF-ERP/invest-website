@@ -12,11 +12,9 @@ export async function GetHistorical(
   setChartData?: any,
   chartData?: any
 ) {
-  console.log(link);
   const response = await requestService.get(
     link + `/${id}?from=${from}&to=${to}&apikey=${API_KEY}`
   );
-  console.log(response);
   const minVal = link.includes("historical-price-full")
     ? response.data.historical.reduce(
         (min: any, person: any) => Math.min(min, person.close),
@@ -117,7 +115,12 @@ export async function GetHistorical(
         xaxis: {
           type: "datetime",
           min: new Date(
-            `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() + 2}`
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate() + 2,
+            10,
+            0,
+            0
           ).getTime(),
           tickAmount: 10,
         },
