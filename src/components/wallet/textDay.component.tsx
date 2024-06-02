@@ -28,11 +28,15 @@ export default function TextDay(props: {
     },
     {
       title1: "Last Sell Price",
-      title2: data["lastBuy"]["price"] + " " + item2["currency"],
+      title2: data["lastSell"]
+        ? data["lastSell"]["price"] + " " + item2["currency"]
+        : "-",
     },
     {
       title1: "Last Sell Date",
-      title2: FormatDateWithNames(data["lastBuy"]["date"]),
+      title2: data["lastSell"]
+        ? FormatDateWithNames(data["lastSell"]["date"])
+        : "-",
     },
   ];
   const details_items_box2 = [
@@ -49,12 +53,12 @@ export default function TextDay(props: {
     {
       title1: "Last Transaction Price",
       title2:
-        data["lastTransactionPrice"] &&
-        data.symbol === item2["symbol"] + " " + item2["currency"],
+        data.symbol === item2["symbol"] &&
+        data["lastTransactionPrice"] + " " + item2["currency"],
     },
     {
       title1: "Last Transaction Amount",
-      title2: data["lastTransactionAmount"] && data.symbol === item2["symbol"],
+      title2: data.symbol === item2["symbol"] && data["lastTransactionAmount"],
     },
   ];
   const details_items_box3 = [
