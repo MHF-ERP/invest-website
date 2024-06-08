@@ -41,7 +41,8 @@ export default function Card(props: { item: any }) {
       </div>
       <div className=" xl:flex lg:flex md:flex hidden xl:flex-col lg:flex-col md:flex-col flex-row items-center ">
         <span className=" text-main font-[600] text-[16px] flex gap-1 items-end">
-          {item["price"].toFixed(2)}
+          {item["price"] && item["price"].toFixed(2)}
+
           <span className=" text-[8px]"> {item["currency"]}</span>
         </span>
         <span
@@ -59,7 +60,7 @@ export default function Card(props: { item: any }) {
           <span className=" text-main font-[600] text-[12px]">price :</span>
 
           <span className=" text-main font-[600] text-[12px] flex items-end gap-1">
-            {item["price"].toFixed(2)}
+            {item["price"] && item["price"].toFixed(2)}
             <span className=" text-[8px]"> {item["currency"]}</span>
           </span>
         </div>
