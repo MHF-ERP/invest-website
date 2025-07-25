@@ -4,6 +4,7 @@ module.exports = {
   images: {
     domains: [
       "*",
+      "20.174.0.205",
       "cdn.benzinga.com",
       "flagcdn.com",
       "127.0.0.1",
