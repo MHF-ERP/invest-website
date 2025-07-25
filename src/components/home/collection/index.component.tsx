@@ -2,7 +2,6 @@ import React from "react";
 import ViewAll from "../viewAll.component";
 import Card from "./card.component";
 import { stocksStore } from "@/store/stocks";
-import { PREDECT } from "@/static/links";
 
 export default function Collection(props: { data: any }) {
   const { stocks } = stocksStore();

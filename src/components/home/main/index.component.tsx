@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { GetSymbol } from "@/services/home/indices.service";
 import { useEffect, useState } from "react";
 import { stocksStore } from "@/store/stocks";
-import { PREDECT } from "@/static/links";
 
 import Table from "../watchlist/table.component";
 import Link from "next/link";
@@ -31,16 +30,14 @@ export default function DefHome() {
 
     enabled: stocks === null,
   });
-  
-   
-   console.log(data);
+
+  console.log(data);
   const updateDataUp = (newData: any) => {
     setDataUp(newData);
   };
 
   const updateDataDown = (newData: any) => {
-
-    const data = newData.filter((item:any)=>item.changes !== null);
+    const data = newData.filter((item: any) => item.changes !== null);
     setDataDown(data);
   };
   return (
@@ -52,18 +49,18 @@ export default function DefHome() {
           <span className=" #0B1813 font-[600] xl:text-[16px] lg:text-[16px] md:text-[16px] text-[12px]">
             AI Insights Hub
           </span>
-          <Link
+          {/* <Link
             href={"/AllStocks"}
             className=" flex items-center justify-center rounded-2xl px-[8px] py-[12px] text-[12px]  cursor-pointer"
             style={{ border: "1px solid #D0D5DD", color: "#344054" }}
           >
             View all
-          </Link>
+          </Link> */}
         </div>
         <div className=" border-b rounded-b-xl border-l border-r  border-[#E7E7E7]  flex xl:flex-row  flex-col">
           {
             <Table
-              data={DataUp ? DataUp:["","","","",""] }
+              data={DataUp ? DataUp : ["", "", "", "", ""]}
               updateData={updateDataUp}
               up={true}
             />

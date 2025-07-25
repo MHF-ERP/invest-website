@@ -33,32 +33,32 @@ const Table = (props: {
     }
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      let availableHeight = window.innerHeight;
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        // For tablets and mobiles
-        availableHeight -= 250;
-      } else {
-        // For other devices
-        availableHeight -= 100;
-      }
-      const rowHeight = 75; // Get the height of each row (including padding, margin, etc.)
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     let availableHeight = window.innerHeight;
+  //     if (
+  //       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+  //         navigator.userAgent
+  //       )
+  //     ) {
+  //       // For tablets and mobiles
+  //       availableHeight -= 250;
+  //     } else {
+  //       // For other devices
+  //       availableHeight -= 100;
+  //     }
+  //     const rowHeight = 75; // Get the height of each row (including padding, margin, etc.)
 
-      const calculatedRows = Math.floor(availableHeight / rowHeight) - 1;
-      setRowsToShow(calculatedRows);
-    };
+  //     const calculatedRows = Math.floor(availableHeight / rowHeight) - 1;
+  //     setRowsToShow(calculatedRows);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    handleResize(); // Call initially to set rows on first render
+  //   handleResize(); // Call initially to set rows on first render
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
   const [change, setChange] = useState(false);
   const [prediction, setPrediction] = useState(false);
   const [price, setPrice] = useState(false);
@@ -267,7 +267,9 @@ const Table = (props: {
               return (
                 <tr
                   key={idx}
-                  className={` ${data.length - 1 !== idx ? "border-b":""} h-[20px]    ${
+                  className={` ${
+                    data.length - 1 !== idx ? "border-b" : ""
+                  } h-[20px]    ${
                     idx === data.length - 1 ? "rounded-[20px]" : ""
                   } border-[#EAECF0] text-center   `}
                 >

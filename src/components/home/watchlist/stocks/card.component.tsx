@@ -64,44 +64,8 @@ export default function Card(props: {
         >
           <CircularProgressbarWithChildren
             strokeWidth={4}
-            styles={buildStyles({
-              textSize: "16px",
-              pathColor:
-                item["prediction"]["prediction"] === "Up"
-                  ? `#17B26A`
-                  : "#F04438",
-
-              textColor:
-                item["prediction"]["prediction"] === "Up"
-                  ? `#17B26A`
-                  : "#F04438",
-              trailColor: "#d6d6d6",
-              backgroundColor:
-                item["prediction"]["prediction"] === "Up"
-                  ? `#17B26A`
-                  : "#F04438",
-            })}
             value={66}
-          >
-            <span
-              className={`${
-                item["prediction"]["prediction"] === "Up"
-                  ? "text-[#17B26A]"
-                  : "text-[#F04438]"
-              } text-[26px] font-[700]`}
-            >
-              {item["prediction"]["prediction"].toUpperCase()}
-            </span>
-            <span
-              className={`${
-                item["prediction"]["prediction"] === "Up"
-                  ? "text-[#17B26A]"
-                  : "text-[#F04438]"
-              } text-[26px] font-[400]`}
-            >
-              {(item["prediction"]["probability"] * 100).toFixed()}%
-            </span>
-          </CircularProgressbarWithChildren>
+          ></CircularProgressbarWithChildren>
         </div>
       </div>
 

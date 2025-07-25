@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import HomeLayout from "@/components/layouts/home.layout";
 import Table2 from "@/components/home/watchlist/table2.component";
-import { PREDECT } from "@/static/links";
 import { stocksStore } from "@/store/stocks";
 import { useQuery } from "@tanstack/react-query";
 import { GetSymbol } from "@/services/home/indices.service";

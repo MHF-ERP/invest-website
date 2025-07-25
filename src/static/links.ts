@@ -1,11 +1,7 @@
 import { SERVERIP } from "@/../secrets";
 
 //**************** SERVER *******************/
-export const SERVER = `${SERVERIP}/api/v1`;
-
-//**************** AISERVER *******************/
-export const AISERVER = `https://ai.naqiconcepts.com`;
-export const PREDECT = `${AISERVER}/predict?category=`;
+export const SERVER = `http://127.0.0.1:3030/api/v1`;
 
 //**************** WatchList *******************/
 export const WATCHLIST = `${SERVERIP}/api/v1/watch-list`;
@@ -50,5 +46,7 @@ export const MARKET = `${SERVER}/market`;
 export const MARKET_STOCKS = `${MARKET}/stocks`;
 
 //*****************NEWS********************** */
+export const UP = `https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000&volumeMoreThan=100000&betaMoreThan=1&limit=10&apikey=`;
+export const DOWN = `https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000&volumeMoreThan=100000&betaLessThan=1&isActivelyTrading=true&limit=10&apikey=`;
 export const NEWS =
   "https://financialmodelingprep.com/api/v3/stock_news?page=0";

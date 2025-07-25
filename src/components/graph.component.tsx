@@ -1,9 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { changeDate, formatDate2 } from "@/functions/formatDate";
-// import ReactApexChart from "react-apexcharts";
+
+// Avoid SSR for Chart
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+
 export default function Garph(props: {
   height: string;
   height2: number;
@@ -13,16 +15,15 @@ export default function Garph(props: {
   margin?: string;
 }) {
   const { height, height2, color1, color2, data, margin } = props;
-  const [chartData, setChartData] = useState({
-    series: [
-      {
-        color: color1,
 
-        data: data,
-      },
-    ],
+  const xMin = useMemo(() => {
+    // Ensure it's run only on client
+    if (typeof window === "undefined") return undefined;
+    return new Date(formatDate2(changeDate(new Date(), 2))).getTime();
+  }, []);
 
-    options: {
+  const chartOptions = useMemo(() => {
+    return {
       chart: {
         height: "100%",
         maxWidth: "100%",
@@ -68,13 +69,13 @@ export default function Garph(props: {
       series: [
         {
           name: "New users",
-          data: [6500, 6418, 6456, 6526, 6356, 6456],
-          color: "#1A56DB",
+          data: data,
+          color: color1,
         },
       ],
       xaxis: {
         type: "datetime",
-        min: new Date(formatDate2(changeDate(new Date(), 2))).getTime(),
+        min: xMin,
         tickAmount: 1,
         labels: {
           show: false,
@@ -89,18 +90,19 @@ export default function Garph(props: {
       yaxis: {
         show: false,
       },
-    },
+    };
+  }, [data, color1, xMin]);
 
-    selection: "one_year",
-  });
+  if (typeof window === "undefined" || xMin === undefined) return null; // prevent SSR render
+
   return (
-    <div className={` w-full  ${height} ${margin}`}>
+    <div className={`w-full ${height} ${margin}`}>
       <Chart
-        options={chartData.options as any}
-        series={chartData.series}
+        options={chartOptions as any}
+        series={[{ data, color: color1 }]}
         type="area"
         height={height2}
-        width={"100%"}
+        width="100%"
       />
     </div>
   );
