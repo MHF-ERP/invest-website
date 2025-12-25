@@ -1,7 +1,7 @@
 import { SERVERIP } from "@/../secrets";
 
 //**************** SERVER *******************/
-export const SERVER = `https://api.sailentra.com/api/v1`;
+export const SERVER = `https://api-stocks.sailentra.com/api/v1`;
 
 //**************** WatchList *******************/
 export const WATCHLIST = `${SERVERIP}/api/v1/watch-list`;
